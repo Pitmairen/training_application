@@ -2,12 +2,12 @@
 
 
 
-class DataSourceBase
+abstract class BaseDataSource
 {
 
     protected $db;
 
-    public function __construct($db){
+    public function __construct(DB $db){
         $this->db = $db;
     }
 

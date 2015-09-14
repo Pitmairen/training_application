@@ -17,8 +17,8 @@ CREATE TABLE trainingprogram(
 
 CREATE TABLE customer(
     customer_id INTEGER PRIMARY KEY,
-    email VARCHAR(20) NOT NULL,
-    pw VARCHAR(20) NOT NULL,
+    email VARCHAR(60) NOT NULL,
+    pw VARCHAR(100) NOT NULL,
     first_name VARCHAR(20) NOT NULL,
     last_name VARCHAR(20) NOT NULL,
     current_weight INTEGER NOT NULL,
@@ -84,7 +84,7 @@ INSERT INTO customer
     VALUES
     ('fancypants@gmail.com', 'DontAsk', 'Tiffany', 'McDonald', '55', '157', '1989-02-23', 'f', 1),
     ('duke.davidson@gmail.com', 'DogsAreCool', 'Duke', 'Davidson', '68', '179', '1976-12-05', 'm', 1),
-    ('s.harrison@gmail.com', 'D45fsq23s54', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'm', 1);
+    ('s.harrison@gmail.com', '1234', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'm', 1);
 
 
 INSERT INTO workout(trainingprogram_id, workout_name, workout_description) VALUES

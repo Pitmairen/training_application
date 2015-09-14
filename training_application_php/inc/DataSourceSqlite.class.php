@@ -1,7 +1,6 @@
 <?php
 
-
-class DataSourceSqlite extends DataSourceBase implements DataSource
+class DataSourceSqlite extends BaseDataSource implements DataSource
 {
 
 
@@ -36,6 +35,23 @@ class DataSourceSqlite extends DataSourceBase implements DataSource
     public function getAllTrainers(){
         return $this->db->fetchAllObject('SELECT * FROM trainer ORDER BY trainer_id');
     }
+
+
+
+
+
+    public function getCustomerByEmail($email){
+        return $this->db->fetchOneObject('SELECT * FROM customer WHERE email=:email', ['email' => $email]);
+    }
+
+    public function getCustomerById($id){
+        return $this->db->fetchOneObject('SELECT * FROM customer WHERE customer_id=:id', ['id' => $id]);
+    }
+
+
+
+
+
 
 
 
