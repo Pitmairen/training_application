@@ -1,58 +1,58 @@
-DROP database training_application;
+drop database training_application;
 
-Create database training_application;
+create database training_application;
 	
-USE training_application;
+use training_application;
 
-IF OBJECT_ID('trainer') IS NULL
-	CREATE TABLE trainer(
-	trainer_id int IDENTITY(1,1) PRIMARY KEY,
-	email varChar(255) NOT NULL,
-	pw varChar(255) NOT NULL,
-	first_name varChar(255) NOT NULL,
-	last_name varChar(255) NOT NULL);
+if object_id('trainer') is null
+	create table trainer(
+	trainer_id int identity(1,1) primary key,
+	email varchar(255) not null,
+	pw varchar(255) not null,
+	first_name varchar(255) not null,
+	last_name varchar(255) not null);
 
-IF OBJECT_ID('trainingprogram') IS NULL
-	CREATE TABLE trainingprogram(
-	trainingprogram_id int IDENTITY(1,1) PRIMARY KEY,
-	trainer_id int FOREIGN KEY REFERENCES trainer(trainer_id)
+if object_id('trainingprogram') is null
+	create table trainingprogram(
+	trainingprogram_id int identity(1,1) primary key,
+	trainer_id int foreign key references trainer(trainer_id)
 	);
 
-IF OBJECT_ID('customer') IS NULL
-	CREATE TABLE customer(
-	customer_id int IDENTITY(1,1) PRIMARY KEY,
-	email varChar(60) NOT NULL,
-	pw varChar(60) NOT NULL,
-	first_name varChar(20) NOT NULL,
-	last_name varChar(20) NOT NULL,
-	current_weight int NOT NULL,
-	height int NOT NULL,
-	date_Of_birth Date NOT NULL,
-	sex varChar(20) NOT NULL,
-	trainingprogram_id int FOREIGN KEY REFERENCES trainingprogram(trainingprogram_id)
+if object_id('customer') is null
+	create table customer(
+	customer_id int identity(1,1) primary key,
+	email varchar(60) not null,
+	pw varchar(60) not null,
+	first_name varchar(20) not null,
+	last_name varchar(20) not null,
+	current_weight int not null,
+	height int not null,
+	date_of_birth date not null,
+	sex char(1) not null check (sex in('m', 'f')),
+	trainingprogram_id int foreign key references trainingprogram(trainingprogram_id)
 	);
 
-IF OBJECT_ID('workout') IS NULL
-	CREATE TABLE workout(
-	workout_id int IDENTITY(1,1) PRIMARY KEY,
-	trainingprogram_id int FOREIGN KEY REFERENCES trainingprogram(trainingprogram_id),
-	workout_name varChar(20) NOT NULL,
-	workout_description text NOT NULL
+if object_id('workout') is null
+	create table workout(
+	workout_id int identity(1,1) primary key,
+	trainingprogram_id int foreign key references trainingprogram(trainingprogram_id),
+	workout_name varchar(20) not null,
+	workout_description text not null
 	);
 
-IF OBJECT_ID('exercise') IS NULL
-	CREATE TABLE exercise(
-	exercise_id int IDENTITY(1,1) PRIMARY KEY,
-	exercise_name varChar(20) NOT NULL,
-	exercise_description text NOT NULL
+if object_id('exercise') is null
+	create table exercise(
+	exercise_id int identity(1,1) primary key,
+	exercise_name varchar(20) not null,
+	exercise_description text not null
 	);
 
-IF OBJECT_ID('exercise_set') IS NULL
-	CREATE TABLE exercise_set(
+if object_id('exercise_set') is null
+	create table exercise_set(
 	set_id int not null,
-	exercise_id int FOREIGN KEY REFERENCES exercise(exercise_id),
-	workout_id int FOREIGN KEY REFERENCES workout(workout_id),
-	repetitions_planed int NOT NULL,
+	exercise_id int foreign key references exercise(exercise_id),
+	workout_id int foreign key references workout(workout_id),
+	repetitions_planed int not null,
 	repetitions_cleared int,
 	additional_load int,
 	comment_by_user text,
@@ -69,9 +69,9 @@ insert into trainingprogram(trainer_id)
 values (1),(2),(3);
 
 insert into customer(email, pw, first_name, last_name, current_weight, height, date_Of_birth, sex, trainingprogram_id)
-values ('fancypants@gmail.com', 'DontAsk', 'Tiffany', 'McDonald', '55', '157', '1989-02-23', 'female', 1),
-('duke.davidson@gmail.com', 'DogsAreCool', 'Duke', 'Davidson', '68', '179', '1976-12-05', 'male', 1),
-('s.harrison@gmail.com', 'D45fsq23s54', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'male', 1);
+values ('fancypants@gmail.com', 'DontAsk', 'Tiffany', 'McDonald', '55', '157', '1989-02-23', 'f', 1),
+('duke.davidson@gmail.com', 'DogsAreCool', 'Duke', 'Davidson', '68', '179', '1976-12-05', 'm', 1),
+('s.harrison@gmail.com', 'D45fsq23s54', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'm', 1);
 
 insert into workout(trainingprogram_id, workout_name, workout_description)
 values(1, 'Legs of Endurance', 'Workout program with exercises that improves the endurence in your legs'),
