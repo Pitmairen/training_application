@@ -17,7 +17,7 @@ IF OBJECT_ID('trainer') IS NULL
 IF OBJECT_ID('trainingprogram') IS NULL
 	CREATE TABLE trainingprogram(
 	trainingprogram_id int IDENTITY(1,1) PRIMARY KEY,
-	trainer_id int FOREIGN KEY REFERENCES trainingprogram(trainingprogram_id)
+	trainer_id int FOREIGN KEY REFERENCES trainer(trainer_id)
 	);
 
 IF OBJECT_ID('customer') IS NULL
@@ -39,14 +39,14 @@ IF OBJECT_ID('workout') IS NULL
 	workout_id int IDENTITY(1,1) PRIMARY KEY,
 	trainingprogram_id int FOREIGN KEY REFERENCES trainingprogram(trainingprogram_id),
 	workout_name varChar(20) NOT NULL,
-	workout_description varChar(150) NOT NULL
+	workout_description text NOT NULL
 	);
 
 IF OBJECT_ID('exercise') IS NULL
 	CREATE TABLE exercise(
 	exercise_id int IDENTITY(1,1) PRIMARY KEY,
 	exercise_name varChar(20) NOT NULL,
-	exercise_description varChar(300) NOT NULL
+	exercise_description text NOT NULL
 	);
 
 IF OBJECT_ID('exercise_set') IS NULL
