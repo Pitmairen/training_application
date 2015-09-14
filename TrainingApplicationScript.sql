@@ -1,6 +1,7 @@
 use master;
 
-drop database training_application;
+if db_id('training_application') is not null
+	drop database training_application;
 
 create database training_application;
 	
@@ -90,11 +91,11 @@ values ('The 90-degree', 'Find a wall, support your back against it and make sur
 ('The plank','Lay down, then support your weight with your forearms so your body is straight and only your feet and forearms touch the ground, hold for x seconds');
 
 insert into exercise_set(set_nr, exercise_id, workout_id, repetitions_planed, repetitions_cleared, additional_load, additional_load_cleared, comment_by_user)
-values (1, 1, 1, 60, null, 0, 0, null),
-(1, 4, 1, 15, null, 0, 0, null),
-(1, 2, 2, 20, null, 0, 0, null),
-(1, 5, 2, 5, null, 0, 0, null),
-(1, 3, 3, 20, null, 0, 0, null),
-(1, 6, 3, 60, null, 0, 0, null);
+values (1, 1, 1, 60, null, 0, null, null),
+(1, 4, 1, 15, null, 0, null, null),
+(1, 2, 2, 20, null, 0, null, null),
+(1, 5, 2, 5, null, 0, null, null),
+(1, 3, 3, 20, null, 0, null, null),
+(1, 6, 3, 60, null, 0, null, null);
 
 Use master;
