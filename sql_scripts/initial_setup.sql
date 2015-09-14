@@ -1,7 +1,6 @@
-/*
-  If database already exists, disconnect all users, then disconnect from
-  the database by connecting to master database. Finally drop database.
-*/
+
+/* If database already exists, disconnect all users, then disconnect from
+   the database by connecting to master database. Finally drop database. */
 if DB_ID('training_application') IS NOT NULL
 BEGIN
 	ALTER DATABASE training_application SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
@@ -9,14 +8,14 @@ END
 USE master;
 DROP DATABASE training_application;
 GO
-
 CREATE DATABASE training_application;
 GO
 
+/* Start creating the database with the necessary tables. */
 USE training_application;
 
 CREATE TABLE trainer (
-	trainer_id int NOT NULL PRIMARY KEY,
+	trainer_id INT NOT NULL PRIMARY KEY,
 	pw VARCHAR(50) NOT NULL,
 	first_name VARCHAR(50) NOT NULL,
 	last_name VARCHAR(50) NOT NULL,
@@ -24,8 +23,8 @@ CREATE TABLE trainer (
 );
 
 CREATE TABLE training_program (
-	training_program_id int NOT NULL PRIMARY KEY,
-	trainer_id int FOREIGN KEY REFERENCES trainer(trainer_id)
+	training_program_id INT NOT NULL PRIMARY KEY,
+	trainer_id INT FOREIGN KEY REFERENCES trainer(trainer_id)
 );
 
 CREATE TABLE customer (
@@ -65,3 +64,5 @@ CREATE TABLE exercise_set (
 	user_comment TEXT,
 	PRIMARY KEY(set_nr, exercise_id, workout_id)
 );
+
+USE master;
