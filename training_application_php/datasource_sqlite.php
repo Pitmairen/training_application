@@ -8,8 +8,15 @@ class DataSourceSqlite extends DataSourceBase implements DataSource
 
     public function storeNewTrainer($trainer){
         
-        $this->db->execute('INSERT INTO trainer (trainer_name) VALUES(:name)',
-        ['name' => $trainer->trainer_name]);
+        $this->db->execute('INSERT INTO trainer 
+            (pw, email, first_name, last_name) VALUES(:name)',
+            [
+                'pw' => $trainer->pw,
+                'email' => $trainer->email,
+                'first_name' => $trainer->first_name,
+                'last_name' => $trainer->last_name,
+            ]);
+
         $trainer->trainer_id = $this->db->lastInsertId();
         return $trainer;
 
@@ -35,26 +42,34 @@ class DataSourceSqlite extends DataSourceBase implements DataSource
 
     public function storeNewProgram($prog){
         
-        $this->db->execute('INSERT INTO training_program (trainer_id, program_name)
-            VALUES(:trainer_id, :name)',
-        ['name' => $prog->program_name, 'trainer_id' => $prog->trainer_id]);
-        $prog->program_id = $this->db->lastInsertId();
+        $this->db->execute('INSERT INTO training_program (trainer_id)
+            VALUES(:trainer_id)',
+        ['trainer_id' => $prog->trainer_id]);
+        $prog->trainingprogram_id = $this->db->lastInsertId();
         return $prog;
 
     }
 
 
     public function getAllPrograms(){
-        return $this->db->fetchAllObject('SELECT * FROM training_program 
-            INNER JOIN trainer ON trainer.trainer_id=training_program.trainer_id
-            ORDER BY program_id ASC');
+        return $this->db->fetchAllObject('SELECT trainingprogram.*,
+            trainer.first_name AS trainer_first_name,
+            customer.first_name AS customer_first_name
+            FROM trainingprogram 
+            INNER JOIN trainer ON trainer.trainer_id=trainingprogram.trainer_id
+            INNER JOIN customer ON customer.trainingprogram_id=trainingprogram.trainingprogram_id
+            ORDER BY trainingprogram_id ASC');
     }
 
     public function getProgramsByTrainerId($id){
-        return $this->db->fetchAllObject('SELECT * FROM training_program 
-            INNER JOIN trainer ON trainer.trainer_id=training_program.trainer_id
+        return $this->db->fetchAllObject('SELECT trainingprogram.*,
+            trainer.first_name AS trainer_first_name,
+            customer.first_name AS customer_first_name
+            FROM trainingprogram 
+            INNER JOIN trainer ON trainer.trainer_id=trainingprogram.trainer_id
+            INNER JOIN customer ON customer.trainingprogram_id=trainingprogram.trainingprogram_id
             WHERE trainer.trainer_id=:id
-            ORDER BY program_id ASC', ['id' => $id]);
+            ORDER BY trainingprogram_id ASC', ['id' => $id]);
     }
 }
 
