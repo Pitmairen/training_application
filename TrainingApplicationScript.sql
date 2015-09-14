@@ -1,10 +1,8 @@
-Use master;
-DROP database trainingapplication;
+DROP database training_application;
 
-IF OBJECT_ID('trainingapplication') IS NULL
-	Create DATABASE trainingapplication;
+Create database training_application;
 	
-USE trainingapplication;
+USE training_application;
 
 IF OBJECT_ID('trainer') IS NULL
 	CREATE TABLE trainer(
@@ -51,12 +49,14 @@ IF OBJECT_ID('exercise') IS NULL
 
 IF OBJECT_ID('exercise_set') IS NULL
 	CREATE TABLE exercise_set(
+	set_id int not null,
 	exercise_id int FOREIGN KEY REFERENCES exercise(exercise_id),
 	workout_id int FOREIGN KEY REFERENCES workout(workout_id),
 	repetitions_planed int NOT NULL,
 	repetitions_cleared int,
 	additional_load int,
-	comment varChar(50)
+	comment_by_user text,
+	primary key(set_id, exercise_id, workout_id)
 	);
 
 
@@ -86,10 +86,12 @@ values ('The 90-degree', 'Find a wall, support your back against it and make sur
 ('Pull-ups', 'Find something like horizontal bar you can hang from. Hang and pull your weight up so your head is above the bar, then lower yourself down and repeat x times'),
 ('The plank','Lay down, then support your weight with your forearms so your body is straight and only your feet and forearms touch the ground, hold for x seconds');
 
-insert into exercise_set(exercise_id, workout_id, repetitions_planed, repetitions_cleared, additional_load)
-values (1, 1, 60, null, null),
-(4, 1, 15, null, null),
-(2, 2, 20, null, null),
-(5, 2, 5, null, null),
-(3, 3, 20, null, null),
-(6, 3, 60, null, null);
+insert into exercise_set(set_id, exercise_id, workout_id, repetitions_planed, repetitions_cleared, additional_load, comment_by_user)
+values (1, 1, 1, 60, null, null, null),
+(1, 4, 1, 15, null, null, null),
+(1, 2, 2, 20, null, null, null),
+(1, 5, 2, 5, null, null, null),
+(1, 3, 3, 20, null, null, null),
+(1, 6, 3, 60, null, null, null);
+
+Use master;
