@@ -12,4 +12,9 @@ $app->get('/hello/:name', function ($name) use($app) {
 });
 
 
+$app->get('/about', function () use($app) {
+
+    $app->render("about.php");
+});
+
 

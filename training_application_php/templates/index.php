@@ -1,5 +1,5 @@
-<?php require APP_ROOT . 'templates/inc/header.php'; ?>
+<?php require TPL_INC . 'header.php'; ?>
 
 Index page 
 
-<?php require APP_ROOT . 'templates/inc/footer.php'; ?>
+<?php require TPL_INC . 'footer.php'; ?>

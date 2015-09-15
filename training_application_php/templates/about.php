@@ -1,7 +1,5 @@
 <?php require TPL_INC . 'header.php'; ?>
 
-Hello <?= $name; ?>
+About page 
 
 <?php require TPL_INC . 'footer.php'; ?>
-
-
