@@ -4,6 +4,7 @@ $(document).ready(function () {
     $("#loginButton").click(function e() {
         $("main").fadeOut("slow");
     });
+	
 });
 
 

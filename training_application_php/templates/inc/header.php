@@ -10,10 +10,10 @@
     <body>
         <header>
            <ul>
-            <li>Home</li>
-            <li>Workout</li>
-            <li>Stats</li>
-            <li><a href="/about">About</a></li>
+            <a href=""><li>Home</li></a>
+            <a href=""><li>Workout</li></a>
+            <a href=""><li>Stats</li></a>
+            <a href="/about"><li>About</li></a>
            </ul> 
         </header>
         <main>
