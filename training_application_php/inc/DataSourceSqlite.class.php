@@ -8,7 +8,7 @@ class DataSourceSqlite extends BaseDataSource implements DataSource
     public function storeNewTrainer($trainer){
         
         $this->db->execute('INSERT INTO trainer 
-            (pw, email, first_name, last_name) VALUES(:name)',
+            (pw, email, first_name, last_name) VALUES(:name, :email, :first_name, :last_name)',
             [
                 'pw' => $trainer->pw,
                 'email' => $trainer->email,
@@ -72,8 +72,8 @@ class DataSourceSqlite extends BaseDataSource implements DataSource
             trainer.first_name AS trainer_first_name,
             customer.first_name AS customer_first_name
             FROM trainingprogram 
-            INNER JOIN trainer ON trainer.trainer_id=trainingprogram.trainer_id
             INNER JOIN customer ON customer.trainingprogram_id=trainingprogram.trainingprogram_id
+            INNER JOIN trainer ON trainer.trainer_id=trainingprogram.trainer_id
             ORDER BY trainingprogram_id ASC');
     }
 

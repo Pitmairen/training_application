@@ -14,6 +14,9 @@
             <a href=""><li>Workout</li></a>
             <a href=""><li>Stats</li></a>
             <a href="/about"><li>About</li></a>
+            <?php if(isset($current_user)):?>
+                <li><?=html_escape($current_user); ?> - <a href="/logout">logout</a></li>
+            <?php endif; ?>
            </ul> 
         </header>
         <main>

@@ -83,14 +83,14 @@ INSERT INTO customer
     (email, pw, first_name, last_name, current_weight, height, date_Of_birth, sex, trainingprogram_id)
     VALUES
     ('fancypants@gmail.com', 'DontAsk', 'Tiffany', 'McDonald', '55', '157', '1989-02-23', 'f', 1),
-    ('duke.davidson@gmail.com', 'DogsAreCool', 'Duke', 'Davidson', '68', '179', '1976-12-05', 'm', 1),
-    ('s.harrison@gmail.com', '1234', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'm', 1);
+    ('duke.davidson@gmail.com', 'DogsAreCool', 'Duke', 'Davidson', '68', '179', '1976-12-05', 'm', 2),
+    ('s.harrison@gmail.com', '1234', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'm', 3);
 
 
 INSERT INTO workout(trainingprogram_id, workout_name, workout_description) VALUES
     (1, 'Legs of Endurance', 'Workout program with exercises that improves the endurence in your legs'),
-    (1, 'Arms of Strength', 'Workout program with exercises that improves your arm strength'),
-    (1, 'Abs of Steel', 'Workout program with exercises that gives you well defined abs');
+    (2, 'Arms of Strength', 'Workout program with exercises that improves your arm strength'),
+    (3, 'Abs of Steel', 'Workout program with exercises that gives you well defined abs');
 
 
 INSERT INTO exercise(exercise_name, exercise_description) VALUES
