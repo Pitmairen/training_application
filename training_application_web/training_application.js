@@ -5,6 +5,8 @@ $(document).ready(function () {
         $("main").fadeOut("slow");
     });
 });
+
+
 //Ajax to check US and PW
 
 //
