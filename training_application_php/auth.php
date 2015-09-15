@@ -3,7 +3,8 @@
 
 
 /*
- * Adds the current logged in user to the view data.
+ * Adds the current logged in user to the view data and 
+ * makes sure the user is logged in.
  *
  */
 class AuthMiddleware extends \Slim\Middleware
@@ -14,18 +15,15 @@ class AuthMiddleware extends \Slim\Middleware
 
         
 
-        // Force login
-        // if(!isset($_SESSION['user'])){
-        //
-        //     if($app->request->getResourceUri() !== '/login'){
-        //
-        //         $app->redirect('/login');
-        //         
-        //         $app->stop();
-        //
-        //     }
-        // }
-        //
+        // Force login by redirecting unauthenticated users to the login page.
+        if(!isset($_SESSION['user'])){
+
+            if($app->request->getResourceUri() !== '/login'){
+
+                return $app->response()->redirect('/login');
+
+            }
+        }
 
         if(isset($_SESSION['user'])){
 
