@@ -21,13 +21,17 @@ foreach($parts as $sql){
 
 
 // Create the app instance and setup view and middleware
-$app = new \Slim\Slim();
+$app = new \Slim\Slim([
+    'templates.path' => APP_ROOT . 'templates/'
+]);
 $app->config('debug', IS_DEBUGGING);
 
-$app->add(new \SlimJson\Middleware(array(
-  'json.status' => true,
-  'json.override_error' => false,
-  'json.override_notfound' => false,
-  'json.protect' => true,
-)));
+// $app->add(new \SlimJson\Middleware(array(
+//   'json.status' => true,
+//   'json.override_error' => false,
+//   'json.override_notfound' => false,
+//   'json.protect' => true,
+// )));
 
+
+require APP_ROOT . 'routing.php';
