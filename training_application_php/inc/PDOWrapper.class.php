@@ -1,8 +1,11 @@
 <?php
 
 
-
-class DB
+/**
+ * Simple wrapper of the pdo object that simplifies
+ * the query calls.
+ */
+class PDOWrapper
 {
 
     private $pdo;
@@ -10,7 +13,6 @@ class DB
     function __construct($pdo){
 
         $this->pdo = $pdo;
-
 
     }
 

@@ -1,8 +1,17 @@
 <?php
 
-class DataSourceSqlite extends BaseDataSource implements DataSource
+class DataSourceSqlite implements DataSource
 {
 
+    private $db;
+
+    public function __construct($dsn){
+
+        $pdo = new PDO($dsn);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->db = new PDOWrapper($pdo);
+
+    }
 
 
     public function storeNewTrainer($trainer){
@@ -51,11 +60,6 @@ class DataSourceSqlite extends BaseDataSource implements DataSource
 
 
 
-
-
-
-
-
     public function storeNewProgram($prog){
         
         $this->db->execute('INSERT INTO training_program (trainer_id)
@@ -87,5 +91,49 @@ class DataSourceSqlite extends BaseDataSource implements DataSource
             WHERE trainer.trainer_id=:id
             ORDER BY trainingprogram_id ASC', ['id' => $id]);
     }
+
+
+
+    public function beginTransaction(){
+        $this->db->beginTransaction();
+    }
+
+    public function commit(){
+        $this->db->commit();
+    }
+
+    public function rollback(){
+        $this->db->commit();
+    }
+
+    public function runTransaction($callback){
+
+        $this->beginTransaction();
+
+        try{
+            $callback($this);
+        }
+        catch(Exception $e){
+            $this->rollback();
+            throw $e;
+        }
+
+
+    }
+
+
+    /**
+     * Loads sql instructions from dbfile into the current 
+     * database.
+     */
+    public function loadTestData($dbfile){
+        $dbcontent = file_get_contents($dbfile);
+        $parts = explode(';', $dbcontent);
+        foreach($parts as $sql){
+            $this->db->execute($sql);
+        }
+
+    }
+
 }
 
