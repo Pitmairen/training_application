@@ -24,17 +24,25 @@ $app->get('/about', function () use($app, $ds) {
 
 $app->get('/login', function () use($app) {
 
+    if(Auth::getCurrentUser()->isAuthenticated()){
+
+        return $app->redirect('/');
+    }
 
     $app->render("login.php");
 });
 
 $app->post('/login', function () use($app) {
 
-    $_SESSION['user'] = $app->request->post('username');
+    if($app->request->post('username')){
+        $_SESSION['user_name'] = $app->request->post('username');
+        $_SESSION['user_rank'] = Auth::RANK_CUSTOMER;
 
-    $app->redirect('/');
+        $app->redirect('/');
+    }else{
+        $app->render("login.php", ['error_msg' => 'Wrong usernam or password']);
+    }
 
-    // $app->render("login.php", ['error_msg' => 'Wrong usernam or password']);
 });
 
 $app->get('/logout', function () use($app) {
@@ -44,7 +52,8 @@ $app->get('/logout', function () use($app) {
 
 $app->post('/logout', function () use($app) {
 
-    unset($_SESSION['user']);
+    unset($_SESSION['user_name']);
+    unset($_SESSION['user_rank']);
 
     $app->redirect('/');
 });
