@@ -44,6 +44,11 @@ interface DataSource {
 
 
     /**
+     * Save a new customer to the database.
+     */
+    public function storeNewCustomer($customer);
+
+    /**
      * Returns the customer with the specified email
      */
     public function getCustomerByEmail($email);

@@ -47,7 +47,29 @@ class DataSourceSqlite implements DataSource
 
 
 
+    public function storeNewCustomer($customer){
 
+        $this->db->execute('INSERT INTO customer 
+            (pw, email, first_name, last_name, current_weight,
+            height, date_of_birth, sex, trainingprogram_id)
+            VALUES(:pw, :email, :first_name, :last_name, :current_weight,
+            :height, :date_of_birth, :sex, :prog)',
+            [
+                'pw' => $customer->pw,
+                'email' => $customer->email,
+                'first_name' => $customer->first_name,
+                'last_name' => $customer->last_name,
+                'current_weight' => $customer->current_weight,
+                'height' => $customer->height,
+                'date_of_birth' => $customer->date_of_birth,
+                'sex' => $customer->sex,
+                'prog' => $customer->trainingprogram_id,
+            ]);
+
+        $customer->customer_id = $this->db->lastInsertId();
+        return $customer;
+
+    }
 
     public function getCustomerByEmail($email){
         return $this->db->fetchOneObject('SELECT * FROM customer WHERE email=:email', ['email' => $email]);
