@@ -4,6 +4,7 @@ require APP_ROOT . 'autoload.php';
 require APP_ROOT . 'utils.php';
 require APP_ROOT . 'config.php';
 
+define('TPL_INC', APP_ROOT . 'templates/inc/');
 
 // Create the app instance and setup view and middleware
 $app = new \Slim\Slim([
