@@ -34,14 +34,27 @@ $app->get('/login', function () use($app) {
     $app->render("login.php", ['login_form' => $form]);
 });
 
-$app->post('/login', function () use($app) {
+$app->post('/login', function () use($app, $ds) {
 
 
     $form = load_form('login');
 
+    $form->addConstraint(function($form) use($ds){
+
+        $pass = $form->getValue('password');
+        $user = $ds->getCustomerByEmail($form->getValue('username'));
+        if($user && verify_password($pass, $user->pw)){
+            return;
+        }
+        return 'Wrong username or password';
+    });
+
+
     if($form->postedAndValid()){
 
-        $_SESSION['user_name'] = $app->request->post('username');
+        $username = $form->getValue('username');
+
+        $_SESSION['user_name'] = $username;
         $_SESSION['user_rank'] = Auth::RANK_CUSTOMER;
 
         $app->redirect('/');

@@ -18,7 +18,7 @@ CREATE TABLE trainingprogram(
 CREATE TABLE customer(
     customer_id INTEGER PRIMARY KEY,
     email VARCHAR(60) NOT NULL,
-    pw VARCHAR(100) NOT NULL,
+    pw VARCHAR(255) NOT NULL,
     first_name VARCHAR(20) NOT NULL,
     last_name VARCHAR(20) NOT NULL,
     current_weight INTEGER NOT NULL,
