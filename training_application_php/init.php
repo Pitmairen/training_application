@@ -2,6 +2,7 @@
 
 require APP_ROOT . 'autoload.php';
 require APP_ROOT . 'utils.php';
+require APP_ROOT . 'forms.php';
 require APP_ROOT . 'config.php';
 
 define('TPL_INC', APP_ROOT . 'templates/inc/');

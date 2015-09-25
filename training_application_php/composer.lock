@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "053b71f0ebed719a202b9ec412285a7a",
+    "hash": "7afc7741e05e527af542f1add960a39f",
     "packages": [
         {
             "name": "dogancelik/slim-json",
@@ -51,6 +51,146 @@
             "time": "2015-09-06 16:58:14"
         },
         {
+            "name": "gregwar/cache",
+            "version": "v1.0.10",
+            "target-dir": "Gregwar/Cache",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gregwar/Cache.git",
+                "reference": "0a1a02e4943e95f491b3d2395609247385975622"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gregwar/Cache/zipball/0a1a02e4943e95f491b3d2395609247385975622",
+                "reference": "0a1a02e4943e95f491b3d2395609247385975622",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Gregwar\\Cache": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gregwar",
+                    "email": "g.passault@gmail.com"
+                }
+            ],
+            "description": "A lightweight file-system cache system",
+            "keywords": [
+                "cache",
+                "caching",
+                "file-system",
+                "system"
+            ],
+            "time": "2014-09-24 11:23:30"
+        },
+        {
+            "name": "gregwar/captcha",
+            "version": "v1.0.12",
+            "target-dir": "Gregwar/Captcha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gregwar/Captcha.git",
+                "reference": "c5357cb6f6d2c09f70ed1712382d44af6eae0865"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gregwar/Captcha/zipball/c5357cb6f6d2c09f70ed1712382d44af6eae0865",
+                "reference": "c5357cb6f6d2c09f70ed1712382d44af6eae0865",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "captcha",
+            "autoload": {
+                "psr-0": {
+                    "Gregwar\\Captcha": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grégoire Passault",
+                    "email": "g.passault@gmail.com",
+                    "homepage": "http://www.gregwar.com/"
+                },
+                {
+                    "name": "Jeremy Livingston",
+                    "email": "jeremy.j.livingston@gmail.com"
+                }
+            ],
+            "description": "Captcha generator",
+            "homepage": "https://github.com/Gregwar/Captcha",
+            "keywords": [
+                "bot",
+                "captcha",
+                "spam"
+            ],
+            "time": "2015-01-03 12:41:56"
+        },
+        {
+            "name": "gregwar/formidable",
+            "version": "dev-master",
+            "target-dir": "Gregwar/Formidable",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gregwar/Formidable.git",
+                "reference": "dbfea589c47e75b9fcad718c1c3f2813b87a0c16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gregwar/Formidable/zipball/dbfea589c47e75b9fcad718c1c3f2813b87a0c16",
+                "reference": "dbfea589c47e75b9fcad718c1c3f2813b87a0c16",
+                "shasum": ""
+            },
+            "require": {
+                "gregwar/cache": "1.0.*",
+                "gregwar/captcha": "1.0.*",
+                "php": ">=5.3.0",
+                "symfony/property-access": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Gregwar\\Formidable": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grégoire Passault",
+                    "email": "g.passault@gmail.com",
+                    "homepage": "http://www.gregwar.com/"
+                }
+            ],
+            "description": "Formidable, the pragmatic forms library",
+            "homepage": "https://gregwar.com/Formidable/",
+            "keywords": [
+                "Forms",
+                "fields",
+                "html",
+                "input"
+            ],
+            "time": "2015-05-21 09:23:14"
+        },
+        {
             "name": "slim/slim",
             "version": "2.6.2",
             "source": {
@@ -95,12 +235,74 @@
                 "router"
             ],
             "time": "2015-03-08 18:41:17"
+        },
+        {
+            "name": "symfony/property-access",
+            "version": "v2.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/PropertyAccess.git",
+                "reference": "f8ea7aa472f0e3f8cdf43287caa72a70ff5c088c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/PropertyAccess/zipball/f8ea7aa472f0e3f8cdf43287caa72a70ff5c088c",
+                "reference": "f8ea7aa472f0e3f8cdf43287caa72a70ff5c088c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\PropertyAccess\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony PropertyAccess Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "access",
+                "array",
+                "extraction",
+                "index",
+                "injection",
+                "object",
+                "property",
+                "property path",
+                "reflection"
+            ],
+            "time": "2015-08-24 07:13:45"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "gregwar/formidable": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

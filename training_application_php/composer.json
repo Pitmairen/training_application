@@ -1,6 +1,7 @@
 {
     "require": {
         "slim/slim": "^2.6",
-        "dogancelik/slim-json": "^0.3.2"
+        "dogancelik/slim-json": "^0.3.2",
+        "gregwar/formidable": "dev-master"
     }
 }

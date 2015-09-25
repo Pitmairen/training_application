@@ -29,18 +29,24 @@ $app->get('/login', function () use($app) {
         return $app->redirect('/');
     }
 
-    $app->render("login.php");
+    $form = load_form('login');
+
+    $app->render("login.php", ['login_form' => $form]);
 });
 
 $app->post('/login', function () use($app) {
 
-    if($app->request->post('username')){
+
+    $form = load_form('login');
+
+    if($form->postedAndValid()){
+
         $_SESSION['user_name'] = $app->request->post('username');
         $_SESSION['user_rank'] = Auth::RANK_CUSTOMER;
 
         $app->redirect('/');
     }else{
-        $app->render("login.php", ['error_msg' => 'Wrong usernam or password']);
+        $app->render("login.php", ['login_form' => $form]);
     }
 
 });
@@ -57,3 +63,4 @@ $app->post('/logout', function () use($app) {
 
     $app->redirect('/');
 });
+

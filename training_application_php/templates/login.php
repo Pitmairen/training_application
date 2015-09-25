@@ -7,11 +7,10 @@
 
 <h2>Login required</h2>
 <div id="login">
-<form action="" method="POST">
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" value="Login">
-</form>
+
+<?= $login_form->renderErrors(TPL_INC . 'form_errors.php'); ?>
+<?= $login_form; ?>
+
 </div>
 
 <?php require TPL_INC . 'footer.php'; ?>
