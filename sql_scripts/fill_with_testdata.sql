@@ -9,9 +9,9 @@ insert into trainingprogram(trainer_id)
 values (1),(2),(3);
 
 insert into customer(email, pw, first_name, last_name, current_weight, height, date_Of_birth, sex, trainingprogram_id)
-values ('fancypants@gmail.com', 'DontAsk', 'Tiffany', 'McDonald', '55', '157', '1989-02-23', 'f', 1),
-('duke.davidson@gmail.com', 'DogsAreCool', 'Duke', 'Davidson', '68', '179', '1976-12-05', 'm', 1),
-('s.harrison@gmail.com', 'D45fsq23s54', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'm', 1);
+values ('fancypants@gmail.com', 'DontAsk', 'Tiffany', 'McDonald', 55, '157', '1989-02-23', 'f', 1),
+('duke.davidson@gmail.com', 'DogsAreCool', 'Duke', 'Davidson', 68, '179', '1976-12-05', 'm', 1),
+('s.harrison@gmail.com', 'D45fsq23s54', 'Sam', 'Harrison', 77, '164', '1954-07-19', 'm', 1);
 
 insert into workout(trainingprogram_id, workout_name, workout_description)
 values(1, 'Legs of Endurance', 'Workout program with exercises that improves the endurence in your legs'),

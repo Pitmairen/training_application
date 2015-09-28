@@ -1,68 +1,66 @@
+use master;
 
-/* If database already exists, disconnect all users, then disconnect from
-   the database by connecting to master database. Finally drop database. */
-if DB_ID('training_application') IS NOT NULL
-BEGIN
-	ALTER DATABASE training_application SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-END
-USE master;
-DROP DATABASE training_application;
-GO
-CREATE DATABASE training_application;
-GO
+if db_id('training_application') is not null
+	drop database training_application;
 
-/* Start creating the database with the necessary tables. */
-USE training_application;
+create database training_application;
+	
+use training_application;
 
-CREATE TABLE trainer (
-	trainer_id INT NOT NULL PRIMARY KEY,
-	pw VARCHAR(50) NOT NULL,
-	first_name VARCHAR(50) NOT NULL,
-	last_name VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-);
+if object_id('trainer') is null
+	create table trainer(
+	trainer_id int identity(1,1) primary key,
+	email varchar(255) not null,
+	pw varchar(255) not null,
+	first_name varchar(255) not null,
+	last_name varchar(255) not null);
 
-CREATE TABLE training_program (
-	training_program_id INT NOT NULL PRIMARY KEY,
-	trainer_id INT FOREIGN KEY REFERENCES trainer(trainer_id)
-);
+if object_id('trainingprogram') is null
+	create table trainingprogram(
+	trainingprogram_id int identity(1,1) primary key,
+	trainer_id int foreign key references trainer(trainer_id)
+	);
 
-CREATE TABLE customer (
-	customer_id INT NOT NULL PRIMARY KEY,
-	training_program_id int FOREIGN KEY REFERENCES training_program(training_program_id),
-	pw VARCHAR(50) NOT NULL,
-	first_name VARCHAR(50) NOT NULL,
-	last_name VARCHAR(50) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-	weight INT NOT NULL,
-	height INT NOT NULL,
-	date_of_birth DATE NOT NULL,
-	sex CHAR(1) NOT NULL CHECK (sex IN('f', 'm')),
-);
+if object_id('customer') is null
+	create table customer(
+	customer_id int identity(1,1) primary key,
+	email varchar(60) not null,
+	pw varchar(60) not null,
+	first_name varchar(20) not null,
+	last_name varchar(20) not null,
+	current_weight int not null,
+	height int not null,
+	date_of_birth date not null,
+	sex char(1) not null check (sex in('m', 'f')),
+	trainingprogram_id int foreign key references trainingprogram(trainingprogram_id)
+	);
 
-CREATE TABLE workout (
-	workout_id INT PRIMARY KEY,
-	training_program_id INT NOT NULL FOREIGN KEY REFERENCES training_program(training_program_id),
-	workout_date DATE NOT NULL,
-	workout_name VARCHAR(50) NOT NULL,
-	workout_description TEXT NOT NULL,
-);
+if object_id('workout') is null
+	create table workout(
+	workout_id int identity(1,1) primary key,
+	trainingprogram_id int foreign key references trainingprogram(trainingprogram_id),
+	workout_name varchar(20) not null,
+	workout_description text not null
+	);
 
-CREATE TABLE exercise (
-	exercise_id INT NOT NULL PRIMARY KEY,
-	exercise_name VARCHAR(50) NOT NULL,
-	exercise_info TEXT NOT NULL,
-);
+if object_id('exercise') is null
+	create table exercise(
+	exercise_id int identity(1,1) primary key,
+	exercise_name varchar(20) not null,
+	exercise_description text not null
+	);
 
-CREATE TABLE exercise_set (
-	set_nr INT NOT NULL,
-	workout_id INT FOREIGN KEY REFERENCES workout(workout_id),
-	exercise_id INT FOREIGN KEY REFERENCES exercise(exercise_id),
-	weight INT NOT NULL,
-	repititions INT NOT NULL,
-	repititions_cleared INT NOT NULL,
-	user_comment TEXT,
-	PRIMARY KEY(set_nr, exercise_id, workout_id)
-);
+if object_id('exercise_set') is null
+	create table exercise_set(
+	set_nr int not null,
+	exercise_id int foreign key references exercise(exercise_id),
+	workout_id int foreign key references workout(workout_id),
+	repetitions_planed int not null,
+	repetitions_cleared int,
+	additional_load int,
+	additional_load_cleared int,
+	comment_by_user text,
+	primary key(set_nr, exercise_id, workout_id)
+	);
 
-USE master;
+Use master;
