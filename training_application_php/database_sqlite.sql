@@ -68,9 +68,9 @@ CREATE TABLE exercise_set(
 
 
 INSERT INTO trainer (email, pw, first_name, last_name) VALUES
-    ('ultimate.trainer@gmail.com', '1234', 'Jack', 'Strong'),
-    ('matt.forrest@gmail.com','PushUpsIsCool', 'Matt', 'Forrest'),
-    ('natalie.northwood@gmail.com','VeryLongPassword','Natalie','Northwood');
+    ('ultimate.trainer@gmail.com', '$2y$10$aAHCVL.FDmc74Cx5qWBKeOswdfI0LrvCNpOAXadz6HRQSBUZmRLNi', 'Jack', 'Strong'),
+    ('matt.forrest@gmail.com','$2y$10$UPGsw/rtU8aCohTjY0GMd.oMH.OE0HtwjUq/VLD5/C29Beb9dSiha', 'Matt', 'Forrest'),
+    ('natalie.northwood@gmail.com','$2y$10$1pSjFFNSd59HjonjvDKDCuSxZ/KHzztV6VosbCQEe.mVX7H9mh0Am','Natalie','Northwood');
 
 
 INSERT INTO trainingprogram(trainer_id) VALUES
@@ -82,9 +82,9 @@ INSERT INTO trainingprogram(trainer_id) VALUES
 INSERT INTO customer
     (email, pw, first_name, last_name, current_weight, height, date_Of_birth, sex, trainingprogram_id)
     VALUES
-    ('fancypants@gmail.com', 'DontAsk', 'Tiffany', 'McDonald', '55', '157', '1989-02-23', 'f', 1),
-    ('duke.davidson@gmail.com', 'DogsAreCool', 'Duke', 'Davidson', '68', '179', '1976-12-05', 'm', 2),
-    ('s.harrison@gmail.com', '1234', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'm', 3);
+    ('fancypants@gmail.com', '$2y$10$nxHZlY0Tr.fvcYJNgYJDZO7k1MxS4HuUYHeuk7ZncPuGJ9YfIPeE6', 'Tiffany', 'McDonald', '55', '157', '1989-02-23', 'f', 1),
+    ('duke@gmail.com', '$2y$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Duke', 'Davidson', '68', '179', '1976-12-05', 'm', 2),
+    ('s.harrison@gmail.com', '$2y$10$p1MX36OjGtkakgGiZ9zjUOqRqBqyj8bGTuvHsgvSaPwx1nwklR.he', 'Sam', 'Harrison', '77', '164', '1954-07-19', 'm', 3);
 
 
 INSERT INTO workout(trainingprogram_id, workout_name, workout_description) VALUES
