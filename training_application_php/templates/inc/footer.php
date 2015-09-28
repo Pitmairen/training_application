@@ -1,10 +1,10 @@
 </main>
-        <footer>
-            <ul>
-				<a href=""><li>Test</li></a>
-				<a href=""><li>Test</li></a>
-			</ul>
-        </footer>
-        <script src="/static/training_application.js"></script>
-    </body>
+<footer>
+    <ul>
+        <a href="/help"><li>Help</li></a>
+        <a href="/tos"><li>TOS</li></a>
+    </ul>
+</footer>
+<script src="/static/training_application.js"></script>
+</body>
 </html>

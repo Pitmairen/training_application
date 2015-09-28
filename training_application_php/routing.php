@@ -21,6 +21,15 @@ $app->get('/stats', function () use($app) {
     $app->render("stats.php");
 });
 
+$app->get('/help', function () use($app) {
+
+    $app->render("help.php");
+});
+
+$app->get('/tos', function () use($app) {
+
+    $app->render("tos.php");
+});
 
 $app->get('/about', function () use($app, $ds) {
 
