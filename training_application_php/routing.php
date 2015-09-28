@@ -11,6 +11,16 @@ $app->get('/hello/:name', function ($name) use($app) {
     $app->render("hello.php", ['name' => $name]);
 });
 
+$app->get('/workout', function () use($app) {
+
+    $app->render("workout.php");
+});
+
+$app->get('/stats', function () use($app) {
+
+    $app->render("stats.php");
+});
+
 
 $app->get('/about', function () use($app, $ds) {
 

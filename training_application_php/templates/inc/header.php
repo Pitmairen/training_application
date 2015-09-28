@@ -10,9 +10,9 @@
     <body>
         <header>
            <ul>
-            <a href=""><li>Home</li></a>
-            <a href=""><li>Workout</li></a>
-            <a href=""><li>Stats</li></a>
+            <a href="/"><li>Home</li></a>
+            <a href="/workout"><li>Workout</li></a>
+            <a href="/stats"><li>Stats</li></a>
             <a href="/about"><li>About</li></a>
             <?php if($current_user->isAuthenticated()):?>
                 <li><?=html_escape($current_user->getName()); ?> - <a href="/logout">logout</a></li>
