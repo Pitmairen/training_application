@@ -35,15 +35,13 @@ $app->get('/about', function () use($app, $ds) {
 
     $programs = $ds->getAllPrograms();
 
-
-
     $app->render("about.php", ['training_programs' => $programs]);
 });
 
 
 $app->get('/login', function () use($app) {
 
-    if(Auth::getCurrentUser()->isAuthenticated()){
+    if (Auth::getCurrentUser()->isAuthenticated()) {
 
         return $app->redirect('/');
     }
@@ -58,18 +56,18 @@ $app->post('/login', function () use($app, $ds) {
 
     $form = load_form('login');
 
-    $form->addConstraint(function($form) use($ds){
+    $form->addConstraint(function($form) use($ds) {
 
         $pass = $form->getValue('password');
         $user = $ds->getCustomerByEmail($form->getValue('username'));
-        if($user && verify_password($pass, $user->pw)){
+        if ($user && verify_password($pass, $user->pw)) {
             return;
         }
         return 'Wrong username or password';
     });
 
 
-    if($form->postedAndValid()){
+    if ($form->postedAndValid()) {
 
         $username = $form->getValue('username');
 
@@ -77,10 +75,9 @@ $app->post('/login', function () use($app, $ds) {
         $_SESSION['user_rank'] = Auth::RANK_CUSTOMER;
 
         $app->redirect('/');
-    }else{
+    } else {
         $app->render("login.php", ['login_form' => $form]);
     }
-
 });
 
 $app->get('/logout', function () use($app) {
@@ -95,4 +92,3 @@ $app->post('/logout', function () use($app) {
 
     $app->redirect('/');
 });
-

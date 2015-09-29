@@ -1,12 +1,3 @@
-<?php require TPL_INC . 'header.php'; ?>
-
-<?php if (isset($error_msg)): ?>
-    <div class="error_message"><?= html_escape($error_msg); ?></div>
-<?php endif; ?>
-
-
-<h1>Workout</h1>
-
 <form action="" method="POST">
 
     <select name="Select Workout">
@@ -31,8 +22,3 @@
     </fieldset>
     <input type="submit" value="Submit workout">
 </form>
-
-
-<?php require TPL_INC . 'footer.php'; ?>
-
-
