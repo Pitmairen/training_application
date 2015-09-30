@@ -12,6 +12,10 @@ class AuthUser implements User
         $this->session = $session;
     }
 
+    public function getID(){
+        return $this->session['user_id'];
+    }
+
     public function getName(){
         return $this->session['user_name'];
     }

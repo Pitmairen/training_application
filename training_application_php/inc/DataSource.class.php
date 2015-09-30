@@ -3,62 +3,60 @@
 
 interface DataSource {
  
-    /**
-     * Save a new trainer to the database
-     */
-    public function storeNewTrainer($trainer);
 
-    /**
-     * Updates the database with the data in the trainer
-     * object provided in the input.
-     */
-    public function updateTrainer($trainer);
-
-    /**
-     * Returns the data for a trainer with the provided id.
-     */
-    public function getTrainerById($id);
-
-    /**
-     * Returns a list of all the trainers in the database.
-     */
-    public function getAllTrainers();
-    
     
     /**
      * Save a new training program to the database.
      */
     public function storeNewProgram($program);
 
-    /**
-     * Returns a list of all the training programs.
-     */
-    public function getAllPrograms();
-
-    /**
-     * Returns a list of training programs created by 
-     * the trainer with the specified id.
-     */
-    public function getProgramsByTrainerId($id);
-
 
 
     /**
-     * Save a new customer to the database.
+     * Save a new user to the database.
      */
-    public function storeNewCustomer($customer);
+    public function storeNewUser($user);
 
     /**
-     * Returns the customer with the specified email
+     * Returns the user with the specified email
      */
-    public function getCustomerByEmail($email);
+    public function getUserByEmail($email);
 
     /**
-     * Returns the customer with the specified id
+     * Returns the user with the specified id
      */
-    public function getCustomerById($id);
+    public function getUserById($id);
 
 
+    /**
+     * Returns the workout with the specified id
+     */
+    public function getWorkoutById($id);
+
+    /**
+     * Returns the workout log for the specified user
+     */
+    public function getWorkoutLogForUser($user_id, $limit=10);
+
+    /**
+     * Returns the next workouts for the specified user
+     */
+    public function getNextWorkoutsForUser($user_id, $limit=10);
+
+    /**
+     * Update a workout and change it to completed
+     */
+    public function updateWorkoutCompleted($id, $desc);
+
+    /**
+     * Returns all the sets of all the exercises in a workout
+     */
+    public function getExerciseSetsForWorkoutById($id);
+
+    /**
+     * Update all the sets in with the provided reps and weight values
+     */
+    public function updateExerciseSetValues($set_vals);
 
 
     /**

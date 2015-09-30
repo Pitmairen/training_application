@@ -7,6 +7,12 @@
  */
 interface User
 {
+
+    /**
+     * Returns the id of the current user
+     */
+    public function getID();
+
     /**
      * Returns the name of the current user
      */

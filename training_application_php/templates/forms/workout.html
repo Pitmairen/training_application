@@ -1,24 +1,24 @@
 <form action="" method="POST">
 
-    <select name="Select Workout">
-        <!-- Test Values -->
-        <option selected disabled>Choose Workout</option>
-        <option>Arm Workout</option>
-        <option>Abs Workout</option>
-        <option>Legs Workout</option>
-    </select>
+    <?php $ex_type = null; ?>
+    <?php foreach($sets as $set):?>
+        <?php if($ex_type === null || $ex_type != $set->exercise_id): ?>
+            <?php if($ex_type !== null):?> </fieldset> <?php endif; ?>
+            <fieldset>
+                <legend><?= html_escape($set->exercise_name);?></legend>
+        <?php endif; ?>
 
-    <fieldset>
-        <legend>Exercise1</legend>
-        <input type="number" name="reps1" required placeholder="Repetitions">
+        Set nr <?=html_escape($set->set_nr);?>
+        <div>
+            <input type="number" name="weight-<?=$set->set_id;?>" required placeholder="Weight">
+            <input type="number" name="reps-<?=$set->set_id;?>" required placeholder="Repetitions">
+        </div>
+
+        <?php $ex_type = $set->exercise_id; ?>
+    <?php endforeach;?>
+
     </fieldset>
-    <fieldset>
-        <legend>Exercise2</legend>
-        <input type="number" name="reps2" required placeholder="Repetitions">
-    </fieldset>
-    <fieldset> 
-        <legend>Exercise3</legend>
-        <input type="number" name="reps3" required placeholder="Repetitions">
-    </fieldset>
+
+    <div><textarea required name="workout_desc" placeholder="User comments"></textarea></div>
     <input type="submit" value="Submit workout">
 </form>

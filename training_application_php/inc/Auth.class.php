@@ -8,8 +8,7 @@
 class Auth
 {
     const RANK_GUEST = 0;
-    const RANK_CUSTOMER = 1;
-    const RANK_TRAINER = 2;
+    const RANK_USER = 1;
     const RANK_ADMIN = 3;
 
 

@@ -5,32 +5,12 @@
 <?php endif; ?>
 
 
-<h1>Workout</h1>
+<h1><?= html_escape($workout->workout_name); ?></h1>
 
-<form action="" method="POST">
+<div><?=html_escape($workout->workout_desc); ?></div>
 
-    <select name="Select Workout">
-        <!-- Test Values -->
-        <option selected disabled>Choose Workout</option>
-        <option>Arm Workout</option>
-        <option>Abs Workout</option>
-        <option>Legs Workout</option>
-    </select>
-
-    <fieldset>
-        <legend>Exercise1</legend>
-        <input type="number" name="reps1" required placeholder="Repetitions">
-    </fieldset>
-    <fieldset>
-        <legend>Exercise2</legend>
-        <input type="number" name="reps2" required placeholder="Repetitions">
-    </fieldset>
-    <fieldset> 
-        <legend>Exercise3</legend>
-        <input type="number" name="reps3" required placeholder="Repetitions">
-    </fieldset>
-    <input type="submit" value="Submit workout">
-</form>
+<?= $workout_form->renderErrors(TPL_INC . 'form_errors.php'); ?>
+<?= $workout_form; ?>
 
 
 <?php require TPL_INC . 'footer.php'; ?>

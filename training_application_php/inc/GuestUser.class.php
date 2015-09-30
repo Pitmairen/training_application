@@ -7,6 +7,12 @@
  */
 class GuestUser implements User
 {
+
+
+    public function getID(){
+        return null;
+    }
+
     public function getName(){
         return "Guest";
     }
