@@ -31,5 +31,5 @@ $app->add(new \Slim\Middleware\SessionCookie(array(
 )));
 
 
-require APP_ROOT . 'inc/routing.php';
+require APP_ROOT . 'routing.php';
 
