@@ -1,8 +1,8 @@
 <?php
 
-require APP_ROOT . 'autoload.php';
-require APP_ROOT . 'utils.php';
-require APP_ROOT . 'forms.php';
+require APP_ROOT . 'inc/autoload.php';
+require APP_ROOT . 'inc/utils.php';
+
 require APP_ROOT . 'config.php';
 
 define('TPL_INC', APP_ROOT . 'templates/inc/');
@@ -31,5 +31,5 @@ $app->add(new \Slim\Middleware\SessionCookie(array(
 )));
 
 
-require APP_ROOT . 'routing.php';
+require APP_ROOT . 'inc/routing.php';
 

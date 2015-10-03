@@ -10,7 +10,7 @@ require APP_ROOT . 'vendor/autoload.php';
  * Autoload our own classes from the inc directory
  */
 spl_autoload_register(function ($class) {
-    require APP_ROOT . '/inc/' . $class . '.class.php';
+    require APP_ROOT . '/classes/' . $class . '.class.php';
 });
 
 

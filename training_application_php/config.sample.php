@@ -13,7 +13,8 @@ date_default_timezone_set('Europe/Oslo');
 // Create data source object here and store it in a 
 // variable called $ds.
 //
-// Example:
-$ds = new DataSourceSqlite('sqlite::memory:'); // Replace this with the real datasource
+// Example: (Replace this with the datasource you want to use)
+require APP_ROOT . 'datasource/sqlite.php';
+$ds = new DataSourceSqlite('sqlite::memory:'); // Variable name must be $ds
 
 
