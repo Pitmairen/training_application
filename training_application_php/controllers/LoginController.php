@@ -34,13 +34,9 @@ class LoginController extends BaseController
 
         if ($form->postedAndValid()) {
 
-            $username = $form->getValue('username');
-
             $user = $this->userCache;
 
-            $_SESSION['user_name'] = $username;
-            $_SESSION['user_id'] = $user->user_id;
-            $_SESSION['user_rank'] = Auth::RANK_USER;
+            Auth::loginUser($user);
 
             $this->getApp()->redirect('/');
         } else {

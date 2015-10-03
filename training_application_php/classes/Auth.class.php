@@ -29,7 +29,20 @@ class Auth
 
     }
 
+    public static function loginUser($user){
 
+        $_SESSION['user_name'] = $user->user_email;
+        $_SESSION['user_id'] = $user->user_id;
+        $_SESSION['user_rank'] = Auth::RANK_USER;
+    }
+    
+    public static function logoutCurrentUser(){
+
+        unset($_SESSION['user_name']);
+        unset($_SESSION['user_rank']);
+        unset($_SESSION['user_id']);
+
+    }
 }
 
 

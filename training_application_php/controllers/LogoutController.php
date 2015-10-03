@@ -20,9 +20,7 @@ class LogoutController extends BaseController
             $this->getApp()->redirect('/');
         }
         
-        unset($_SESSION['user_name']);
-        unset($_SESSION['user_rank']);
-        unset($_SESSION['user_id']);
+        Auth::logoutCurrentUser();
 
         $this->getApp()->redirect('/');
         
