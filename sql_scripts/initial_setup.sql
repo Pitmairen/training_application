@@ -33,7 +33,7 @@ CREATE TABLE customer (
     customer_weight INT NOT NULL,
     customer_height INT NOT NULL,
     customer_date_of_birth DATE NOT NULL,
-    customer_sex CHAR(1) NOT NULL CHECK(user_sex IN('f', 'm'))
+    customer_sex CHAR(1) NOT NULL CHECK(customer_sex IN('f', 'm'))
 );
 
 CREATE TABLE workout (
@@ -45,7 +45,7 @@ CREATE TABLE workout (
     workout_date DATE NOT NULL,
     
     workout_comment TEXT DEFAULT '' NOT NULL,
-    workout_done BOOLEAN DEFAULT 0 NOT NULL
+    workout_done BIT DEFAULT 0 NOT NULL
 );
 
 CREATE TABLE exercise (
