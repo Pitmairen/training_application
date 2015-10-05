@@ -28,7 +28,7 @@ CREATE TABLE customer (
     customer_first_name VARCHAR(50) NOT NULL,
     customer_last_name VARCHAR(50) NOT NULL,
     customer_pw VARCHAR(255) NOT NULL,
-    customer_email VARCHAR(100) NOT NULL,
+    customer_email VARCHAR(100) NOT NULL UNIQUE,
 
     customer_weight INT NOT NULL,
     customer_height INT NOT NULL,
@@ -56,10 +56,12 @@ CREATE TABLE exercise (
 );
 
 CREATE TABLE exercise_set (
-    set_id INT NOT NULL PRIMARY KEY,
-    set_nr INT NOT NULL,
+    set_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
     set_workout_id INT FOREIGN KEY REFERENCES workout(workout_id),
     set_exercise_id INT FOREIGN KEY REFERENCES exercise(exercise_id),
+
+    set_nr INT NOT NULL,
+	UNIQUE(set_nr, set_workout_id, set_exercise_id),
     
     set_reps_planned INT NOT NULL,
     set_reps_done INT NULL,
@@ -68,7 +70,7 @@ CREATE TABLE exercise_set (
     set_weight_done INT NULL,
 
     set_duration_planned INT NOT NULL,
-    set_duration_done INT NULL,
+    set_duration_done INT NULL
 );
 
 USE master;
