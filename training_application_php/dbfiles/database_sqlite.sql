@@ -100,7 +100,7 @@ INSERT INTO workout(workout_program_id, workout_name, workout_description, worko
 
 
 
-INSERT INTO exercise(exercise_name, exercise_desciprion) VALUES
+INSERT INTO exercise(exercise_name, exercise_description) VALUES
     ('The 90-degree', 'Find a wall, support your back against it and make sure you have 90 degrees between the following: your legs and the floor, your legs and thighs. Hold for x number of seconds'),
     ('Push-ups', 'Lay down and use your arms to push your body up, keep body stright. You are now in starting position. Now use your arms to lower your chest down towards the floor and then up agian, repeat x times.'),
     ('Sit-ups', 'Lay on your back, hold arms crossed on your chest and use your abs to move your upper body up from the floor and down again.'),
