@@ -83,11 +83,11 @@ class DataSourceSqlite implements DataSource
             ['id' => $customer_id, 'done' => false]);
     }
 
-    public function updateWorkoutCompleted($id, $desc){
+    public function updateWorkoutCompleted($id, $com){
 
         $this->db->execute('UPDATE workout SET 
-            workout_done=:done, workout_comment=:desc WHERE workout_id=:id',
-        ['done' => true, 'desc' => $desc, 'id' => $id]);
+            workout_done=:done, workout_comment=:com WHERE workout_id=:id',
+        ['done' => true, 'com' => $com, 'id' => $id]);
 
             
     }

@@ -35,11 +35,11 @@ class WorkoutController extends BaseController
         if($form->postedAndValid()){
 
             $set_vals = $this->createSetValuesForUpdate($form, $sets);
-            $desc = $form->getValue('workout_description');
+            $com = $form->getValue('workout_comment');
 
-            $this->getDataSource()->runTransaction(function($ds) use($id, $desc, $set_vals){
+            $this->getDataSource()->runTransaction(function($ds) use($id, $com, $set_vals){
 
-                $ds->updateWorkoutCompleted($id, $desc);
+                $ds->updateWorkoutCompleted($id, $com);
                 $ds->updateExerciseSetValues($set_vals);
 
                 $ds->commit();
