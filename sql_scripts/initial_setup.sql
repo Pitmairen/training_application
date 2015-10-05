@@ -1,66 +1,74 @@
-use master;
 
-if db_id('training_application') is not null
-	drop database training_application;
+/* If database already exists, disconnect all users, then disconnect from
+   the database by connecting to master database. Finally drop database. */
+if DB_ID('training_application') IS NOT NULL
+BEGIN
+    ALTER DATABASE training_application SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+END
+USE master;
+DROP DATABASE training_application;
+GO
+CREATE DATABASE training_application;
+GO
 
-create database training_application;
-	
-use training_application;
+/* Start creating the database with the necessary tables. */
+USE training_application;
 
-if object_id('trainer') is null
-	create table trainer(
-	trainer_id int identity(1,1) primary key,
-	email varchar(255) not null,
-	pw varchar(255) not null,
-	first_name varchar(255) not null,
-	last_name varchar(255) not null);
+CREATE TABLE program(
+    program_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 
-if object_id('trainingprogram') is null
-	create table trainingprogram(
-	trainingprogram_id int identity(1,1) primary key,
-	trainer_id int foreign key references trainer(trainer_id)
-	);
+    program_name VARCHAR(100) NOT NULL,
+    program_desc TEXT NOT NULL
+);
 
-if object_id('customer') is null
-	create table customer(
-	customer_id int identity(1,1) primary key,
-	email varchar(60) not null,
-	pw varchar(60) not null,
-	first_name varchar(20) not null,
-	last_name varchar(20) not null,
-	current_weight int not null,
-	height int not null,
-	date_of_birth date not null,
-	sex char(1) not null check (sex in('m', 'f')),
-	trainingprogram_id int foreign key references trainingprogram(trainingprogram_id)
-	);
+CREATE TABLE customer (
+    customer_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    customer_program_id INT FOREIGN KEY REFERENCES program(program_id),
 
-if object_id('workout') is null
-	create table workout(
-	workout_id int identity(1,1) primary key,
-	trainingprogram_id int foreign key references trainingprogram(trainingprogram_id),
-	workout_name varchar(20) not null,
-	workout_description text not null
-	);
+    customer_first_name VARCHAR(50) NOT NULL,
+    customer_last_name VARCHAR(50) NOT NULL,
+    customer_pw VARCHAR(255) NOT NULL,
+    customer_email VARCHAR(100) NOT NULL,
 
-if object_id('exercise') is null
-	create table exercise(
-	exercise_id int identity(1,1) primary key,
-	exercise_name varchar(20) not null,
-	exercise_description text not null
-	);
+    customer_weight INT NOT NULL,
+    customer_height INT NOT NULL,
+    customer_date_of_birth DATE NOT NULL,
+    customer_sex CHAR(1) NOT NULL CHECK(user_sex IN('f', 'm'))
+);
 
-if object_id('exercise_set') is null
-	create table exercise_set(
-	set_nr int not null,
-	exercise_id int foreign key references exercise(exercise_id),
-	workout_id int foreign key references workout(workout_id),
-	repetitions_planed int not null,
-	repetitions_cleared int,
-	additional_load int,
-	additional_load_cleared int,
-	comment_by_user text,
-	primary key(set_nr, exercise_id, workout_id)
-	);
+CREATE TABLE workout (
+    workout_id INT IDENTITY(1,1) PRIMARY KEY,
+    workout_program_id INT NOT NULL FOREIGN KEY REFERENCES program(program_id),
 
-Use master;
+    workout_name VARCHAR(50) NOT NULL,
+    workout_description TEXT NOT NULL,    
+    workout_date DATE NOT NULL,
+    
+    workout_comment TEXT DEFAULT '' NOT NULL,
+    workout_done BOOLEAN DEFAULT 0 NOT NULL
+);
+
+CREATE TABLE exercise (
+    exercise_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+
+    exercise_name VARCHAR(50) NOT NULL,
+    exercise_description TEXT NOT NULL
+);
+
+CREATE TABLE exercise_set (
+    set_id INT NOT NULL PRIMARY KEY,
+    set_nr INT NOT NULL,
+    set_workout_id INT FOREIGN KEY REFERENCES workout(workout_id),
+    set_exercise_id INT FOREIGN KEY REFERENCES exercise(exercise_id),
+    
+    set_reps_planned INT NOT NULL,
+    set_reps_done INT NULL,
+
+    set_weight_planned INT NOT NULL,
+    set_weight_done INT NULL,
+
+    set_duration_planned INT NOT NULL,
+    set_duration_done INT NULL,
+);
+
+USE master;
