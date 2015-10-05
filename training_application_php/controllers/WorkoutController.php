@@ -35,7 +35,7 @@ class WorkoutController extends BaseController
         if($form->postedAndValid()){
 
             $set_vals = $this->createSetValuesForUpdate($form, $sets);
-            $desc = $form->getValue('workout_desc');
+            $desc = $form->getValue('workout_description');
 
             $this->getDataSource()->runTransaction(function($ds) use($id, $desc, $set_vals){
 

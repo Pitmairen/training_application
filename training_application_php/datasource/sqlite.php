@@ -16,9 +16,9 @@ class DataSourceSqlite implements DataSource
 
     public function storeNewProgram($prog){
         
-        $this->db->execute('INSERT INTO program (program_name, program_desc)
+        $this->db->execute('INSERT INTO program (program_name, program_description)
             VALUES(:name, :desc)',
-        ['name' => $prog->program_name, 'desc' => $prog->program_desc]);
+        ['name' => $prog->program_name, 'desc' => $prog->program_description]);
         $prog->program_id = $this->db->lastInsertId();
         return $prog;
 

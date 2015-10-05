@@ -3,7 +3,7 @@
 CREATE TABLE program(
     program_id INTEGER PRIMARY KEY,
     program_name VARCHAR(100) NOT NULL,
-    program_desc TEXT NOT NULL
+    program_description TEXT NOT NULL
 
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE workout(
     workout_program_id INTEGER NOT NULL, 
 
     workout_name VARCHAR(50) NOT NULL,
-    workout_desc TEXT NOT NULL,
+    workout_description TEXT NOT NULL,
     workout_date DATETIME NOT NULL,
 
     workout_comment TEXT DEFAULT '' NOT NULL,
@@ -51,7 +51,7 @@ CREATE INDEX w_done_idx ON workout(workout_done);
 CREATE TABLE exercise(
     exercise_id INTEGER PRIMARY KEY,
     exercise_name VARCHAR(50) NOT NULL,
-    exercise_desc TEXT NOT NULL
+    exercise_description TEXT NOT NULL
 );
 
 
@@ -82,7 +82,7 @@ CREATE INDEX s_workout_idx ON exercise_set(set_workout_id);
 
 
 
-INSERT INTO program(program_name, program_desc) VALUES
+INSERT INTO program(program_name, program_description) VALUES
     ('Test Program', 'This is a test'),
     ('Empty Program', 'Dummy for new users');
 
@@ -93,14 +93,14 @@ INSERT INTO customer(customer_program_id, customer_email, customer_pw, customer_
     (2, 's.harrison@gmail.com', '$2y$10$p1MX36OjGtkakgGiZ9zjUOqRqBqyj8bGTuvHsgvSaPwx1nwklR.he', 'Sam', 'Harrison', 77, 164, '1954-07-19', 'm');
 
 
-INSERT INTO workout(workout_program_id, workout_name, workout_desc, workout_date) VALUES
+INSERT INTO workout(workout_program_id, workout_name, workout_description, workout_date) VALUES
     (1, 'Legs of Endurance', 'Workout program with exercises that improves the endurence in your legs', date("now", "+1 day")),
     (1, 'Arms of Strength', 'Workout program with exercises that improves your arm strength', date("now", "+3 day")),
     (1, 'Abs of Steel', 'Workout program with exercises that gives you well defined abs', date("now", "+5 day"));
 
 
 
-INSERT INTO exercise(exercise_name, exercise_desc) VALUES
+INSERT INTO exercise(exercise_name, exercise_desciprion) VALUES
     ('The 90-degree', 'Find a wall, support your back against it and make sure you have 90 degrees between the following: your legs and the floor, your legs and thighs. Hold for x number of seconds'),
     ('Push-ups', 'Lay down and use your arms to push your body up, keep body stright. You are now in starting position. Now use your arms to lower your chest down towards the floor and then up agian, repeat x times.'),
     ('Sit-ups', 'Lay on your back, hold arms crossed on your chest and use your abs to move your upper body up from the floor and down again.'),

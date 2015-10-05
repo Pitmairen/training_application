@@ -7,7 +7,7 @@
 
 <h1><?= html_escape($workout->workout_name); ?></h1>
 
-<div><?=html_escape($workout->workout_desc); ?></div>
+<div><?=html_escape($workout->workout_description); ?></div>
 
 <?= $workout_form->renderErrors(TPL_INC . 'form_errors.php'); ?>
 <?= $workout_form; ?>
