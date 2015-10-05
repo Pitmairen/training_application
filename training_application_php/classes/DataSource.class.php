@@ -13,19 +13,19 @@ interface DataSource {
 
 
     /**
-     * Save a new user to the database.
+     * Save a new customer to the database.
      */
-    public function storeNewUser($user);
+    public function storeNewCustomer($customer);
 
     /**
-     * Returns the user with the specified email
+     * Returns the customer with the specified email
      */
-    public function getUserByEmail($email);
+    public function getCustomerByEmail($email);
 
     /**
-     * Returns the user with the specified id
+     * Returns the customer with the specified id
      */
-    public function getUserById($id);
+    public function getCustomerById($id);
 
 
     /**
@@ -34,14 +34,14 @@ interface DataSource {
     public function getWorkoutById($id);
 
     /**
-     * Returns the workout log for the specified user
+     * Returns the workout log for the specified customer
      */
-    public function getWorkoutLogForUser($user_id, $limit=10);
+    public function getWorkoutLogForCustomer($customer_id, $limit=10);
 
     /**
-     * Returns the next workouts for the specified user
+     * Returns the next workouts for the specified customer
      */
-    public function getNextWorkoutsForUser($user_id, $limit=10);
+    public function getNextWorkoutsForCustomer($customer_id, $limit=10);
 
     /**
      * Update a workout and change it to completed

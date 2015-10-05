@@ -48,8 +48,8 @@ class LoginController extends BaseController
     
     private function checkPassword($form){
         $pass = $form->getValue('password');
-        $user = $this->getDataSource()->getUserByEmail($form->getValue('username'));
-        if ($user && verify_password($pass, $user->user_pw)) {
+        $user = $this->getDataSource()->getCustomerByEmail($form->getValue('username'));
+        if ($user && verify_password($pass, $user->customer_pw)) {
             $this->userCache = $user;
             return;
         }

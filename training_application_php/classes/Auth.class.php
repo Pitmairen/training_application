@@ -31,8 +31,8 @@ class Auth
 
     public static function loginUser($user){
 
-        $_SESSION['user_name'] = $user->user_email;
-        $_SESSION['user_id'] = $user->user_id;
+        $_SESSION['user_name'] = $user->customer_email;
+        $_SESSION['user_id'] = $user->customer_id;
         $_SESSION['user_rank'] = Auth::RANK_USER;
     }
     

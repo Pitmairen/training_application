@@ -24,36 +24,36 @@ class DataSourceSqlite implements DataSource
 
     }
 
-    public function storeNewUser($user){
+    public function storeNewCustomer($cust){
 
-        $this->db->execute('INSERT INTO user 
-            (user_pw, user_email, user_first_name, user_last_name, user_weight,
-            user_height, user_date_of_birth, user_sex, user_program_id)
+        $this->db->execute('INSERT INTO customer 
+            (customer_pw, customer_email, customer_first_name, customer_last_name, customer_weight,
+            customer_height, customer_date_of_birth, customer_sex, customer_program_id)
             VALUES(:pw, :email, :first_name, :last_name, :current_weight,
             :height, :date_of_birth, :sex, :prog)',
             [
-                'pw' => $user->user_pw,
-                'email' => $usr->user_email,
-                'first_name' => $user->user_first_name,
-                'last_name' => $user->user_last_name,
-                'current_weight' => $user->user_current_weight,
-                'height' => $user->user_height,
-                'date_of_birth' => $user->user_date_of_birth,
-                'sex' => $user->user_sex,
-                'prog' => $user->user_program_id,
+                'pw' => $cust->customer_pw,
+                'email' => $cust->customer_email,
+                'first_name' => $cust->customer_first_name,
+                'last_name' => $cust->customer_last_name,
+                'current_weight' => $cust->customer_current_weight,
+                'height' => $cust->customer_height,
+                'date_of_birth' => $cust->customer_date_of_birth,
+                'sex' => $cust->customer_sex,
+                'prog' => $cust->customer_program_id,
             ]);
 
-        $user->user_id = $this->db->lastInsertId();
-        return $user;
+        $cust->customer_id = $this->db->lastInsertId();
+        return $cust;
 
     }
 
-    public function getUserByEmail($email){
-        return $this->db->fetchOneObject('SELECT * FROM user WHERE user_email=:email', ['email' => $email]);
+    public function getCustomerByEmail($email){
+        return $this->db->fetchOneObject('SELECT * FROM customer WHERE customer_email=:email', ['email' => $email]);
     }
 
-    public function getUserById($id){
-        return $this->db->fetchOneObject('SELECT * FROM user WHERE user_id=:id', ['id' => $id]);
+    public function getCustomerById($id){
+        return $this->db->fetchOneObject('SELECT * FROM customer WHERE customer_id=:id', ['id' => $id]);
     }
 
 
@@ -64,23 +64,23 @@ class DataSourceSqlite implements DataSource
             ['id' => $id]);
     }
 
-    public function getWorkoutLogForUser($user_id, $limit=10){
+    public function getWorkoutLogForCustomer($customer_id, $limit=10){
         return $this->db->fetchAllObject(
             'SELECT w.* FROM workout AS w 
-           INNER JOIN user AS u ON u.user_program_id=w.workout_program_id
-            WHERE u.user_id=:id AND w.workout_done=:done', 
+           INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id
+            WHERE u.customer_id=:id AND w.workout_done=:done', 
             
-            ['id' => $user_id, 'done' => true]);
+            ['id' => $customer_id, 'done' => true]);
     }
 
 
-    public function getNextWorkoutsForUser($user_id, $limit=5){
+    public function getNextWorkoutsForCustomer($customer_id, $limit=5){
         return $this->db->fetchAllObject(
             'SELECT w.* FROM workout AS w 
-           INNER JOIN user AS u ON u.user_program_id=w.workout_program_id
-            WHERE u.user_id=:id AND w.workout_done=:done', 
+           INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id
+            WHERE u.customer_id=:id AND w.workout_done=:done', 
             
-            ['id' => $user_id, 'done' => false]);
+            ['id' => $customer_id, 'done' => false]);
     }
 
     public function updateWorkoutCompleted($id, $desc){

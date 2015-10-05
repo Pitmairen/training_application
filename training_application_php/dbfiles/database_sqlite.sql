@@ -8,26 +8,26 @@ CREATE TABLE program(
 );
 
 
-CREATE TABLE user(
-    user_id INTEGER PRIMARY KEY,
-    user_program_id INTEGER NOT NULL,
+CREATE TABLE customer(
+    customer_id INTEGER PRIMARY KEY,
+    customer_program_id INTEGER NOT NULL,
 
-    user_email VARCHAR(100) NOT NULL,
-    user_pw VARCHAR(255) NOT NULL,
-    user_first_name VARCHAR(50) NOT NULL,
-    user_last_name VARCHAR(50) NOT NULL,
+    customer_email VARCHAR(100) NOT NULL,
+    customer_pw VARCHAR(255) NOT NULL,
+    customer_first_name VARCHAR(50) NOT NULL,
+    customer_last_name VARCHAR(50) NOT NULL,
 
-    user_weight INTEGER NOT NULL,
-    user_height INTEGER NOT NULL,
-    user_date_of_birth DATE NOT NULL,
-    user_sex VARCHAR NOT NULL CHECK(user_sex IN ('m', 'f')),
+    customer_weight INTEGER NOT NULL,
+    customer_height INTEGER NOT NULL,
+    customer_date_of_birth DATE NOT NULL,
+    customer_sex VARCHAR NOT NULL CHECK(customer_sex IN ('m', 'f')),
 
 
-    FOREIGN KEY (user_program_id) REFERENCES program(program_id)
+    FOREIGN KEY (customer_program_id) REFERENCES program(program_id)
 );
 
-CREATE INDEX u_program_idx ON user(user_program_id);
-CREATE UNIQUE INDEX u_email_idx ON user(user_email);
+CREATE INDEX c_program_idx ON customer(customer_program_id);
+CREATE UNIQUE INDEX c_email_idx ON customer(customer_email);
 
 
 CREATE TABLE workout(
@@ -87,7 +87,7 @@ INSERT INTO program(program_name, program_desc) VALUES
     ('Empty Program', 'Dummy for new users');
 
 
-INSERT INTO user(user_program_id, user_email, user_pw, user_first_name, user_last_name, user_weight, user_height, user_date_Of_birth, user_sex) VALUES
+INSERT INTO customer(customer_program_id, customer_email, customer_pw, customer_first_name, customer_last_name, customer_weight, customer_height, customer_date_Of_birth, customer_sex) VALUES
     (1, 'duke@gmail.com', '$2y$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Duke', 'Davidson', 68, 179, '1976-12-05', 'm'),
     (2, 'fancypants@gmail.com', '$2y$10$nxHZlY0Tr.fvcYJNgYJDZO7k1MxS4HuUYHeuk7ZncPuGJ9YfIPeE6', 'Tiffany', 'McDonald', 55, 157, '1989-02-23', 'f'),
     (2, 's.harrison@gmail.com', '$2y$10$p1MX36OjGtkakgGiZ9zjUOqRqBqyj8bGTuvHsgvSaPwx1nwklR.he', 'Sam', 'Harrison', 77, 164, '1954-07-19', 'm');

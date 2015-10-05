@@ -9,7 +9,7 @@ class WorkoutScheduleController extends BaseController
         $user = $this->getCurrentUser();
 
         $workouts = $this->getDataSource()
-                         ->getNextWorkoutsForUser($user->getID());
+                         ->getNextWorkoutsForCustomer($user->getID());
         
         return $this->renderTemplate("workout-schedule.php", [
             'next_workouts' => $workouts
@@ -20,5 +20,3 @@ class WorkoutScheduleController extends BaseController
     
 }
 
-
-return 'WorkoutScheduleController';

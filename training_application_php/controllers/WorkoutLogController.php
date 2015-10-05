@@ -9,7 +9,7 @@ class WorkoutLogController extends BaseController
 
         $user = $this->getCurrentUser();
 
-        $workouts = $this->getDataSource()->getWorkoutLogForUser($user->getID());
+        $workouts = $this->getDataSource()->getWorkoutLogForCustomer($user->getID());
 
         $this->renderTemplate("stats.php", ['workout_log' => $workouts]);
         
@@ -19,4 +19,3 @@ class WorkoutLogController extends BaseController
 }
 
 
-return 'WorkoutLogController';
