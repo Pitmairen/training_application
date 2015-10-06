@@ -11,6 +11,8 @@ require APP_ROOT . 'vendor/autoload.php';
  */
 spl_autoload_register(function ($class) {
 
+    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+    
     if(strpos('Controller', $class) !== -1
        && file_exists(APP_ROOT . '/controllers/'.$class.'.php'))
     {

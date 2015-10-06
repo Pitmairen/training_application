@@ -29,5 +29,14 @@ class Router{
             $controller->post(...$params);
         });
     }
+   
+    
+    public function group($route, $callback)
+    {
+        $this->app->group($route, function() use($callback) {
+            $callback($this);
+        });
+        
+    }
     
 }

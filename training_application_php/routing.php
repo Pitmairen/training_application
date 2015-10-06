@@ -18,4 +18,14 @@ $r->get('/tos', 'LoadTemplateController', 'tos.php');
 $r->get('/about', 'LoadTemplateController', 'about.php');
 
 
+$r->group('/admin', function($r){
+    
+    $r->get('/', 'admin\IndexController');
+    $r->get('/new-customer', 'admin\NewCustomerController');
+    $r->get('/new-workout/:user_id', 'admin\NewWorkoutController');
+
+});
+
+
+
 unset($r);
