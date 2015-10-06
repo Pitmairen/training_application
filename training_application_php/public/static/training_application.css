@@ -41,6 +41,10 @@ h1, h2 , ul{
     color: #ffff00;
 }
 
+p{
+    margin: 0 30px 0 30px;
+}
+
 a{
 	color: #00ffff;
 }
