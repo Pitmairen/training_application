@@ -18,14 +18,17 @@ $r->get('/tos', 'LoadTemplateController', 'tos.php');
 $r->get('/about', 'LoadTemplateController', 'about.php');
 
 
+$admin_middleware = new AdminMiddleware($app);
+
 $r->group('/admin', function($r){
     
     $r->get('/', 'admin\IndexController');
     $r->get('/new-customer', 'admin\NewCustomerController');
     $r->get('/new-workout/:user_id', 'admin\NewWorkoutController');
 
-});
+}); //, $admin_middleware);
 
 
 
 unset($r);
+unset($admin_middleware);

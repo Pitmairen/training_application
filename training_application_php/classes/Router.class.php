@@ -31,12 +31,14 @@ class Router{
     }
    
     
-    public function group($route, $callback)
+    public function group($route, $callback, ...$middleware)
     {
-        $this->app->group($route, function() use($callback) {
+        $args = $middleware;
+        $args[] = function() use($callback){
             $callback($this);
-        });
-        
+        };
+        $this->app->group($route, ...$args);
+     
     }
     
 }

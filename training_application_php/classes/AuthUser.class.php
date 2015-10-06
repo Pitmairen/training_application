@@ -28,4 +28,9 @@ class AuthUser implements User
         return $this->session['user_rank'];
     }
 
+    public function isAdmin() {
+        return isset($this->session['is_admin']) && 
+        $this->session['is_admin'] === true;
+    }
+
 }

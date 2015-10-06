@@ -29,7 +29,10 @@ interface User
      */
     public function rank();
 
-
+    /**
+     * Returns true if user is admin
+     */
+    public function isAdmin();
 }
 
 

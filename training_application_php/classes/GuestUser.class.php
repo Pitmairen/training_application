@@ -24,7 +24,10 @@ class GuestUser implements User
     public function rank(){
         return 0;
     }
-
+    
+    public function isAdmin(){
+        return false;
+    }
 }
 
 
