@@ -9,7 +9,7 @@ function html_escape($value){
 
 function load_form($name, $data=[]){
 
-    return new Form(APP_ROOT . 'templates/forms/' . $name . '.html', $data);
+    return new Form(APP_ROOT . 'templates/forms/' . $name . '.php', $data);
 
 }
 
