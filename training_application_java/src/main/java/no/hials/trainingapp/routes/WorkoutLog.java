@@ -9,7 +9,8 @@ import spark.Request;
 import spark.Response;
 
 /**
- *
+ * Handles the workout log route
+ * 
  * @author Per Myren <progrper@gmail.com>
  */
 public class WorkoutLog extends TemplateRoute

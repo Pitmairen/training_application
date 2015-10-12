@@ -6,6 +6,10 @@ import spark.Response;
 import static spark.Spark.halt;
 
 /**
+ * A filter that makes sure all users are authenticated
+ *
+ * This filter will check that the current user is authenticated, if not the
+ * user will be redirected to the login page.
  *
  * @author Per Myren <progrper@gmail.com>
  */
@@ -16,6 +20,7 @@ public class AuthenticationFilter implements Filter
     public void handle(Request request, Response response) throws Exception
     {
 
+        // Don't require authenticaion for static files.
         if (request.pathInfo().startsWith("/static/")) {
             return;
         }

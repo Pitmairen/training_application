@@ -14,15 +14,20 @@ import no.hials.trainingapp.routing.TemplateEngines;
 import static spark.Spark.before;
 
 /**
- *
+ * The main entry point of the application.
+ * 
+ * This will setup the data source and the routing which will make 
+ * Spark start the web server.
+ * 
  * @author Per Myren <progrper@gmail.com>
  */
 public class Main {
 
-    private static DataSource sDataSource;
 
+    private static DataSource sDataSource;
     private static Router sRouter;
 
+    
     public static void main(String[] args) throws ClassNotFoundException {
 
         sDataSource = new DataSourceSqlite("jdbc:sqlite:/tmp/trainingdbjava.db");
@@ -31,6 +36,7 @@ public class Main {
         addRoutes(sRouter);
     }
 
+    
     private static void addRoutes(Router r) {
 
         r.serveStatic("/public");

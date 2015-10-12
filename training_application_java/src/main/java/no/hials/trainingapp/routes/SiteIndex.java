@@ -7,7 +7,8 @@ import spark.Request;
 import spark.Response;
 
 /**
- *
+ * Handles the site index
+ * 
  * @author Per Myren <progrper@gmail.com>
  */
 public class SiteIndex extends TemplateRoute

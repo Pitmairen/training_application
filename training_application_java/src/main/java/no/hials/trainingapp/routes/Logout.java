@@ -9,7 +9,8 @@ import spark.Response;
 import static spark.Spark.halt;
 
 /**
- *
+ * Log out the current user
+ * 
  * @author Per Myren <progrper@gmail.com>
  */
 public class Logout extends TemplateRoute

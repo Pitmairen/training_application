@@ -49,6 +49,7 @@ public class DataSourceSqlite implements DataSource
 
     }
 
+    @Override
     public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException
     {
         return createResultMap(executeQuery(

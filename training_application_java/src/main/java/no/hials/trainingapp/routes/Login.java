@@ -13,7 +13,8 @@ import spark.Response;
 import static spark.Spark.halt;
 
 /**
- *
+ * Login a user
+ * 
  * @author Per Myren <progrper@gmail.com>
  */
 public class Login extends TemplateRoute

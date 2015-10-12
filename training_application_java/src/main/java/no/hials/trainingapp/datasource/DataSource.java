@@ -11,10 +11,32 @@ import java.util.List;
 public interface DataSource
 {
 
+    /**
+     * Returns the customer with the given username
+     * @param username the username of the user
+     * @return the user data
+     * @throws SQLException 
+     */
     public DataItem getCustomerByUsername(String username) throws SQLException;
 
+    /**
+     * Returns a list of the user's upcoming workouts
+     * 
+     * @param customerId the customer id
+     * @param limit limit the number of workouts to return
+     * @return a list of workouts
+     * @throws SQLException 
+     */
     public List<DataItem> getNextWorkoutsForCustomer(int customerId, int limit) throws SQLException;
 
+    /**
+     * Returns a list of the user's completed workouts
+     * 
+     * @param customerId the customer id
+     * @param limit limit the number of workouts to return
+     * @return a list of workouts
+     * @throws SQLException 
+     */
     public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException;
 
 }

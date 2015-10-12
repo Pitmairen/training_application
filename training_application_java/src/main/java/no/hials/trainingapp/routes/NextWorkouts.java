@@ -9,8 +9,9 @@ import spark.Request;
 import spark.Response;
 
 /**
- *
- * @author Per Myren <progrper@gmail.com>
+ * Handles the workout schedule
+
+* @author Per Myren <progrper@gmail.com>
  */
 public class NextWorkouts extends TemplateRoute
 {

@@ -13,14 +13,16 @@ import java.util.HashMap;
 public class DataItem extends HashMap<String, Object>
 {
 
+    // @see http://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
     private static final long serialVersionUID = 1L;
 
+    
     /**
      * Returns the value as a integer
      *
-     * @param key
+     * @param key the key to get
      *
-     * @return the integer value
+     * @return the integer value associated with the key
      */
     public int getInteger(String key)
     {
@@ -30,9 +32,9 @@ public class DataItem extends HashMap<String, Object>
     /**
      * Returns the value as a string
      *
-     * @param key
+     * @param key the key to get
      *
-     * @return the string value
+     * @return the string value associated with the key
      */
     public String getString(String key)
     {
