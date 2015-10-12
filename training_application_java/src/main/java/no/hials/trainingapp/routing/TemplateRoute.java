@@ -32,19 +32,19 @@ public abstract class TemplateRoute extends BaseRoute
             case "POST":
                 return post();
             default:
-                throw new UnsupportedOperationException("Method Not supported");
+                throw new MethodNotSupportedException();
 
         }
     }
 
     public ModelAndView get() throws Exception
     {
-        throw new UnsupportedOperationException("Method Not supported");
+        throw new MethodNotSupportedException();
     }
 
     public ModelAndView post() throws Exception
     {
-        throw new UnsupportedOperationException("Method Not supported");
+        throw new MethodNotSupportedException();
     }
 
     protected void setData(String name, Object value)

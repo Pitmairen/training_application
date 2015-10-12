@@ -30,6 +30,7 @@ public class Router
     {
         mDataSource = datasource;
         mTemplateEngine = templateEngine;
+        addExceptionHandlers();
     }
 
     /**
@@ -104,5 +105,19 @@ public class Router
     {
         get(path, new TemplateRouteFactory(mDataSource, handlerClass));
         post(path, new TemplateRouteFactory(mDataSource, handlerClass));
+    }
+
+    
+    /**
+     * Add exception handlers
+     */
+    private void addExceptionHandlers()
+    {
+        Spark.exception(MethodNotSupportedException.class, (e, req, resp) -> {
+            // Should probably respond with a 405 but uses 404 for now.
+            resp.status(404);
+            resp.body("Not found");
+        });
+
     }
 }
