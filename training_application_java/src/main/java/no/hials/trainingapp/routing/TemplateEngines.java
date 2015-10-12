@@ -10,7 +10,7 @@ import spark.template.pebble.PebbleTemplateEngine;
  *
  * @author pitmairen
  */
-public class TemplateEngineFactory {
+public class TemplateEngines {
 
     
     public static TemplateEngine createPebbleEngine()
