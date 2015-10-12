@@ -70,7 +70,7 @@ public abstract class TemplateRoute extends BaseRoute
      *
      * @throws Exception
      */
-    public ModelAndView get() throws Exception
+    protected ModelAndView get() throws Exception
     {
         throw new MethodNotSupportedException();
     }
@@ -83,7 +83,7 @@ public abstract class TemplateRoute extends BaseRoute
      *
      * @throws Exception
      */
-    public ModelAndView post() throws Exception
+    protected ModelAndView post() throws Exception
     {
         throw new MethodNotSupportedException();
     }
@@ -110,7 +110,7 @@ public abstract class TemplateRoute extends BaseRoute
      *
      * @return a mode and view object for Spark's template system
      */
-    public ModelAndView renderTemplate(String name)
+    protected ModelAndView renderTemplate(String name)
     {
         // Add the current user
         setData("currentUser", getCurrentUser());
