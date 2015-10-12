@@ -2,6 +2,7 @@ package no.hials.trainingapp.routing;
 
 import no.hials.trainingapp.datasource.DataSource;
 import spark.Spark;
+import static spark.Spark.staticFileLocation;
 import spark.TemplateEngine;
 import spark.TemplateViewRoute;
 
@@ -19,6 +20,10 @@ public class Router {
         mTemplateEngine = templateEngine;
     }
 
+    public void serveStatic(String route){
+        staticFileLocation(route);
+    }
+    
     public void get(String route, Class<? extends TemplateRoute> cls) {
         get(route, new TemplateRouteFactory(mDataSource, cls));
     }

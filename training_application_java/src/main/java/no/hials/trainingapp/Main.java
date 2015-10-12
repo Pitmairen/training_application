@@ -12,7 +12,6 @@ import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
 import no.hials.trainingapp.routing.TemplateEngineFactory;
 import static spark.Spark.before;
-import static spark.Spark.staticFileLocation;
 
 /**
  *
@@ -34,7 +33,7 @@ public class Main {
 
     private static void addRoutes(Router r) {
 
-        staticFileLocation("/public");
+        r.serveStatic("/public");
 
         // Require users to be logged in
         before(new AuthenticationFilter());
