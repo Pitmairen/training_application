@@ -1,5 +1,6 @@
 package no.hials.trainingapp.routes;
 
+import java.sql.SQLException;
 import java.util.List;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
@@ -10,8 +11,8 @@ import spark.Response;
 
 /**
  * Handles the workout schedule
-
-* @author Per Myren <progrper@gmail.com>
+ *
+ * @author Per Myren <progrper@gmail.com>
  */
 public class NextWorkouts extends TemplateRoute
 {
@@ -22,7 +23,7 @@ public class NextWorkouts extends TemplateRoute
     }
 
     @Override
-    public ModelAndView get() throws Exception
+    public ModelAndView handle() throws SQLException
     {
 
         List<DataItem> workouts = getDataSource()

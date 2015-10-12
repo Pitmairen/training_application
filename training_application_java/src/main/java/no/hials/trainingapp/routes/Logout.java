@@ -10,7 +10,7 @@ import static spark.Spark.halt;
 
 /**
  * Log out the current user
- * 
+ *
  * @author Per Myren <progrper@gmail.com>
  */
 public class Logout extends TemplateRoute
@@ -22,17 +22,16 @@ public class Logout extends TemplateRoute
     }
 
     @Override
-    public ModelAndView get() throws Exception
+    public ModelAndView handle()
     {
+        if (getRequest().requestMethod().equals("POST")) {
+
+            Auth.logoutUser(getRequest());
+            getResponse().redirect("/login");
+            halt();
+        }
+
         return renderTemplate("logout");
     }
 
-    @Override
-    public ModelAndView post() throws Exception
-    {
-        Auth.logoutUser(getRequest());
-        getResponse().redirect("/login");
-        halt();
-        return null;
-    }
 }

@@ -18,7 +18,7 @@ import spark.Response;
  * to the user and re-populate the HTML form with the previous data in case if
  * validation errors.
  */
-public class FormRoute extends TemplateRoute
+public abstract class FormRoute extends TemplateRoute
 {
 
     private final List<String> mValidationErrors;

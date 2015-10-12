@@ -36,11 +36,9 @@ public class SimpleTemplateRoute implements TemplateViewRoute
      * @param response the current response
      *
      * @return a model and view for the template system.
-     *
-     * @throws java.lang.Exception
      */
     @Override
-    public ModelAndView handle(Request request, Response response) throws Exception
+    public ModelAndView handle(Request request, Response response)
     {
         return new SimpleTemplate(request, response).handle();
     }
@@ -62,7 +60,7 @@ public class SimpleTemplateRoute implements TemplateViewRoute
          * Render the template
          */
         @Override
-        public ModelAndView get()
+        public ModelAndView handle()
         {
             return renderTemplate(mTemplateName);
         }

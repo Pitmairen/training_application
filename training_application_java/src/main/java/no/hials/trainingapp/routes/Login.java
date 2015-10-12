@@ -29,32 +29,33 @@ public class Login extends FormRoute
         super(datasource, req, resp);
     }
 
+    
+    
     @Override
-    public ModelAndView get() throws Exception
-    {
+    public ModelAndView handle() throws SQLException{
+        
         checkUserNotAuthenticated();
+        
+        if(getRequest().requestMethod().equals("POST")){
+            
+            checkUsernameAndPassword();
 
-        return renderTemplate(TEMPLATE_NAME);
-    }
+            if (!hasValidationErrors()) {
 
-    @Override
-    public ModelAndView post() throws Exception
-    {
-        checkUserNotAuthenticated();
-        checkUsernameAndPassword();
+                Auth.loginUser(getRequest(),
+                               mUserCache.getInteger("customer_id"),
+                               mUserCache.getString("customer_first_name"));
 
-        if (!hasValidationErrors()) {
-
-            Auth.loginUser(getRequest(),
-                           mUserCache.getInteger("customer_id"),
-                           mUserCache.getString("customer_first_name"));
-
-            getResponse().redirect("/");
-            halt();
+                getResponse().redirect("/");
+                halt();
+            }
+            
         }
-
+        
+        
         return renderTemplate(TEMPLATE_NAME);
     }
+
 
     /**
      * If user is already logged in there is no reason for him to log in so

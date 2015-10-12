@@ -11,11 +11,10 @@ import spark.Response;
  * A template route is a route which generates a response by rendering a
  * template.
  *
- * The {@code handle} method returns a {@code ModelAndView} object which is used
- * by Spark's template system to render a template.
- *
- * Sub classes should implement either the {@code get} or the {@code post}
- * method or both depending on which HTTP methods that the handler supports.
+ * The {@code handle} method must return a {@code ModelAndView} object which is
+ * used by Spark's template system to render a template. This
+ * {@code ModelAndView} object can be created by calling the {code@
+ * renderTemplate} method.
  *
  * @author Per Myren <progrper@gmail.com>
  */
@@ -41,52 +40,11 @@ public abstract class TemplateRoute extends BaseRoute
     /**
      * Handle the current request.
      *
-     * This method will delegate the handling to either the {@code get} or the
-     * {@code post} method depending on the HTTP request method.
-     *
      * @return a mode and view object for Spark's template system
      *
      * @throws Exception
      */
-    public ModelAndView handle() throws Exception
-    {
-        switch (getRequest().requestMethod()) {
-
-            case "GET":
-                return get();
-            case "POST":
-                return post();
-            default:
-                throw new MethodNotSupportedException();
-
-        }
-    }
-
-    /**
-     * Handles GET requests. Sub classes should override this method if the
-     * method is supported.
-     *
-     * @return a mode and view object for Spark's template system
-     *
-     * @throws Exception
-     */
-    protected ModelAndView get() throws Exception
-    {
-        throw new MethodNotSupportedException();
-    }
-
-    /**
-     * Handles POST requests. Sub classes should override this method if the
-     * method is supported.
-     *
-     * @return a mode and view object for Spark's template system
-     *
-     * @throws Exception
-     */
-    protected ModelAndView post() throws Exception
-    {
-        throw new MethodNotSupportedException();
-    }
+    public abstract ModelAndView handle() throws Exception;
 
     /**
      * Adds data which will be passed to the template when it is rendered.
