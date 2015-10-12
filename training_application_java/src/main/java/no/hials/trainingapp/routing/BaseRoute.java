@@ -7,6 +7,7 @@ import spark.Request;
 import spark.Response;
 
 /**
+ * The base route adds methods that is common for all routes
  *
  * @author Per Myren <progrper@gmail.com>
  */
@@ -17,8 +18,16 @@ public abstract class BaseRoute
     private final Response mResponse;
     private final DataSource mDataSource;
 
+    // Used to cache the current user object so we don't have to 
+    // create a new object each time the {@code getCurrentUser} methods
+    // is called.
     private User mUserCache = null;
 
+    /**
+     * @param datasource the data source object
+     * @param req        the current request object
+     * @param resp       the current response object
+     */
     public BaseRoute(DataSource datasource, Request req, Response resp)
     {
         mDataSource = datasource;
@@ -27,7 +36,9 @@ public abstract class BaseRoute
     }
 
     /**
-     * @return the data source
+     * Returns the data source object
+     *
+     * @return the data source object
      */
     protected DataSource getDataSource()
     {
@@ -35,7 +46,9 @@ public abstract class BaseRoute
     }
 
     /**
-     * @return the mRequest
+     * Returns the current request object
+     *
+     * @return the request object
      */
     protected Request getRequest()
     {
@@ -43,7 +56,9 @@ public abstract class BaseRoute
     }
 
     /**
-     * @return the mResponse
+     * Returns the current response object
+     *
+     * @return the response object
      */
     protected Response getResponse()
     {
@@ -51,7 +66,9 @@ public abstract class BaseRoute
     }
 
     /**
-     * @return the mResponse
+     * Returns the current user object associated with the the current request
+     *
+     * @return the current user object
      */
     protected User getCurrentUser()
     {
