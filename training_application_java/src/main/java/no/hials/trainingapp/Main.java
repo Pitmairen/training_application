@@ -10,6 +10,7 @@ import no.hials.trainingapp.routes.SiteIndex;
 import no.hials.trainingapp.routes.WorkoutLog;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
+import no.hials.trainingapp.routing.TemplateEngineFactory;
 import static spark.Spark.before;
 import static spark.Spark.staticFileLocation;
 
@@ -17,28 +18,24 @@ import static spark.Spark.staticFileLocation;
  *
  * @author Per Myren <progrper@gmail.com>
  */
-public class Main
-{
+public class Main {
 
     private static DataSource sDataSource;
 
     private static Router sRouter;
 
-    public static void main(String[] args) throws ClassNotFoundException
-    {
+    public static void main(String[] args) throws ClassNotFoundException {
 
         sDataSource = new DataSourceSqlite("jdbc:sqlite:/tmp/trainingdbjava.db");
-        sRouter = new Router(sDataSource);
+        sRouter = new Router(sDataSource, TemplateEngineFactory.createPebbleEngine());
 
         addRoutes(sRouter);
-
     }
 
-    private static void addRoutes(Router r)
-    {
+    private static void addRoutes(Router r) {
 
-        staticFileLocation("/public");         
-                
+        staticFileLocation("/public");
+
         // Require users to be logged in
         before(new AuthenticationFilter());
 
@@ -54,7 +51,4 @@ public class Main
 
     }
 
-    
- 
-    
 }
