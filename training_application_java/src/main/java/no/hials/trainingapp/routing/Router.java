@@ -2,7 +2,6 @@ package no.hials.trainingapp.routing;
 
 import no.hials.trainingapp.datasource.DataSource;
 import spark.Spark;
-import static spark.Spark.staticFileLocation;
 import spark.TemplateEngine;
 import spark.TemplateViewRoute;
 
@@ -47,7 +46,7 @@ public class Router
      */
     public void serveStatic(String path)
     {
-        staticFileLocation(path);
+        Spark.staticFileLocation(path);
     }
 
     /**

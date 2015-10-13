@@ -3,7 +3,7 @@ package no.hials.trainingapp.auth;
 import spark.Filter;
 import spark.Request;
 import spark.Response;
-import static spark.Spark.halt;
+import spark.Spark;
 
 /**
  * A filter that makes sure all users are authenticated
@@ -27,7 +27,7 @@ public class AuthenticationFilter implements Filter
 
         if (!Auth.isAuthenticated(request) && !request.pathInfo().startsWith("/login")) {
             response.redirect("/login");
-            halt();
+            Spark.halt();
         }
     }
 

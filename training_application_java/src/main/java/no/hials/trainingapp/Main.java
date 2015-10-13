@@ -11,7 +11,7 @@ import no.hials.trainingapp.routes.WorkoutLog;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
 import no.hials.trainingapp.routing.TemplateEngines;
-import static spark.Spark.before;
+import spark.Spark;
 
 /**
  * The main entry point of the application.
@@ -42,7 +42,7 @@ public class Main {
         r.serveStatic("/public");
 
         // Require users to be logged in
-        before(new AuthenticationFilter());
+        Spark.before(new AuthenticationFilter());
 
         r.get("/", SiteIndex.class);
         r.getAndPost("/login", Login.class);

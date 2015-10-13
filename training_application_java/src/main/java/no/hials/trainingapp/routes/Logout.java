@@ -6,7 +6,7 @@ import no.hials.trainingapp.routing.TemplateRoute;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import static spark.Spark.halt;
+import spark.Spark;
 
 /**
  * Log out the current user
@@ -28,7 +28,7 @@ public class Logout extends TemplateRoute
 
             Auth.logoutUser(getRequest());
             getResponse().redirect("/login");
-            halt();
+            Spark.halt();
         }
 
         return renderTemplate("logout");

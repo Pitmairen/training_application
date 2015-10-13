@@ -8,7 +8,7 @@ import no.hials.trainingapp.routing.FormRoute;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import static spark.Spark.halt;
+import spark.Spark;
 
 /**
  * Login a user
@@ -47,7 +47,7 @@ public class Login extends FormRoute
                                mUserCache.getString("customer_first_name"));
 
                 getResponse().redirect("/");
-                halt();
+                Spark.halt();
             }
             
         }
@@ -65,7 +65,7 @@ public class Login extends FormRoute
     {
         if (getCurrentUser().isAuthenticated()) {
             getResponse().redirect("/");
-            halt();
+            Spark.halt();
         }
     }
 
