@@ -1,0 +1,79 @@
+html{
+    background: #3d3d3d;
+}
+
+body{
+	color: #ffff00;
+}
+
+main, header, footer{
+    background: #0b0060;
+    text-align: center;
+    padding: 15px 0 15px 0;
+    margin: 0 25% 20px 25%;
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+
+header, footer{
+    padding: 0;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 5px 10px 5px;
+}
+li {
+    display: inline-block;
+    margin: 10px 5px 0 5px;
+    padding: 5px 30px 5px 30px;
+    border: 3px solid #000000;
+    background: #222266;
+    border-radius: 5px;
+}
+
+li:hover{
+	background: #444488;
+}
+
+h1, h2 , ul{ 
+    color: #ffff00;
+}
+
+p{
+    margin: 0 30px 0 30px;
+}
+
+a{
+	color: #00ffff;
+}
+
+fieldset{
+    margin: 5px 50px 5px 50px;
+}
+
+legend{
+    
+}
+
+input{
+	margin: 3px;
+}
+
+button{
+	padding: 8px 32px 8px 32px;
+	background: #ffff00;
+	border-radius: 5px;
+	/*text-shadow: 0px 0px 6px #222266;*/
+	box-shadow: 0px 0px 2px 2px #222222;
+}
+
+button:active {
+  background: #dddd00;
+}
+/*
+button:focus {
+  border: 0px solid #000;
+}
+*/
