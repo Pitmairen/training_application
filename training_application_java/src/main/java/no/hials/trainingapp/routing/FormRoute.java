@@ -1,7 +1,9 @@
 package no.hials.trainingapp.routing;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import no.hials.trainingapp.datasource.DataSource;
 import spark.ModelAndView;
 import spark.Request;
@@ -18,13 +20,11 @@ import spark.Response;
  * to the user and re-populate the HTML form with the previous data in case if
  * validation errors.
  */
-public abstract class FormRoute extends TemplateRoute
-{
+public abstract class FormRoute extends TemplateRoute {
 
     private final List<String> mValidationErrors;
 
-    public FormRoute(DataSource datasource, Request req, Response resp)
-    {
+    public FormRoute(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
         mValidationErrors = new ArrayList<>();
     }
@@ -34,8 +34,7 @@ public abstract class FormRoute extends TemplateRoute
      *
      * @param errorMessage the message to add
      */
-    protected void addValidationError(String errorMessage)
-    {
+    protected void addValidationError(String errorMessage) {
         mValidationErrors.add(errorMessage);
     }
 
@@ -44,8 +43,7 @@ public abstract class FormRoute extends TemplateRoute
      *
      * @return true if there are any validation errors
      */
-    protected boolean hasValidationErrors()
-    {
+    protected boolean hasValidationErrors() {
         return !mValidationErrors.isEmpty();
     }
 
@@ -59,13 +57,28 @@ public abstract class FormRoute extends TemplateRoute
      * @return a model and view object used by Spark's template system
      */
     @Override
-    protected ModelAndView renderTemplate(String name)
-    {
+    protected ModelAndView renderTemplate(String name) {
 
         setData("validationErrors", mValidationErrors);
-        setData("formData", getRequest().params());
+        setData("formData", createFormDataMap());
 
         return super.renderTemplate(name);
 
+    }
+
+    /**
+     * Creates the form data map used by the template
+     *
+     * @return map of the form data
+     */
+    private Map<String, String> createFormDataMap() {
+
+        Map<String, String> data = new HashMap<>();
+        Request req = getRequest();
+        for (String param : req.queryParams()) {
+            data.put(param, req.queryParams(param));
+        }
+
+        return data;
     }
 }
