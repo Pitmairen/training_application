@@ -22,7 +22,6 @@ public class DataSourceSqlite implements DataSource
 
     public DataSourceSqlite(String connectionString) throws ClassNotFoundException
     {
-
         mPool = createConnectionPool(connectionString);
     }
 
@@ -30,37 +29,59 @@ public class DataSourceSqlite implements DataSource
     public DataItem getCustomerByUsername(String username) throws SQLException
     {
 
-        List<DataItem> rs = createResultMap(executeQuery(
-                "select * from customer WHERE customer_email=?", username));
+       return querySingle(
+                "select * from customer WHERE customer_email=?", username);
 
-        return rs.size() > 0 ? rs.get(0) : null;
     }
 
     @Override
     public List<DataItem> getNextWorkoutsForCustomer(int customerId, int limit) throws SQLException
     {
 
-        return createResultMap(executeQuery(
+        return queryList(
                 "SELECT w.* FROM workout AS w "
                 + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
                 + "WHERE u.customer_id=? AND w.workout_done=? "
                 + "LIMIT ?",
-                customerId, false, limit));
+                customerId, false, limit);
 
     }
 
     @Override
     public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException
     {
-        return createResultMap(executeQuery(
+        return queryList(
                 "SELECT w.* FROM workout AS w "
                 + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
                 + "WHERE u.customer_id=? AND w.workout_done=? "
                 + "ORDER BY w.workout_id DESC "
                 + "LIMIT ?",
-                customerId, true, limit));
+                customerId, true, limit);
     }
 
+    
+    private List<DataItem> queryList(String query, Object... params) throws SQLException{
+        
+        try(Connection con = mPool.getConnection()){
+            
+            ResultSet res = executeQuery(con, query, params);
+            
+            return createResultMap(res);
+        }
+    }
+    
+    private DataItem querySingle(String query, Object... params) throws SQLException{
+        
+        try(Connection con = mPool.getConnection()){
+            
+            ResultSet res = executeQuery(con, query, params);
+            
+            List<DataItem> data = createResultMap(res);
+            
+            return data.size() > 0 ? data.get(0) : null;
+        }
+ 
+    }    
     private List<DataItem> createResultMap(ResultSet rs) throws SQLException
     {
 
@@ -80,20 +101,16 @@ public class DataSourceSqlite implements DataSource
         return res;
     }
 
-    private ResultSet executeQuery(String query) throws SQLException
+    private ResultSet executeQuery(Connection con, String query) throws SQLException
     {
-        Connection con = mPool.getConnection();
-
         Statement statement = con.createStatement();
-        statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
         return statement.executeQuery(query);
     }
 
-    private ResultSet executeQuery(String query, Object... params) throws SQLException
+    private ResultSet executeQuery(Connection con, String query, Object... params) 
+            throws SQLException
     {
-        Connection con = mPool.getConnection();
-
         PreparedStatement statement = con.prepareStatement(query);
 
         bindParams(statement, params);
