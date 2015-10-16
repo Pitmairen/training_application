@@ -23,8 +23,7 @@ public class SelectedWorkout extends TemplateRoute {
     @Override
     public ModelAndView handle() throws SQLException {
 
-        // List<DataItem> workout = getDataSource().getWorkout(getWorkoutId(), getWorkoutProgramId());
-        List<DataItem> workout = getDataSource().getWorkout(1, 1);
+        List<DataItem> workout = getDataSource().getWorkout(Integer.parseInt(getRequest().params("id")), Integer.parseInt(getRequest().params("id2")));
 
         setData("workout", workout);
 

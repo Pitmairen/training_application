@@ -53,7 +53,7 @@ public class Main {
         r.getAndPost("/logout", Logout.class);
         r.get("/workout", NextWorkouts.class);
         r.get("/stats", WorkoutLog.class);
-        r.get("/selected_workout/:id", SelectedWorkout.class);
+        r.get("/selected_workout/:id/:id2", SelectedWorkout.class);
 
         r.get("/tos", new SimpleTemplateRoute("tos"));
         r.get("/help", new SimpleTemplateRoute("help"));
