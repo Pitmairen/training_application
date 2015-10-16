@@ -7,13 +7,14 @@
 
 <h2>Upcoming workout sessions:</h2>
 
-<ul>
+<table class="table center">
     {% for wk in workouts %}
-    <li><a href="/selected_workout/{{ wk.workout_program_id }}/{{ wk.workout_id }}">{{ wk.workout_name }} - {{ wk.workout_date }}</a></li>
+    <tr><td><a href="/selected_workout/{{ wk.workout_program_id }}/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
+        <td><a href="/selected_workout/{{ wk.workout_program_id }}/{{ wk.workout_id }}">{{ wk.workout_name }}</a></td></tr>
     {% else %}
-    <li>You have no workouts scheduled. Please contact your trainer.</li>
+    <p>You have no workouts scheduled. Please contact your trainer.</p>
     {% endfor %}
-</ul>
+</table>
 
 
 {% endblock %}

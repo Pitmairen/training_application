@@ -1,9 +1,37 @@
+
 html {
-    background: #eaeaea;
+    box-sizing: border-box;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
 }
 
 body {
+    background: #eaeaea;
     color: #242424;
+}
+
+header {
+    background: #45619d;
+    text-align: center;
+    margin: 1rem 25% 1rem 25%;
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+header ul {
+    list-style-type: none;
+    padding: 0 0 0 0;
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+header li {
+    display: inline-block;
+    margin: 0.1rem 0.1rem 0.1rem 0.1rem;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+    border: 2px solid #000000;
+    background: #b6b6b6;
+    border-radius: 5px;
+}
+header li:hover {
+    background: #388dcb;
 }
 
 main {
@@ -15,22 +43,53 @@ main {
     border-radius: 5px;
 }
 
-header, footer {
+input {
+    margin: 0.5rem 0.2rem 0.5rem 0.2rem;
+}
+
+.table {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 0 2rem 0;
+    display: inline-block;
+    border: 2px solid #000000;
+    background: #b6b6b6;
+    border-radius: 5px;
+
+}
+.table.center {
+    margin-left:auto; 
+    margin-right:auto;
+}
+.table td {
+    border: 1px solid #000000;
+    padding: 0.2rem;
+}
+.table tr:hover {
+    background: #388dcb;
+}
+.table a {
+    text-decoration: none;
+    color: #242424;
+}
+
+.table ul {
+    list-style-type: none;
+}
+
+footer {
     background: #45619d;
     text-align: center;
     margin: 1rem 25% 1rem 25%;
     border: 2px solid #000000;
     border-radius: 5px;
 }
-
-
-ul {
+footer ul {
     list-style-type: none;
     padding: 0 0 0 0;
     margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
-
-li {
+footer li {
     display: inline-block;
     margin: 0.1rem 0.1rem 0.1rem 0.1rem;
     padding: 0.2rem 0.5rem 0.2rem 0.5rem;
@@ -38,25 +97,8 @@ li {
     background: #b6b6b6;
     border-radius: 5px;
 }
-
-li:hover {
+footer li:hover {
     background: #388dcb;
-}
-
-p {
-    margin: 0 0.5rem 0 0.5rem;
-}
-
-a {
-    color: #242424;
-}
-
-/*fieldset {
-    margin: 0.5rem 2rem 0.5rem 2rem;
-}*/
-
-input {
-    margin: 0.5rem;
 }
 
 /*button {
