@@ -5,11 +5,11 @@
 {% block "content" %}
 
 
-<h2>Your next workouts will be:</h2>
+<h2>Upcoming workout sessions:</h2>
 
 <ul>
     {% for wk in workouts %}
-    <li><a href="/selected_workout">{{ wk.workout_name }} - {{ wk.workout_date }}</a></li>
+    <li><a href="/selected_workout/{{ wk.workout_program_id }}_{{ wk.workout_id }}">{{ wk.workout_name }} - {{ wk.workout_date }}</a></li>
     {% else %}
     <li>You have no workouts scheduled. Please contact your trainer.</li>
     {% endfor %}

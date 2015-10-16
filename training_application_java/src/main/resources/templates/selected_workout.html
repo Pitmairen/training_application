@@ -5,10 +5,20 @@
 {% block "content" %}
 
 
-<h2>Selected workout:</h2>
+<h2>{% for element in workout %}
+    {{ element.workout_name }}
+    {% else %}
+    No workout selected.
+    {% endfor %}
+</h2>
 
 <ul>
-    <li>{{ cw.workout_name }} - {{ cw.workout_date }}</li>
+    {% for element in workout %}
+    <li>{{ element.workout_description }}</li>
+    <li>{{ element.workout_date }}</li>
+    {% else %}
+    <li>No workout selected.</li>
+    {% endfor %}
 </ul>
 
 

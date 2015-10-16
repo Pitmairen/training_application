@@ -10,7 +10,7 @@ import spark.Request;
 import spark.Response;
 
 /**
- * A workout that have been selected in the GUI.
+ * A specific workout that have been selected in the GUI.
  *
  * @author Kristian Honningsvag.
  */
@@ -23,9 +23,10 @@ public class SelectedWorkout extends TemplateRoute {
     @Override
     public ModelAndView handle() throws SQLException {
 
-        List<DataItem> workouts = getDataSource().getNextWorkoutsForCustomer(getCurrentUser().getId(), 10);
+        // List<DataItem> workout = getDataSource().getWorkout(getWorkoutId(), getWorkoutProgramId());
+        List<DataItem> workout = getDataSource().getWorkout(1, 1);
 
-        setData("workouts", workouts);
+        setData("workout", workout);
 
         return renderTemplate("selected_workout");
     }
