@@ -3,12 +3,12 @@ package no.hials.trainingapp;
 import no.hials.trainingapp.auth.AuthenticationFilter;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.DataSourceSqlite;
-import no.hials.trainingapp.routes.SelectedWorkout;
+import no.hials.trainingapp.routes.Workout;
 import no.hials.trainingapp.routes.Login;
 import no.hials.trainingapp.routes.Logout;
-import no.hials.trainingapp.routes.NextWorkouts;
+import no.hials.trainingapp.routes.Workouts;
 import no.hials.trainingapp.routes.SiteIndex;
-import no.hials.trainingapp.routes.WorkoutLog;
+import no.hials.trainingapp.routes.History;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
 import no.hials.trainingapp.routing.TemplateEngines;
@@ -51,9 +51,9 @@ public class Main {
         r.get("/", SiteIndex.class);
         r.getAndPost("/login", Login.class);
         r.getAndPost("/logout", Logout.class);
-        r.get("/workout", NextWorkouts.class);
-        r.get("/stats", WorkoutLog.class);
-        r.get("/selected_workout/:id/:id2", SelectedWorkout.class);
+        r.get("/workouts", Workouts.class);
+        r.get("/history", History.class);
+        r.get("/workout/:id/:id2", Workout.class);
 
         r.get("/tos", new SimpleTemplateRoute("tos"));
         r.get("/help", new SimpleTemplateRoute("help"));

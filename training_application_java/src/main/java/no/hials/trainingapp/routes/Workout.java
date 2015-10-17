@@ -14,9 +14,9 @@ import spark.Response;
  *
  * @author Kristian Honningsvag.
  */
-public class SelectedWorkout extends TemplateRoute {
+public class Workout extends TemplateRoute {
 
-    public SelectedWorkout(DataSource datasource, Request req, Response resp) {
+    public Workout(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
     }
 
@@ -27,6 +27,6 @@ public class SelectedWorkout extends TemplateRoute {
 
         setData("workout", workout);
 
-        return renderTemplate("selected_workout");
+        return renderTemplate("workout");
     }
 }

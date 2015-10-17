@@ -1,9 +1,8 @@
 {% extends "layout/default" %}
 
-{% block "title" %}Selected workout{% endblock %}
+{% block "title" %}Workout{% endblock %}
 
 {% block "content" %}
-
 
 <h2>{% for element in workout %}
     {{ element.workout_name }}
@@ -20,6 +19,5 @@
     <li>No workout selected.</li>
     {% endfor %}
 </ul>
-
 
 {% endblock %}
