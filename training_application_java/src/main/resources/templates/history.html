@@ -1,20 +1,17 @@
 {% extends "layout/default" %}
 
-{% block "title" %}Workout log{% endblock %}
+{% block "title" %}History{% endblock %}
 
 {% block "content" %}
 
-
-<h2>Workout log</h2>
+<h2>History</h2>
 
 <ul>
-{% for wk in workouts %}
+    {% for wk in workouts %}
     <li><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_name }} - {{ wk.workout_date }}</a></li>
-{% else %}
-    <li>You have not completed any workouts.</li>
-{% endfor %}
+    {% else %}
+    <p>You have not completed any workouts.</p>
+    {% endfor %}
 </ul>
-
-
 
 {% endblock %}

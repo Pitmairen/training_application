@@ -2,30 +2,30 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block "title" %}{% endblock %} :: Training App</title>
+        <title>{% block "title" %}{% endblock %} :: Training Application</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/static/training_application.css">
         <script src="/static/jquery.js"></script>
     </head>
     <body>
         <header>
-           <ul>
-            <a href="/"><li>Home</li></a>
-            <a href="/workout"><li>Workout</li></a>
-            <a href="/stats"><li>Stats</li></a>
-            <a href="/about"><li>About</li></a>
-            {% if currentUser.isAuthenticated %}
-                <li>{{ currentUser.getName }} - <a href="/logout">logout</a></li>
-            {% endif %}
-           </ul> 
+            <ul>
+                <a href="/"><li>Profile</li></a>
+                <a href="/workouts"><li>Workouts</li></a>
+                <a href="/history"><li>History</li></a>
+                {% if currentUser.isAuthenticated %}
+                <a href="/logout"><li>Logout</li></a>
+                {% endif %}
+            </ul> 
         </header>
         <main>
-        {% block "content" %}{% endblock %}
+            {% block "content" %}{% endblock %}
         </main>
         <footer>
             <ul>
                 <a href="/help"><li>Help</li></a>
-                <a href="/tos"><li>TOS</li></a>
+                <a href="/about"><li>About</li></a>
+                <a href="/tos"><li>ToS</li></a>
             </ul>
         </footer>
         <script src="/static/training_application.js"></script>

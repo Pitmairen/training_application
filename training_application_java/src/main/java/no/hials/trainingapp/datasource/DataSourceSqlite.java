@@ -15,40 +15,33 @@ import java.util.List;
  *
  * @author Per Myren <progrper@gmail.com>
  */
-public class DataSourceSqlite implements DataSource
-{
+public class DataSourceSqlite implements DataSource {
 
     private final HikariDataSource mPool;
 
-    public DataSourceSqlite(String connectionString) throws ClassNotFoundException
-    {
+    public DataSourceSqlite(String connectionString) throws ClassNotFoundException {
         mPool = createConnectionPool(connectionString);
     }
 
     @Override
-    public DataItem getCustomerByUsername(String username) throws SQLException
-    {
+    public DataItem getCustomerByUsername(String username) throws SQLException {
 
-       return querySingle(
+        return querySingle(
                 "select * from customer WHERE customer_email=?", username);
-
     }
-    
-    
+
     @Override
-    public void storeNewCustomer(DataItem data) throws SQLException
-    {
-        try(Connection con = mPool.getConnection()){
-            
+    public void storeNewCustomer(DataItem data) throws SQLException {
+        try (Connection con = mPool.getConnection()) {
+
             String query = "INSERT INTO customer "
                     + "(customer_first_name, customer_last_name,"
                     + "customer_email, customer_pw, customer_sex,"
                     + "customer_program_id, customer_weight,"
                     + "customer_height, customer_date_of_birth) "
                     + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, date('now'))";
-            
-            
-            executeUpdate(con, query, 
+
+            executeUpdate(con, query,
                     data.get("customer_first_name"),
                     data.get("customer_last_name"),
                     data.get("customer_email"),
@@ -60,11 +53,9 @@ public class DataSourceSqlite implements DataSource
         }
 
     }
-    
 
     @Override
-    public List<DataItem> getNextWorkoutsForCustomer(int customerId, int limit) throws SQLException
-    {
+    public List<DataItem> getNextWorkoutsForCustomer(int customerId, int limit) throws SQLException {
 
         return queryList(
                 "SELECT w.* FROM workout AS w "
@@ -72,12 +63,10 @@ public class DataSourceSqlite implements DataSource
                 + "WHERE u.customer_id=? AND w.workout_done=? "
                 + "LIMIT ?",
                 customerId, false, limit);
-
     }
 
     @Override
-    public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException
-    {
+    public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException {
         return queryList(
                 "SELECT w.* FROM workout AS w "
                 + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
@@ -87,31 +76,40 @@ public class DataSourceSqlite implements DataSource
                 customerId, true, limit);
     }
 
-    
-    private List<DataItem> queryList(String query, Object... params) throws SQLException{
-        
-        try(Connection con = mPool.getConnection()){
-            
+    /**
+     * XXX
+     */
+    @Override
+    public List<DataItem> getWorkout(int workoutId, int workoutProgramId) throws SQLException {
+        return queryList(
+                "SELECT * FROM workout "
+                + "WHERE workout_program_id=? AND workout_id=? ",
+                workoutId, workoutProgramId);
+    }
+
+    private List<DataItem> queryList(String query, Object... params) throws SQLException {
+
+        try (Connection con = mPool.getConnection()) {
+
             ResultSet res = executeQuery(con, query, params);
-            
+
             return createResultMap(res);
         }
     }
-    
-    private DataItem querySingle(String query, Object... params) throws SQLException{
-        
-        try(Connection con = mPool.getConnection()){
-            
+
+    private DataItem querySingle(String query, Object... params) throws SQLException {
+
+        try (Connection con = mPool.getConnection()) {
+
             ResultSet res = executeQuery(con, query, params);
-            
+
             List<DataItem> data = createResultMap(res);
-            
+
             return data.size() > 0 ? data.get(0) : null;
         }
- 
-    }    
-    private List<DataItem> createResultMap(ResultSet rs) throws SQLException
-    {
+    }
+
+    private List<DataItem> createResultMap(ResultSet rs) throws SQLException {
 
         ArrayList<DataItem> res = new ArrayList<>();
 
@@ -125,20 +123,17 @@ public class DataSourceSqlite implements DataSource
             }
             res.add(it);
         }
-
         return res;
     }
 
-    private ResultSet executeQuery(Connection con, String query) throws SQLException
-    {
+    private ResultSet executeQuery(Connection con, String query) throws SQLException {
         Statement statement = con.createStatement();
 
         return statement.executeQuery(query);
     }
 
-    private ResultSet executeQuery(Connection con, String query, Object... params) 
-            throws SQLException
-    {
+    private ResultSet executeQuery(Connection con, String query, Object... params)
+            throws SQLException {
         PreparedStatement statement = con.prepareStatement(query);
 
         bindParams(statement, params);
@@ -146,27 +141,22 @@ public class DataSourceSqlite implements DataSource
         return statement.executeQuery();
     }
 
-    private int executeUpdate(Connection con, String query, Object... params) 
-            throws SQLException
-    {
+    private int executeUpdate(Connection con, String query, Object... params)
+            throws SQLException {
         PreparedStatement statement = con.prepareStatement(query);
 
         bindParams(statement, params);
 
         return statement.executeUpdate();
     }
-    
-    
-    private void bindParams(PreparedStatement statement, Object... params) throws SQLException
-    {
+
+    private void bindParams(PreparedStatement statement, Object... params) throws SQLException {
         for (int i = 0; i < params.length; i++) {
             statement.setObject(i + 1, params[i]);
         }
-
     }
 
-    private HikariDataSource createConnectionPool(String connectionString) throws ClassNotFoundException
-    {
+    private HikariDataSource createConnectionPool(String connectionString) throws ClassNotFoundException {
 
         Class.forName("org.sqlite.JDBC");
         HikariConfig config = new HikariConfig();
@@ -177,7 +167,5 @@ public class DataSourceSqlite implements DataSource
 
         HikariDataSource ds = new HikariDataSource(config);
         return ds;
-
     }
-
 }

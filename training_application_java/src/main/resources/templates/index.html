@@ -1,7 +1,10 @@
 {% extends "layout/default" %}
 
+{% block "title" %}Profile{% endblock %}
+
 {% block "content" %}
 
-<h1>Welcome</h1>
+<h2>Hi {{ currentUser.getName }}</h2>
+<p>This is your pofile page.</p>
 
 {% endblock %}

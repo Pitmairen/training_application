@@ -14,23 +14,19 @@ import spark.Response;
  *
  * @author Per Myren <progrper@gmail.com>
  */
-public class WorkoutLog extends TemplateRoute
-{
+public class History extends TemplateRoute {
 
-    public WorkoutLog(DataSource datasource, Request req, Response resp)
-    {
+    public History(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
     }
 
     @Override
-    public ModelAndView handle() throws SQLException
-    {
+    public ModelAndView handle() throws SQLException {
 
-        List<DataItem> workouts = getDataSource()
-                .getWorkoutLogForCustomer(getCurrentUser().getId(), 10);
+        List<DataItem> workouts = getDataSource().getWorkoutLogForCustomer(getCurrentUser().getId(), 10);
 
         setData("workouts", workouts);
 
-        return renderTemplate("workout-log");
+        return renderTemplate("history");
     }
 }

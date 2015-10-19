@@ -47,4 +47,13 @@ public interface DataSource {
      */
     public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException;
 
+    /**
+     * Returns a specific workout.
+     *
+     * @param workoutId The workout ID.
+     * @param workoutProgramId The workout program ID.
+     * @return a specific workout.
+     * @throws SQLException
+     */
+    public List<DataItem> getWorkout(int workoutId, int workoutProgramId) throws SQLException;
 }
