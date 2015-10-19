@@ -3,23 +3,20 @@
 {% block "title" %}Login{% endblock %}
 {% block "content" %}
 
-
-<h1>Login</h1>
+<h2>Login</h2>
 
 {% if validationErrors is not empty %}
-    <ul>
+<ul>
     {% for err in validationErrors %}
-        <li>{{ err}}</li>
+    <li>{{ err}}</li>
     {% endfor %}
-    </ul>
+</ul>
 {% endif %}
 
 <form action="" method="POST">
     <input type="text" name="username" required maxlength="100" placeholder="Username" value={{ formData.username }}>
-    <input type="password" name="password" required placeholder="Password">
-
+           <input type="password" name="password" required placeholder="Password">
     <input type="submit" value="Login">
 </form>
-
 
 {% endblock %}

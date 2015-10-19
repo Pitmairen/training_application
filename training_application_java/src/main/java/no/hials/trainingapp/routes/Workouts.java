@@ -14,23 +14,19 @@ import spark.Response;
  *
  * @author Per Myren <progrper@gmail.com>
  */
-public class NextWorkouts extends TemplateRoute
-{
+public class Workouts extends TemplateRoute {
 
-    public NextWorkouts(DataSource datasource, Request req, Response resp)
-    {
+    public Workouts(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
     }
 
     @Override
-    public ModelAndView handle() throws SQLException
-    {
+    public ModelAndView handle() throws SQLException {
 
-        List<DataItem> workouts = getDataSource()
-                .getNextWorkoutsForCustomer(getCurrentUser().getId(), 10);
+        List<DataItem> workouts = getDataSource().getNextWorkoutsForCustomer(getCurrentUser().getId(), 10);
 
         setData("workouts", workouts);
 
-        return renderTemplate("workout-schedule");
+        return renderTemplate("workouts");
     }
 }

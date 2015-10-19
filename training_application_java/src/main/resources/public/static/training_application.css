@@ -1,79 +1,79 @@
-html{
-    background: #3d3d3d;
+
+html {
+    box-sizing: border-box;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
 }
 
-body{
-	color: #ffff00;
+body {
+    background: #eaeaea;
+    color: #242424;
 }
 
-main, header, footer{
-    background: #0b0060;
+header, footer {
+    background: #45619d;
     text-align: center;
-    padding: 15px 0 15px 0;
-    margin: 0 25% 20px 25%;
+    margin: 1rem 25% 1rem 25%;
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+header ul, footer ul {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    padding: 0 0 0 0;
+}
+header li, footer li {
+    display: inline-block;
+    margin: 0.1rem 0 0.1rem 0;
+    padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+    background: #b6b6b6;
+    text-decoration: none;
+    color: #242424;
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+header li:hover, footer li:hover {
+    background: #388dcb;
+    color: #000000;
+}
+
+main {
+    background: #ffffff;
+    text-align: center;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    margin: 1rem 25% 1rem 25%;
     border: 2px solid #000000;
     border-radius: 5px;
 }
 
-header, footer{
-    padding: 0;
-}
-
-ul{
-    list-style-type: none;
-    padding: 0;
-    margin: 5px 5px 10px 5px;
-}
-li {
+.table {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 0 1rem 0;
     display: inline-block;
-    margin: 10px 5px 0 5px;
-    padding: 5px 30px 5px 30px;
-    border: 3px solid #000000;
-    background: #222266;
+    border: 2px solid #000000;
+    background: #b6b6b6;
     border-radius: 5px;
 }
-
-li:hover{
-	background: #444488;
+.table.center {
+    margin-left: auto; 
+    margin-right: auto;
 }
-
-h1, h2 , ul{ 
-    color: #ffff00;
+.table tr {
+    padding: 0 0 0 0;
 }
-
-p{
-    margin: 0 30px 0 30px;
+.table tr:hover {
+    background: #388dcb;
+    color: #000000;
 }
-
-a{
-	color: #00ffff;
+.table td {
+    border: 1px solid #000000;
+    padding: 0 0 0 0;
 }
-
-fieldset{
-    margin: 5px 50px 5px 50px;
+.table a {
+    text-decoration: none;
+    color: #242424;
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 0.2rem 1rem 0.2rem 0;
 }
-
-legend{
-    
-}
-
-input{
-	margin: 3px;
-}
-
-button{
-	padding: 8px 32px 8px 32px;
-	background: #ffff00;
-	border-radius: 5px;
-	/*text-shadow: 0px 0px 6px #222266;*/
-	box-shadow: 0px 0px 2px 2px #222222;
-}
-
-button:active {
-  background: #dddd00;
-}
-/*
-button:focus {
-  border: 0px solid #000;
-}
-*/
