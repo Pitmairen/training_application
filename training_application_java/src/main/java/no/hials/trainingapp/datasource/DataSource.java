@@ -20,6 +20,14 @@ public interface DataSource {
     public DataItem getCustomerByUsername(String username) throws SQLException;
 
     /**
+     * Store a new customer in the data source
+     *
+     * @param data the data that represents the user
+     * @throws SQLException
+     */
+    public void storeNewCustomer(DataItem data) throws SQLException;
+
+    /**
      * Returns a list of the user's upcoming workouts
      *
      * @param customerId the customer id

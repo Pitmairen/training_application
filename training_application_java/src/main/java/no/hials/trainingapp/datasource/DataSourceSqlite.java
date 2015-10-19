@@ -31,6 +31,30 @@ public class DataSourceSqlite implements DataSource {
     }
 
     @Override
+    public void storeNewCustomer(DataItem data) throws SQLException {
+        try (Connection con = mPool.getConnection()) {
+
+            String query = "INSERT INTO customer "
+                    + "(customer_first_name, customer_last_name,"
+                    + "customer_email, customer_pw, customer_sex,"
+                    + "customer_program_id, customer_weight,"
+                    + "customer_height, customer_date_of_birth) "
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, date('now'))";
+
+            executeUpdate(con, query,
+                    data.get("customer_first_name"),
+                    data.get("customer_last_name"),
+                    data.get("customer_email"),
+                    data.get("customer_pw"),
+                    data.get("customer_sex"),
+                    1,
+                    10,
+                    34);
+        }
+
+    }
+
+    @Override
     public List<DataItem> getNextWorkoutsForCustomer(int customerId, int limit) throws SQLException {
 
         return queryList(
@@ -115,6 +139,15 @@ public class DataSourceSqlite implements DataSource {
         bindParams(statement, params);
 
         return statement.executeQuery();
+    }
+
+    private int executeUpdate(Connection con, String query, Object... params)
+            throws SQLException {
+        PreparedStatement statement = con.prepareStatement(query);
+
+        bindParams(statement, params);
+
+        return statement.executeUpdate();
     }
 
     private void bindParams(PreparedStatement statement, Object... params) throws SQLException {

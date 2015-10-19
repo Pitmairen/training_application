@@ -1,0 +1,49 @@
+{% extends "layout/default" %}
+
+{% block "title" %}Add New Customer{% endblock %}
+
+{% block "content" %}
+
+    {% if validationErrors is not empty %}
+        <ul>
+        {% for err in validationErrors %}
+            <li>{{ err}}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="" method="POST">
+
+        <fieldset>
+            <legend><label for="firstName">First Name:</label></legend>
+            <input id="firstName" 
+                   name="firstName" type="text" 
+                                    placeholder="First name"
+                                    value="{{ formData.firstName }}">
+        </fieldset>
+
+        <fieldset>
+            <legend><label for="lastName">Last Name:</label></legend>
+            <input type="text" name="lastName"  placeholder="Last name"
+                                    value="{{ formData.lastName }}">
+        </fieldset>
+
+        <fieldset>
+            <legend><label for="userEmail">User email:</label></legend>
+            <input type="text" name="userEmail"  placeholder="User email"
+                                    value="{{ formData.userEmail }}">
+        </fieldset>
+
+        <fieldset>
+            <legend><label for="userPassword">User password:</label></legend>
+            <input type="text" name="userPassword"  placeholder="User password">
+        </fieldset>
+
+        <div>
+        <input type="submit" value="Create User">
+        </div>
+
+    </form>
+
+
+{% endblock %}

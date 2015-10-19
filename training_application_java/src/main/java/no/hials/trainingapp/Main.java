@@ -8,6 +8,8 @@ import no.hials.trainingapp.routes.Login;
 import no.hials.trainingapp.routes.Logout;
 import no.hials.trainingapp.routes.Workouts;
 import no.hials.trainingapp.routes.SiteIndex;
+import no.hials.trainingapp.routes.admin.AddNewCustomer;
+import no.hials.trainingapp.routes.admin.AdminIndex;
 import no.hials.trainingapp.routes.History;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
@@ -58,5 +60,10 @@ public class Main {
         r.get("/tos", new SimpleTemplateRoute("tos"));
         r.get("/help", new SimpleTemplateRoute("help"));
         r.get("/about", new SimpleTemplateRoute("about"));
+
+        // Admin 
+        r.get("/admin", AdminIndex.class);
+        r.getAndPost("/admin/add-new-customer", AddNewCustomer.class);
+        
     }
 }
