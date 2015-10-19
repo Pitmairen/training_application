@@ -1,6 +1,7 @@
 package no.hials.trainingapp.routes.admin;
 
 import java.sql.SQLException;
+import no.hials.trainingapp.auth.Security;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.routing.FormRoute;
@@ -29,10 +30,13 @@ public class AddNewCustomer extends FormRoute
             if(!hasValidationErrors()){
                 DataItem d = new DataItem();
                 Request r = getRequest();
+                
+                String pwHash = Security.hashPassword(r.queryParams("userPassword"));
+                
                 d.put("customer_first_name", r.queryParams("firstName"));
                 d.put("customer_last_name", r.queryParams("lastName"));
                 d.put("customer_email", r.queryParams("userEmail"));
-                d.put("customer_pw", r.queryParams("userPassword"));
+                d.put("customer_pw", pwHash);
                 d.put("customer_sex", "m");
 
                 getDataSource().storeNewCustomer(d);
