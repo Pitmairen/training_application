@@ -56,8 +56,8 @@ public class DataSourceSqlite implements DataSource {
      * XXX
      */
     @Override
-    public List<DataItem> getWorkout(int workoutId, int workoutProgramId) throws SQLException {
-        return queryList(
+    public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException {
+        return querySingle(
                 "SELECT * FROM workout "
                 + "WHERE workout_program_id=? AND workout_id=? ",
                 workoutId, workoutProgramId);

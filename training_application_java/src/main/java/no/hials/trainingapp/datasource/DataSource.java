@@ -47,5 +47,5 @@ public interface DataSource {
      * @return a specific workout.
      * @throws SQLException
      */
-    public List<DataItem> getWorkout(int workoutId, int workoutProgramId) throws SQLException;
+    public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException;
 }
