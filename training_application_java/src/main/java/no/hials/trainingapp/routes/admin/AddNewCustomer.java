@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import no.hials.trainingapp.auth.Security;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
+import no.hials.trainingapp.datasource.Transaction;
 import no.hials.trainingapp.routing.FormRoute;
 import spark.ModelAndView;
 import spark.Request;
@@ -39,9 +40,12 @@ public class AddNewCustomer extends FormRoute
                 d.put("customer_pw", pwHash);
                 d.put("customer_sex", "m");
 
-                getDataSource().storeNewCustomer(d);
-
-
+                getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
+                    
+                    ds.storeNewCustomer(d);
+                    tx.commit();
+                });
+                
                 getResponse().redirect("/admin");
                 Spark.halt();
             }
