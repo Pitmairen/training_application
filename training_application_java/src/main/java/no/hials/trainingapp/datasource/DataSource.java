@@ -58,6 +58,14 @@ public interface DataSource {
     public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException;
 
     /**
+     * Store a new exercise to the data source
+     *
+     * @param data the data that represents the exercise
+     * @throws SQLException
+     */
+    public void storeNewExercise(DataItem data) throws SQLException;
+
+    /**
      * Wraps the transaction runner in a database transaction.
      *
      * If everything goes well the runner must commit the transaction before it

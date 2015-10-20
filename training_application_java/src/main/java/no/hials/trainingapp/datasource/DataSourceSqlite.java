@@ -114,6 +114,19 @@ public class DataSourceSqlite implements DataSource {
     }
 
     @Override
+    public void storeNewExercise(DataItem data) throws SQLException {
+
+        String query = "INSERT INTO exercise "
+                + "(exercise_name, exercise_description)"
+                + "VALUES(?, ?)";
+
+        executeUpdate(query,
+                data.get("exercise_name"),
+                data.get("exercise_description"));
+
+    }
+
+    @Override
     public void runTransaction(TransactionRunner runner) throws SQLException {
         if (mTransaction != null) {
             throw new RuntimeException("Nested transactions not suppored.");

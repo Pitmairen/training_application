@@ -11,6 +11,7 @@ import no.hials.trainingapp.routes.SiteIndex;
 import no.hials.trainingapp.routes.admin.AddNewCustomer;
 import no.hials.trainingapp.routes.admin.AdminIndex;
 import no.hials.trainingapp.routes.History;
+import no.hials.trainingapp.routes.admin.AddExercise;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
 import no.hials.trainingapp.routing.TemplateEngines;
@@ -66,6 +67,7 @@ public class Main {
         // Admin 
         r.get("/admin", AdminIndex.class);
         r.getAndPost("/admin/add-new-customer", AddNewCustomer.class);
-        
+        r.getAndPost("/admin/add-new-exercise", AddExercise.class);
+
     }
 }

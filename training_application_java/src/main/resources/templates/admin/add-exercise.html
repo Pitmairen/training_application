@@ -1,0 +1,37 @@
+{% extends "layout/default" %}
+
+{% block "title" %}Add New Exercise{% endblock %}
+
+{% block "content" %}
+
+    {% if validationErrors is not empty %}
+        <ul>
+        {% for err in validationErrors %}
+            <li>{{ err}}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="" method="POST">
+
+        <fieldset>
+            <legend><label for="exerciseName">Exercise Name:</label></legend>
+            <input id="exerciseName" 
+                   name="exerciseName" type="text" 
+                                    placeholder="Exercise name"
+                                    value="{{ formData.exerciseName }}">
+        </fieldset>
+
+        <fieldset>
+            <legend><label for="exerciseDesc">Description:</label></legend>
+            <textarea name="exerciseDesc" placeholder="Description"></textarea>
+        </fieldset>
+
+        <div>
+        <input type="submit" value="Add Exercise">
+        </div>
+
+    </form>
+
+
+{% endblock %}
