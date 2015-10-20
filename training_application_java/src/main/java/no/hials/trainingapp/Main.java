@@ -34,7 +34,9 @@ public class Main {
      */
     public static void main(String[] args) throws ClassNotFoundException {
 
-        sDataSource = new DataSourceSqlite("jdbc:sqlite:/tmp/trainingdbjava.db");
+        DataSourceSqlite.initPool("jdbc:sqlite:/tmp/trainingdbjava.db");
+        sDataSource = new DataSourceSqlite();
+        
         sRouter = new Router(sDataSource, TemplateEngines.createPebbleEngine());
 
         addRoutes(sRouter);

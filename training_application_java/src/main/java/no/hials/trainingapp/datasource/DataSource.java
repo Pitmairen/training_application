@@ -56,4 +56,18 @@ public interface DataSource {
      * @throws SQLException
      */
     public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException;
+
+    /**
+     * Wraps the transaction runner in a database transaction.
+     *
+     * If everything goes well the runner must commit the transaction before it
+     * returns.
+     *
+     * The transaction will automatically rolled back after the runner returns.
+     *
+     * @param runner the transaction runner
+     * @throws SQLException
+     */
+    public void runTransaction(TransactionRunner runner) throws SQLException;
+
 }
