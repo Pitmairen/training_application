@@ -58,12 +58,48 @@ public interface DataSource {
     public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException;
 
     /**
+     * Stores a new workout in the data source
+     *
+     * @param data the data that represents the workout
+     * @return the data item representing the workout with added primary key
+     * @throws SQLException
+     */
+    public DataItem storeNewWorkout(DataItem data) throws SQLException;
+
+    
+    /**
+     * Stores new sets for a workout
+     *
+     * @param sets a data representing the sets
+     * @throws SQLException
+     */
+    public void storeNewWorkoutSets(List<DataItem> sets) throws SQLException;
+    
+    
+    /**
      * Store a new exercise to the data source
      *
      * @param data the data that represents the exercise
      * @throws SQLException
      */
     public void storeNewExercise(DataItem data) throws SQLException;
+
+    /**
+     * Returns all exercises
+     *
+     * @return a list of exercises
+     * @throws SQLException
+     */
+    public List<DataItem> getAllExercises() throws SQLException;
+
+    /**
+     * Returns a training program by id
+     *
+     * @param id the id of the program
+     * @return data representing the program
+     * @throws SQLException
+     */
+    public DataItem getProgramById(int id) throws SQLException;
 
     /**
      * Wraps the transaction runner in a database transaction.

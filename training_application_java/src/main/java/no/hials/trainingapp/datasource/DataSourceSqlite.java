@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,6 +115,48 @@ public class DataSourceSqlite implements DataSource {
     }
 
     @Override
+    public DataItem storeNewWorkout(DataItem data) throws SQLException {
+
+        String query = "INSERT INTO workout "
+                + "(workout_name, workout_description,"
+                + "workout_date, workout_program_id) "
+                + "VALUES(?, ?, ?, ?)";
+
+        int id = executeInsert(query,
+                data.get("workout_name"),
+                data.get("workout_description"),
+                data.get("workout_date"),
+                data.get("workout_program_id"));
+
+        data.put("workout_id", id);
+        return data;
+    }
+    
+    
+    @Override
+    public void storeNewWorkoutSets(List<DataItem> sets) throws SQLException {
+
+        String query = "INSERT INTO exercise_set "
+                + "(set_nr, set_exercise_id, set_workout_id,"
+                + "set_reps_planned, set_weight_planned, "
+                + "set_duration_planned)"
+                + "VALUES(?, ?, ?, ?, ?, ?)";
+
+        for(DataItem set: sets){
+            executeUpdate(query,
+                set.get("set_nr"),
+                set.get("set_exercise_id"),
+                set.get("set_workout_id"),
+                set.get("set_reps_planned"),
+                set.get("set_weight_planned"),
+                set.get("set_duration_planned") ); 
+        }
+
+
+    }
+    
+    
+    @Override
     public void storeNewExercise(DataItem data) throws SQLException {
 
         String query = "INSERT INTO exercise "
@@ -124,6 +167,17 @@ public class DataSourceSqlite implements DataSource {
                 data.get("exercise_name"),
                 data.get("exercise_description"));
 
+    }
+
+    @Override
+    public List<DataItem> getAllExercises() throws SQLException {
+        return queryList("SELECT * FROM exercise ORDER BY exercise_name ASC");
+    }
+
+    @Override
+    public DataItem getProgramById(int id) throws SQLException {
+        return querySingle(
+                "SELECT * FROM program WHERE program_id=?", id);
     }
 
     @Override
@@ -199,7 +253,31 @@ public class DataSourceSqlite implements DataSource {
             return executeUpdate(con, query, params);
         }
     }
+    
+    
+    /**
+     * Executes the query. This method should be used for queries that does not
+     * return a result set, but need the auto generated id that is
+     * created when the row is inserted.
+     * It will make sure to use the correct connection if
+     * the data source is in a transaction.
+     *
+     * If not in a transaction the connection will automatically be returned to
+     * the pool after this method returns.
+     */
+    private int executeInsert(String query, Object... params)
+            throws SQLException {
+        // If we are in a transaction use the transaction connection.
+        if (mTransaction != null) {
+            return executeInsert(mTransaction.getConnection(), query, params);
+        }
 
+        try (Connection con = sPool.getConnection()) {
+            return executeInsert(con, query, params);
+        }
+    }
+    
+    
     /**
      * Returns a list of data items for the giver query using the provided
      * connection
@@ -235,15 +313,35 @@ public class DataSourceSqlite implements DataSource {
     }
 
     /**
-     * Executes the statement using the provided connection
+     * Executes the statement using the provided connection. Returns
+     * the number of affected rows.
      */
     private int executeUpdate(Connection con, String query, Object... params)
             throws SQLException {
         PreparedStatement statement = con.prepareStatement(query);
 
         bindParams(statement, params);
-
         return statement.executeUpdate();
+    }
+
+    /**
+     * Executes the statement using the provided connection. Returns the
+     * auto generated id
+     */
+    private int executeInsert(Connection con, String query, Object... params)
+            throws SQLException {
+        PreparedStatement statement = con.prepareStatement(query,
+                Statement.RETURN_GENERATED_KEYS);
+
+        bindParams(statement, params);
+
+        statement.executeUpdate();
+        ResultSet rs = statement.getGeneratedKeys();
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return -1;
+        
     }
 
     /**
