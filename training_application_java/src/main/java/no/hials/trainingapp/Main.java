@@ -1,5 +1,7 @@
 package no.hials.trainingapp;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import no.hials.trainingapp.auth.AuthenticationFilter;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.DataSourceSqlite;
@@ -15,6 +17,7 @@ import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
 import no.hials.trainingapp.routing.TemplateEngines;
 import spark.Spark;
+import spark.servlet.SparkApplication;
 
 /**
  * The main entry point of the application.
@@ -24,7 +27,7 @@ import spark.Spark;
  *
  * @author Per Myren <progrper@gmail.com>
  */
-public class Main {
+public class Main implements SparkApplication {
 
     private static DataSource sDataSource;
     private static Router sRouter;
@@ -36,7 +39,7 @@ public class Main {
 
         DataSourceSqlite.initPool("jdbc:sqlite:/tmp/trainingdbjava.db");
         sDataSource = new DataSourceSqlite();
-        
+
         sRouter = new Router(sDataSource, TemplateEngines.createPebbleEngine());
 
         addRoutes(sRouter);
@@ -66,6 +69,17 @@ public class Main {
         // Admin 
         r.get("/admin", AdminIndex.class);
         r.getAndPost("/admin/add-new-customer", AddNewCustomer.class);
-        
+
+    }
+
+    @Override
+    public void init() {
+
+        try {
+            main(null);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
     }
 }
