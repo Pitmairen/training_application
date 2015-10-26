@@ -40,8 +40,23 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException {
 
-        DataSourceSqlite.initPool("jdbc:sqlite:/tmp/trainingdbjava.db");
-        sDataSource = new DataSourceSqlite();
+        String ds = System.getenv("DATA_SOURCE");
+        String conString = System.getenv("DATA_SOURCE_CS");
+        
+        System.out.println(ds);
+        
+        if(ds == null || ds.equals("sqlite")){
+           
+            if(conString == null){
+                conString = "jdbc:sqlite:/tmp/trainingdbjava.db";
+            }
+            
+            DataSourceSqlite.initPool(conString);
+            sDataSource = new DataSourceSqlite();
+        }else if(ds.equals("mssql")){
+            
+            
+        }
         
 
         sRouter = new Router(sDataSource, TemplateEngines.createPebbleEngine());
