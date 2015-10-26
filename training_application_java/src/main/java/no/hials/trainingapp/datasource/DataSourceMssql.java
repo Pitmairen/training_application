@@ -22,8 +22,11 @@ import java.util.ArrayList;
 
 public class DataSourceMssql implements DataSource {
 
-    private HikariDataSource mPool;
+    private HikariDataSource sPool;
     private Connection con;
+
+    // Used when a data source is used in a transaction
+    private final MssqlTransaction mTransaction;
 
     private final String url = "jdbc:sqlserver://";
     private final String serverName = "tmh-touchpc\\tmserver";
@@ -36,14 +39,15 @@ public class DataSourceMssql implements DataSource {
         return url + this.serverName + ":" + this.portNumber + ";databaseName=" + this.databaseName + ";integratedSecurity=" + this.integratedSecurity + ";selectMethod=" + this.selectMethod + ";";
     }
 
-    public DataSourceMssql() throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
-        mPool = createConnectionPool(getConnectionUrl());
-        con = mPool.getConnection();
+    public DataSourceMssql() throws ClassNotFoundException {
+        sPool = createConnectionPool(getConnectionUrl());
 
-//        Driver d = (Driver) Class.forName("com.microsoft.jdbc.sqlserver.SQLServerDriver").newInstance();
-//        DriverManager.registerDriver(d);
-//        con = DriverManager.getConnection(getConnectionUrl());
-        System.out.println(con);
+        mTransaction = null;
+
+    }
+
+    private DataSourceMssql(MssqlTransaction trans) {
+        mTransaction = trans;
     }
 
     public List<DataItem> getCustomers() throws SQLException {
@@ -51,8 +55,8 @@ public class DataSourceMssql implements DataSource {
     }
 
     @Override
-    public List<DataItem> getWorkout(int workoutId, int workoutProgramId) throws SQLException {
-        return queryList(
+    public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException {
+        return querySingle(
                 "SELECT * FROM workout "
                 + "WHERE workout_program_id=? AND workout_id=? ",
                 workoutId, workoutProgramId);
@@ -87,29 +91,47 @@ public class DataSourceMssql implements DataSource {
                 customerId, true);
     }
 
+    /**
+     * Returns a list of data items for the giver query.
+     *
+     * This method will make sure to use the correct connection if the data
+     * source is in a transaction.
+     *
+     * If not in a transaction the connection will automatically be returned to
+     * the pool after this method returns.
+     */
     private List<DataItem> queryList(String query, Object... params) throws SQLException {
 
-        ResultSet res = executeQuery(con, query, params);
+        // If we are in a transaction use the transaction connection.
+        if (mTransaction != null) {
+            return queryList(mTransaction.getConnection(), query, params);
+        }
 
-        return createResultMap(res);
-
+        try (Connection con = sPool.getConnection()) {
+            return queryList(con, query, params);
+        }
     }
 
-//        private List<DataItem> queryList(String query) throws SQLException {
-//        
-//        ResultSet res = executeQuery(con, query);
-//        
-//        return createResultMap(res);
-//        
-//    }
+    /**
+     * Returns a single data item for the given query. This method should be
+     * used when the query always returns a single row.
+     *
+     * This method will make sure to use the correct connection if the data
+     * source is in a transaction.
+     *
+     * If not in a transaction the connection will automatically be returned to
+     * the pool after this method returns.
+     */
     private DataItem querySingle(String query, Object... params) throws SQLException {
 
-        ResultSet res = executeQuery(con, query, params);
+        // If we are in a transaction use the transaction connection.
+        if (mTransaction != null) {
+            return querySingle(mTransaction.getConnection(), query, params);
+        }
 
-        List<DataItem> data = createResultMap(res);
-
-        return data.size() > 0 ? data.get(0) : null;
-
+        try (Connection con = sPool.getConnection()) {
+            return querySingle(con, query, params);
+        }
     }
 
     private List<DataItem> createResultMap(ResultSet rs) throws SQLException {
@@ -163,6 +185,104 @@ public class DataSourceMssql implements DataSource {
         HikariDataSource ds = new HikariDataSource(config);
         return ds;
 
+    }
+
+    @Override
+    public void storeNewCustomer(DataItem data) throws SQLException {
+
+        String query = "INSERT INTO customer "
+                + "(customer_first_name, customer_last_name,"
+                + "customer_email, customer_pw, customer_sex,"
+                + "customer_program_id, customer_weight,"
+                + "customer_height, customer_date_of_birth) "
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, date('now'))";
+
+        executeUpdate(query,
+                data.get("customer_first_name"),
+                data.get("customer_last_name"),
+                data.get("customer_email"),
+                data.get("customer_pw"),
+                data.get("customer_sex"),
+                1,
+                10,
+                34);
+
+    }
+
+    /**
+     * Begins a new database transaction. If something unexpected happens when
+     * creating the connection it will make sure the connection is returned to
+     * the pool.
+     */
+    private MssqlTransaction beginTransaction() throws SQLException {
+        Connection con = sPool.getConnection();
+        try {
+            return new MssqlTransaction(con);
+        } catch (Exception e) {
+            // If something happens make sure the connection is closed.
+            con.close();
+            throw e;
+        }
+    }
+
+    @Override
+    public void runTransaction(TransactionRunner runner) throws SQLException {
+        if (mTransaction != null) {
+            throw new RuntimeException("Nested transactions not suppored.");
+        }
+
+        try (MssqlTransaction tx = beginTransaction()) {
+            runner.runTransaction(tx, new DataSourceMssql(tx));
+        }
+    }
+
+    /**
+     * Mssql transaction
+     */
+    private static class MssqlTransaction
+            implements Transaction, AutoCloseable {
+
+        private final Connection mCon;
+
+        public MssqlTransaction(Connection con) throws SQLException {
+            mCon = con;
+            mCon.setAutoCommit(false);
+        }
+
+        @Override
+        public void commit() throws SQLException {
+            mCon.commit();
+        }
+
+        @Override
+        public void rollback() throws SQLException {
+            mCon.rollback();
+        }
+
+        /**
+         * Close the transaction and return the connection back to the
+         * connection pool
+         *
+         * @throws java.sql.SQLException
+         */
+        @Override
+        public void close() throws SQLException {
+            try {
+                mCon.rollback();
+                mCon.setAutoCommit(true);
+            } finally {
+                mCon.close();
+            }
+        }
+
+        /**
+         * Returns the connection associated with the transaction
+         *
+         * @return a db connection
+         */
+        private Connection getConnection() {
+            return mCon;
+        }
     }
 
 }
