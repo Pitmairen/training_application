@@ -12,6 +12,8 @@
             <properties>
                 <exec.args>-classpath %classpath no.hials.trainingapp.Main</exec.args>
                 <exec.executable>java</exec.executable>
+                <Env.DATA_SOURCE>sqlite</Env.DATA_SOURCE>
+                <Env.DATA_SOURCE_CS>jdbc:sqlite:/tmp/trainingdbjava.db</Env.DATA_SOURCE_CS>
             </properties>
         </action>
     </actions>
