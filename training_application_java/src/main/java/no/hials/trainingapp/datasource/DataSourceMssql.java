@@ -110,4 +110,9 @@ public class DataSourceMssql extends BaseDataSource {
         return new DataSourceMssql(tr);
     }
 
+    @Override
+    public List<DataItem> getExercises(int set_id, int set_workout_id, int set_exercise_id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
