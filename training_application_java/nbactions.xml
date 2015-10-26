@@ -12,6 +12,7 @@
             <properties>
                 <exec.args>-classpath %classpath no.hials.trainingapp.Main</exec.args>
                 <exec.executable>java</exec.executable>
+                <Env.DATA_SOURCE>mssql</Env.DATA_SOURCE>
             </properties>
         </action>
     </actions>

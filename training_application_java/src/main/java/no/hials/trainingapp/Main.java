@@ -38,7 +38,7 @@ public class Main {
 
 
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
         String ds = System.getenv("DATA_SOURCE");
         String conString = System.getenv("DATA_SOURCE_CS");
@@ -54,8 +54,10 @@ public class Main {
             DataSourceSqlite.initPool(conString);
             sDataSource = new DataSourceSqlite();
         }else if(ds.equals("mssql")){
-            
-            
+            conString = "jdbc:sqlserver://tmh-touchpc\\tmserver:1433;databaseName=training_application;integratedSecurity=true;selectMethod=cursor";
+            DataSourceMssql.initPool(conString);
+                sDataSource = new DataSourceMssql();
+                System.out.println(sDataSource.getCustomerByUsername("duke@gmail.com")); //Works
         }
         
 

@@ -15,12 +15,6 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class DataSourceMssql extends BaseDataSource {
 
-    private String conURL = "jdbc:sqlserver://tmh-touchpc\\tmserver:1433;databaseName=training_application;integratedSecurity=true;selectMethod=true";
-    
-    private String getConnectionUrl() {
-        return conURL;
-    }
-
     public DataSourceMssql() {
         super(null);
 //sPool = createConnectionPool(getConnectionUrl());
@@ -83,7 +77,7 @@ public class DataSourceMssql extends BaseDataSource {
                 + "customer_email, customer_pw, customer_sex,"
                 + "customer_program_id, customer_weight,"
                 + "customer_height, customer_date_of_birth) "
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, date('now'))";
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, GETDATE())";
 
         executeUpdate(query,
                 data.get("customer_first_name"),
@@ -99,7 +93,7 @@ public class DataSourceMssql extends BaseDataSource {
 
     private static HikariDataSource createConnectionPool(String connectionString) throws ClassNotFoundException {
 
-        Class.forName("org.sqlite.JDBC");
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(connectionString);
         config.addDataSourceProperty("cachePrepStmts", "true");
