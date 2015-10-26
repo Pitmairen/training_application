@@ -10,7 +10,7 @@ BEGIN
 SELECT * FROM customer
 END;
 -- Procedure test
-Exec GetCustomers;
+EXEC GetCustomers;
 
 -- New procedure
 CREATE PROCEDURE GetUserByEmail(
@@ -21,7 +21,7 @@ BEGIN
 SELECT customer_first_name, customer_last_name FROM customer WHERE customer_email = @email
 END;
 -- Procedure test
-Exec GetUserByEmail  N'duke@gmail.com';
+EXEC GetUserByEmail  N'duke@gmail.com';
 
 
 -- New procedure
@@ -31,5 +31,19 @@ BEGIN
 SELECT * FROM workout
 END;
 -- Procedure test
-Exec GetWorkouts;
+EXEC GetWorkouts;
 
+-- New procedure
+CREATE PROCEDURE GetExercises
+AS
+BEGIN
+SELECT * FROM exercise
+END;
+
+EXEC GetExercises
+
+CREATE PROCEDURE GetExercises @program nvarchar(30)
+AS
+SELECT * FROM 
+WHERE City = @City
+GO
