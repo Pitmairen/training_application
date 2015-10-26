@@ -15,8 +15,9 @@
 
                 <Env.DATA_SOURCE>mssql</Env.DATA_SOURCE>
 
-               
-
+                <!--<Env.DATA_SOURCE>sqlite</Env.DATA_SOURCE>
+                <Env.DATA_SOURCE_CS>jdbc:sqlite:/tmp/trainingdbjava.db</Env.DATA_SOURCE_CS>-->
+                
             </properties>
         </action>
     </actions>
