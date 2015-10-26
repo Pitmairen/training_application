@@ -20,6 +20,14 @@ public interface DataSource {
     public DataItem getCustomerByUsername(String username) throws SQLException;
 
     /**
+     * Store a new customer in the data source
+     *
+     * @param data the data that represents the user
+     * @throws SQLException
+     */
+    public void storeNewCustomer(DataItem data) throws SQLException;
+
+    /**
      * Returns a list of the user's upcoming workouts
      *
      * @param customerId the customer id
@@ -47,5 +55,19 @@ public interface DataSource {
      * @return a specific workout.
      * @throws SQLException
      */
-    public List<DataItem> getWorkout(int workoutId, int workoutProgramId) throws SQLException;
+    public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException;
+
+    /**
+     * Wraps the transaction runner in a database transaction.
+     *
+     * If everything goes well the runner must commit the transaction before it
+     * returns.
+     *
+     * The transaction will automatically rolled back after the runner returns.
+     *
+     * @param runner the transaction runner
+     * @throws SQLException
+     */
+    public void runTransaction(TransactionRunner runner) throws SQLException;
+
 }

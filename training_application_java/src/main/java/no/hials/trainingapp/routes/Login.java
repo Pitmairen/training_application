@@ -2,6 +2,7 @@ package no.hials.trainingapp.routes;
 
 import java.sql.SQLException;
 import no.hials.trainingapp.auth.Auth;
+import no.hials.trainingapp.auth.Security;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.routing.FormRoute;
@@ -15,8 +16,7 @@ import spark.Spark;
  *
  * @author Per Myren <progrper@gmail.com>
  */
-public class Login extends FormRoute
-{
+public class Login extends FormRoute {
 
     private final static String TEMPLATE_NAME = "login";
 
@@ -24,45 +24,39 @@ public class Login extends FormRoute
     // after checking the username and password
     private DataItem mUserCache = null;
 
-    public Login(DataSource datasource, Request req, Response resp)
-    {
+    public Login(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
     }
 
-    
-    
     @Override
-    public ModelAndView handle() throws SQLException{
-        
+    public ModelAndView handle() throws SQLException {
+
         checkUserNotAuthenticated();
-        
-        if(getRequest().requestMethod().equals("POST")){
-            
+
+        if (getRequest().requestMethod().equals("POST")) {
+
             checkUsernameAndPassword();
 
             if (!hasValidationErrors()) {
 
                 Auth.loginUser(getRequest(),
-                               mUserCache.getInteger("customer_id"),
-                               mUserCache.getString("customer_first_name"));
+                        mUserCache.getInteger("customer_id"),
+                        mUserCache.getString("customer_first_name"));
 
                 getResponse().redirect("/");
                 Spark.halt();
             }
-            
+
         }
-        
-        
+
         return renderTemplate(TEMPLATE_NAME);
     }
-
 
     /**
      * If user is already logged in there is no reason for him to log in so
      * redirect to the index page
      */
-    private void checkUserNotAuthenticated()
-    {
+    private void checkUserNotAuthenticated() {
         if (getCurrentUser().isAuthenticated()) {
             getResponse().redirect("/");
             Spark.halt();
@@ -76,17 +70,16 @@ public class Login extends FormRoute
      *
      * @throws SQLException
      */
-    private void checkUsernameAndPassword() throws SQLException
-    {
+    private void checkUsernameAndPassword() throws SQLException {
 
         String username = getRequest().queryParams("username");
+        String password = getRequest().queryParams("password");
 
         DataItem customer = getDataSource().getCustomerByUsername(username);
 
-        if (customer == null || !username.equals(customer.get("customer_email"))) {
+        if (customer == null || !Security.checkPassword(password, customer.getString("customer_pw"))) {
             addValidationError("Wrong username or password");
-        }
-        else {
+        } else {
             mUserCache = customer;
         }
 
