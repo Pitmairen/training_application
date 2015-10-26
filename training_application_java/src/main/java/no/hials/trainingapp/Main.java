@@ -1,7 +1,9 @@
 package no.hials.trainingapp;
 
+import java.sql.SQLException;
 import no.hials.trainingapp.auth.AuthenticationFilter;
 import no.hials.trainingapp.datasource.DataSource;
+import no.hials.trainingapp.datasource.DataSourceMssql;
 import no.hials.trainingapp.datasource.DataSourceSqlite;
 import no.hials.trainingapp.routes.Workout;
 import no.hials.trainingapp.routes.Login;
@@ -30,9 +32,8 @@ public class Main {
     /**
      * xxx
      */
-    public static void main(String[] args) throws ClassNotFoundException {
-
-        sDataSource = new DataSourceSqlite("jdbc:sqlite:/tmp/trainingdbjava.db");
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+        sDataSource = new DataSourceMssql();
         sRouter = new Router(sDataSource, TemplateEngines.createPebbleEngine());
 
         addRoutes(sRouter);

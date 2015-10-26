@@ -44,15 +44,18 @@ public class DataSourceMssql implements DataSource {
 //        DriverManager.registerDriver(d);
 //        con = DriverManager.getConnection(getConnectionUrl());
         System.out.println(con);
-        System.out.println("Text");
     }
 
     public List<DataItem> getCustomers() throws SQLException {
         return queryList("Exec GetCustomers");
     }
 
-    public List<DataItem> getWorkouts() throws SQLException {
-        return queryList("Exec GetWorkouts");
+    @Override
+    public List<DataItem> getWorkout(int workoutId, int workoutProgramId) throws SQLException {
+        return queryList(
+                "SELECT * FROM workout "
+                + "WHERE workout_program_id=? AND workout_id=? ",
+                workoutId, workoutProgramId);
     }
 
     @Override
@@ -67,11 +70,10 @@ public class DataSourceMssql implements DataSource {
     public List<DataItem> getNextWorkoutsForCustomer(int customerId, int limit) throws SQLException {
 
         return queryList(
-                "SELECT w.* FROM workout AS w "
+                "SELECT  w.* FROM workout AS w "
                 + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
-                + "WHERE u.customer_id=? AND w.workout_done=? "
-                + "LIMIT ?",
-                customerId, false, limit);
+                + "WHERE u.customer_id=? AND w.workout_done=? ",
+                customerId, false);
 
     }
 
@@ -81,9 +83,8 @@ public class DataSourceMssql implements DataSource {
                 "SELECT w.* FROM workout AS w "
                 + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
                 + "WHERE u.customer_id=? AND w.workout_done=? "
-                + "ORDER BY w.workout_id DESC "
-                + "LIMIT ?",
-                customerId, true, limit);
+                + "ORDER BY w.workout_id DESC ",
+                customerId, true);
     }
 
     private List<DataItem> queryList(String query, Object... params) throws SQLException {
