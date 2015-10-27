@@ -1,5 +1,6 @@
 package no.hials.trainingapp;
 
+import no.hials.trainingapp.auth.AdminFilter;
 import no.hials.trainingapp.auth.AuthenticationFilter;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.DataSourceSqlite;
@@ -13,6 +14,7 @@ import no.hials.trainingapp.routes.admin.AdminIndex;
 import no.hials.trainingapp.routes.History;
 import no.hials.trainingapp.routes.admin.AddExercise;
 import no.hials.trainingapp.routes.admin.AddWorkoutToProgram;
+import no.hials.trainingapp.routes.admin.AdminLogout;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
 import no.hials.trainingapp.routing.TemplateEngines;
@@ -80,8 +82,14 @@ public class Main {
         r.get("/help", new SimpleTemplateRoute("help"));
         r.get("/about", new SimpleTemplateRoute("about"));
 
+        
         // Admin 
-        r.get("/admin", AdminIndex.class);
+        
+        
+        Spark.before("/admin/*", new AdminFilter());
+  
+        r.get("/admin/", AdminIndex.class);
+        r.getAndPost("/admin/logout", AdminLogout.class);
         r.getAndPost("/admin/add-new-customer", AddNewCustomer.class);
         r.getAndPost("/admin/add-new-exercise", AddExercise.class);
         r.getAndPost("/admin/add-new-workout/:prog_id", AddWorkoutToProgram.class);

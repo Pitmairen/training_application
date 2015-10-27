@@ -18,12 +18,18 @@ import spark.Spark;
  */
 public class Login extends FormRoute {
 
+    private final static String ADMIN_USERNAME = "admin";
+    private final static String ADMIN_PASSWORD = "1234";
+
     private final static String TEMPLATE_NAME = "login";
 
     // Used to cache the user object so we don't have to reload it again
     // after checking the username and password
     private DataItem mUserCache = null;
 
+    private boolean mIsAdminLogin = false;
+
+    
     public Login(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
     }
@@ -39,11 +45,18 @@ public class Login extends FormRoute {
 
             if (!hasValidationErrors()) {
 
-                Auth.loginUser(getRequest(),
-                        mUserCache.getInteger("customer_id"),
-                        mUserCache.getString("customer_first_name"));
+                if(mIsAdminLogin){
+                    Auth.loginAdmin(getRequest());
+                    getResponse().redirect("/admin/");
+                }
+                else{
+                    Auth.loginUser(getRequest(),
+                            mUserCache.getInteger("customer_id"),
+                            mUserCache.getString("customer_first_name"));
 
-                getResponse().redirect("/");
+                    getResponse().redirect("/");
+                }
+               
                 Spark.halt();
             }
 
@@ -75,6 +88,12 @@ public class Login extends FormRoute {
         String username = getRequest().queryParams("username");
         String password = getRequest().queryParams("password");
 
+        if(username.equals(ADMIN_USERNAME) && password.equals(ADMIN_PASSWORD)){
+            // If its a valid admin login we are done
+            mIsAdminLogin = true;
+            return;
+        }
+        
         DataItem customer = getDataSource().getCustomerByUsername(username);
 
         if (customer == null || !Security.checkPassword(password, customer.getString("customer_pw"))) {
