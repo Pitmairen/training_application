@@ -157,6 +157,19 @@ public class DataSourceSqlite extends BaseDataSource {
     }
 
     /**
+     * XXX
+     */
+    @Override
+    public List<DataItem> getExercises(int set_id, int set_workout_id, int set_exercise_id) throws SQLException {
+        return queryList(
+                "SELECT * FROM exercise_set "
+                + "WHERE set_id=? AND set_workout_id=? AND set_exercise_id=?" //+ "INNER JOIN set_exercise "
+                //+ "ON exercise.exercise_id=exercise_set.set_workout_id "
+                //+ "WHERE set_workout_id=?",
+                , set_id, set_workout_id, set_exercise_id);
+    }
+
+    /**
      * Creates a new data source for use in a transaction
      *
      * This is used internally to create new instance of the data source to be

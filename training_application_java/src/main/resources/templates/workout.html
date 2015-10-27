@@ -10,4 +10,12 @@
     <li>{{ workout.workout_date }}</li>
 </ul>
 
+{% for exercise in exercises %}
+<ul>
+    <li>{{ exercise.set_reps_planned }}</li>
+</ul>
+{% else %}
+<p>You have no workouts scheduled. Please contact your trainer.</p>
+{% endfor %}
+
 {% endblock %}
