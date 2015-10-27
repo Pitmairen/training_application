@@ -71,7 +71,7 @@ public interface DataSource {
     public void runTransaction(TransactionRunner runner) throws SQLException;
 
     /**
-     * Returns all exercises and their corresponding sets in a workout.
+     * Returns all sets in a specific workout session.
      */
-    public List<DataItem> getExercises(int set_id, int set_workout_id, int set_exercise_id) throws SQLException;
+    public List<DataItem> getSets(int set_workout_id) throws SQLException;
 }

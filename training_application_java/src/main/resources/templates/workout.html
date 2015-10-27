@@ -4,18 +4,28 @@
 
 {% block "content" %}
 
+
 <h2>{{ workout.workout_name }}</h2>
 <ul>
     <li>{{ workout.workout_description }}</li>
-    <li>{{ workout.workout_date }}</li>
 </ul>
 
-{% for exercise in exercises %}
-<ul>
-    <li>{{ exercise.set_reps_planned }}</li>
-</ul>
-{% else %}
-<p>You have no workouts scheduled. Please contact your trainer.</p>
-{% endfor %}
+<table class="tableExercises center">
+    {% set exercise_id = -1 %}
+    
+    {% for set in sets %}
+    
+    {% if exercise_id != set.exercise_id %}
+    {% set exercise_id = set.exercise_id %}
+    <tr><td>Name</td><td>{{ set.exercise_name }}</td></tr>
+    {% endif %}
+    
+    <tr><td>Repetitions</td><td>{{ set.set_reps_planned }}</td></tr>
+    <tr><td>Weight</td><td>{{ set.set_weight_planned }}</td></tr>
+    {% else %}
+    <p>You have no workouts scheduled. Please contact your trainer.</p>
+    {% endfor %}
+</table>
+
 
 {% endblock %}

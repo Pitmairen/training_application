@@ -44,6 +44,16 @@ main {
     border: 2px solid #000000;
     border-radius: 5px;
 }
+main ul {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    padding: 0 0 0 0;
+}
+main li {
+    display: inline-block;
+    margin: 0.1rem 0 0.1rem 0;
+    text-decoration: none;
+    color: #242424;
+}
 
 .table {
     border-collapse: collapse;
@@ -76,4 +86,28 @@ main {
     height: 100%;
     width: 100%;
     padding: 0.2rem 1rem 0.2rem 0;
+}
+
+.tableExercises {
+    width: 50%;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 0 1rem 0;
+    display: inline-block;
+    border: 1px solid #000000;
+    background: #b6b6b6;
+    border-radius: 5px;
+}
+.tableExercises.center {
+    margin-left: auto; 
+    margin-right: auto;
+}
+.tableExercises tr {
+    padding: 0 0 0 0;
+    width: 100%;
+}
+.tableExercises td {
+    border: 1px solid #000000;
+    padding: 0 0 0 0;
+    width: 100%;
 }
