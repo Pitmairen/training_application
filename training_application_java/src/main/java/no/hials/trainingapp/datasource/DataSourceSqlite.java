@@ -38,6 +38,21 @@ public class DataSourceSqlite extends BaseDataSource {
                 "select * from customer WHERE customer_email=?", username);
     }
 
+    /**
+     * Returns all the customers
+     *
+     * @param limit limit the number of users returned
+     * @return a list of customers
+     * @throws SQLException
+     */
+    @Override
+    public List<DataItem> getAllCustomers(int limit) throws SQLException {
+
+        return queryList(
+                "select * from customer ORDER BY customer_first_name,"
+                + " customer_last_name LIMIT ?", limit);
+    }
+
     @Override
     public void storeNewCustomer(DataItem data) throws SQLException {
 
@@ -54,9 +69,9 @@ public class DataSourceSqlite extends BaseDataSource {
                 data.get("customer_email"),
                 data.get("customer_pw"),
                 data.get("customer_sex"),
-                1,
-                10,
-                34);
+                data.get("customer_program_id"),
+                60, // height and weight and date of birth hard coded for now
+                180);
 
     }
 
@@ -91,6 +106,82 @@ public class DataSourceSqlite extends BaseDataSource {
                 "SELECT * FROM workout "
                 + "WHERE workout_program_id=? AND workout_id=? ",
                 workoutId, workoutProgramId);
+    }
+
+    @Override
+    public DataItem storeNewWorkout(DataItem data) throws SQLException {
+
+        String query = "INSERT INTO workout "
+                + "(workout_name, workout_description,"
+                + "workout_date, workout_program_id) "
+                + "VALUES(?, ?, ?, ?)";
+
+        int id = executeInsert(query,
+                data.get("workout_name"),
+                data.get("workout_description"),
+                data.get("workout_date"),
+                data.get("workout_program_id"));
+
+        data.put("workout_id", id);
+        return data;
+    }
+
+    @Override
+    public void storeNewWorkoutSets(List<DataItem> sets) throws SQLException {
+
+        String query = "INSERT INTO exercise_set "
+                + "(set_nr, set_exercise_id, set_workout_id,"
+                + "set_reps_planned, set_weight_planned, "
+                + "set_duration_planned)"
+                + "VALUES(?, ?, ?, ?, ?, ?)";
+
+        for (DataItem set : sets) {
+            executeUpdate(query,
+                    set.get("set_nr"),
+                    set.get("set_exercise_id"),
+                    set.get("set_workout_id"),
+                    set.get("set_reps_planned"),
+                    set.get("set_weight_planned"),
+                    set.get("set_duration_planned"));
+        }
+
+    }
+
+    @Override
+    public void storeNewExercise(DataItem data) throws SQLException {
+
+        String query = "INSERT INTO exercise "
+                + "(exercise_name, exercise_description)"
+                + "VALUES(?, ?)";
+
+        executeUpdate(query,
+                data.get("exercise_name"),
+                data.get("exercise_description"));
+
+    }
+
+    @Override
+    public List<DataItem> getAllExercises() throws SQLException {
+        return queryList("SELECT * FROM exercise ORDER BY exercise_name ASC");
+    }
+
+    @Override
+    public DataItem getProgramById(int id) throws SQLException {
+        return querySingle(
+                "SELECT * FROM program WHERE program_id=?", id);
+    }
+
+    @Override
+    public int storeNewProgram(DataItem data) throws SQLException {
+
+        String query = "INSERT INTO program "
+                + "(program_name, program_description)"
+                + "VALUES(?, ?)";
+
+        return executeInsert(query,
+                data.get("program_name"),
+                data.get("program_description"));
+
     }
 
     /**

@@ -7,8 +7,7 @@ import spark.Session;
  *
  * @author Per Myren <progrper@gmail.com>
  */
-public class AuthenticatedUser implements User
-{
+public class AuthenticatedUser implements User {
 
     private final Session mSession;
 
@@ -17,8 +16,7 @@ public class AuthenticatedUser implements User
      *
      * @param session the session associated with the user
      */
-    public AuthenticatedUser(Session session)
-    {
+    public AuthenticatedUser(Session session) {
         mSession = session;
     }
 
@@ -31,8 +29,7 @@ public class AuthenticatedUser implements User
      * @return true
      */
     @Override
-    public boolean isAuthenticated()
-    {
+    public boolean isAuthenticated() {
         return true;
     }
 
@@ -42,8 +39,7 @@ public class AuthenticatedUser implements User
      * @return the name
      */
     @Override
-    public String getName()
-    {
+    public String getName() {
         String value = mSession.attribute(Auth.USERNAME_KEY);
         return value == null ? "" : value;
     }
@@ -54,8 +50,7 @@ public class AuthenticatedUser implements User
      * @return the user id
      */
     @Override
-    public int getId()
-    {
+    public int getId() {
         Integer value = mSession.attribute(Auth.USER_ID_KEY);
         return value == null ? -1 : value;
     }

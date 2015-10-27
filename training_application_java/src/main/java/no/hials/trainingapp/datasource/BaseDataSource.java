@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,6 +134,27 @@ public abstract class BaseDataSource implements DataSource {
     }
 
     /**
+     * Executes the query. This method should be used for queries that does not
+     * return a result set, but need the auto generated id that is created when
+     * the row is inserted. It will make sure to use the correct connection if
+     * the data source is in a transaction.
+     *
+     * If not in a transaction the connection will automatically be returned to
+     * the pool after this method returns.
+     */
+    protected int executeInsert(String query, Object... params)
+            throws SQLException {
+        // If we are in a transaction use the transaction connection.
+        if (mTransaction != null) {
+            return executeInsert(mTransaction.getConnection(), query, params);
+        }
+
+        try (Connection con = sPool.getConnection()) {
+            return executeInsert(con, query, params);
+        }
+    }
+
+    /**
      * Returns a list of data items for the giver query using the provided
      * connection
      */
@@ -176,6 +198,26 @@ public abstract class BaseDataSource implements DataSource {
         bindParams(statement, params);
 
         return statement.executeUpdate();
+    }
+
+    /**
+     * Executes the statement using the provided connection. Returns the auto
+     * generated id
+     */
+    private int executeInsert(Connection con, String query, Object... params)
+            throws SQLException {
+        PreparedStatement statement = con.prepareStatement(query,
+                Statement.RETURN_GENERATED_KEYS);
+
+        bindParams(statement, params);
+
+        statement.executeUpdate();
+        ResultSet rs = statement.getGeneratedKeys();
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return -1;
+
     }
 
     /**

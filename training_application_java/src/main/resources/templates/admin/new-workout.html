@@ -1,0 +1,135 @@
+{% extends "admin/admin-layout" %}
+
+{% block "title" %}Add New Workout{% endblock %}
+
+{% block "content" %}
+
+    {% if validationErrors is not empty %}
+        <ul>
+        {% for err in validationErrors %}
+            <li>{{ err}}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="" method="POST">
+
+        <fieldset>
+            <legend><label for="workoutName">Workout name:</label></legend>
+            <input id="workoutName" 
+                   name="workoutName" type="text" 
+                                    placeholder="workoutName"
+                                    value="{{ formData.workoutName }}">
+        </fieldset>
+
+        <fieldset>
+            <legend><label for="workoutDesc">Description:</label></legend>
+            <textarea name="workoutDesc" placeholder="Description">{{ formData.workoutDesc }}</textarea>
+        </fieldset>
+
+        <fieldset>
+            <legend><label for="workoutDate">Workout date:</label></legend>
+            <input type="date" min="{{ toDay }}" name="workoutDate"  placeholder="workoutDate"
+                                    value="{{ formData.workoutDate }}">
+        </fieldset>
+
+
+        <div id="set-list"></div>
+
+
+        <div><button href="#" id="newSet">New Exercise Set</button></div>
+
+
+        <div>
+        <input type="submit" value="Create Workout">
+        </div>
+
+
+    </form>
+
+
+    <div id="exercises" style="display: none;"> 
+        <select class="set-exercises">
+        {% for ex in exercises %}
+            <option value="{{ ex.exercise_id }}">{{ ex.exercise_name }}</option>
+        {% endfor %}
+        </select>
+    </div>
+
+{% endblock %}
+
+{% block "js_bottom" %}
+<script>
+
+(function($){
+
+    var set_count = 0;
+
+    /*
+    Creates the following html for each set
+    <fieldset>
+    <ul>
+        <li><label>Exercise: </label> <select>...</select></li>
+        <li><label>Weight</label><input ...></li>
+        ...
+    </ul>
+    </fieldset>
+    */
+    function createSet(id){
+
+        var set = $("<fieldset>");
+
+        set.append($('<legend>').text('Set nr. ' + (id+1)));
+
+        var set_id = 'set-'+id;
+        var exercises = $("#exercises select").clone();
+        set.append($('<label>').attr('for', set_id+'-exercise').text('Exercise: '));
+        set.append(exercises.attr('name', set_id+'-exercise').attr('id', set_id+'-exercise'));
+        set.append($('<label>').attr('for', set_id+'-weight').text('Weight: '));
+        set.append($('<input>').attr('name', set_id+'-weight').attr('id', set_id+'-weight')
+                            .attr('class', 'set-weight').attr('placeholder', 'Weight'));
+        set.append($('<label>').attr('for', set_id+'-reps').text('Repetitions: '));
+        set.append($('<input>').attr('name', set_id+'-reps').attr('id', set_id+'-reps')
+                .attr('class', 'set-reps').attr('placeholder', 'Repetitions'));
+
+        return set;
+    }
+
+
+    function fillSetData(id, set, exercise, weight, reps){
+        set.find('.set-exercises').val(exercise);
+        set.find('.set-weight').val(weight);
+        set.find('.set-reps').val(reps);
+    }
+
+    $("#newSet").click(function(){
+        var set = createSet(set_count++);
+        $("#set-list").append(set);
+
+        return false;
+    });
+
+
+    var submitted_sets = [
+        {% for set in submittedSets %}
+            [{{ set.set_exercise_id }}, {{ set.set_weight_planned }}, {{ set.set_reps_planned }}],
+        {% endfor %}
+    ];
+
+    // Repopulate for in redisply of submitted form.
+    for(i in submitted_sets){
+
+        var set_data = submitted_sets[i];
+        var id = set_count++;
+        var set = createSet(id);
+        fillSetData(id, set, set_data[0], set_data[1], set_data[2]);
+        $("#set-list").append(set);
+
+    }
+
+})($);
+
+
+
+</script> 
+{% endblock %}

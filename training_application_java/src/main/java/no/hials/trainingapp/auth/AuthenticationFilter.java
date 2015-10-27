@@ -24,7 +24,11 @@ public class AuthenticationFilter implements Filter
         if (request.pathInfo().startsWith("/static/")) {
             return;
         }
-
+        // Admin section will handle it's own authentication
+        if (request.pathInfo().startsWith("/admin/")) {
+            return;
+        }
+        
         if (!Auth.isAuthenticated(request) && !request.pathInfo().startsWith("/login")) {
             response.redirect("/login");
             Spark.halt();

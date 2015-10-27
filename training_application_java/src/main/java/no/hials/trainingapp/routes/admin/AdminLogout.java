@@ -1,4 +1,4 @@
-package no.hials.trainingapp.routes;
+package no.hials.trainingapp.routes.admin;
 
 import no.hials.trainingapp.auth.Auth;
 import no.hials.trainingapp.datasource.DataSource;
@@ -9,13 +9,11 @@ import spark.Response;
 import spark.Spark;
 
 /**
- * Log out the current user
- *
- * @author Per Myren <progrper@gmail.com>
+ * Logs out the current admin user
  */
-public class Logout extends TemplateRoute {
+public class AdminLogout extends TemplateRoute {
 
-    public Logout(DataSource datasource, Request req, Response resp) {
+    public AdminLogout(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
     }
 
@@ -23,12 +21,12 @@ public class Logout extends TemplateRoute {
     public ModelAndView handle() {
         if (getRequest().requestMethod().equals("POST")) {
 
-            Auth.logoutUser(getRequest());
-            getResponse().redirect("/login");
+            Auth.logoutAdmin(getRequest());
+            getResponse().redirect("/");
             Spark.halt();
         }
 
-        return renderTemplate("logout");
+        return renderTemplate("admin/logout");
     }
 
 }
