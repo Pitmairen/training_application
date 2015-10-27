@@ -14,6 +14,7 @@ import no.hials.trainingapp.routes.admin.AdminIndex;
 import no.hials.trainingapp.routes.History;
 import no.hials.trainingapp.routes.admin.AddExercise;
 import no.hials.trainingapp.routes.admin.AddWorkoutToProgram;
+import no.hials.trainingapp.routes.admin.AdminListCustomers;
 import no.hials.trainingapp.routes.admin.AdminLogout;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
@@ -90,6 +91,7 @@ public class Main {
   
         r.get("/admin/", AdminIndex.class);
         r.getAndPost("/admin/logout", AdminLogout.class);
+        r.getAndPost("/admin/list-customers", AdminListCustomers.class);
         r.getAndPost("/admin/add-new-customer", AddNewCustomer.class);
         r.getAndPost("/admin/add-new-exercise", AddExercise.class);
         r.getAndPost("/admin/add-new-workout/:prog_id", AddWorkoutToProgram.class);

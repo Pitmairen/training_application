@@ -38,6 +38,21 @@ public class DataSourceSqlite extends BaseDataSource {
                 "select * from customer WHERE customer_email=?", username);
     }
 
+    /**
+     * Returns all the customers
+     *
+     * @param limit limit the number of users returned
+     * @return a list of customers
+     * @throws SQLException
+     */
+    @Override
+    public List<DataItem> getAllCustomers(int limit) throws SQLException {
+
+        return queryList(
+                "select * from customer ORDER BY customer_first_name,"
+                + " customer_last_name LIMIT ?", limit);
+    }
+
     @Override
     public void storeNewCustomer(DataItem data) throws SQLException {
 

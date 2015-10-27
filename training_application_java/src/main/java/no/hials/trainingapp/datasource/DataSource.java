@@ -20,6 +20,15 @@ public interface DataSource {
     public DataItem getCustomerByUsername(String username) throws SQLException;
 
     /**
+     * Returns all the customers
+     *
+     * @param limit limit the number of users returned
+     * @return a list of customers
+     * @throws SQLException
+     */
+    public List<DataItem> getAllCustomers(int limit) throws SQLException;
+
+    /**
      * Store a new customer in the data source
      *
      * @param data the data that represents the user
@@ -66,7 +75,6 @@ public interface DataSource {
      */
     public DataItem storeNewWorkout(DataItem data) throws SQLException;
 
-    
     /**
      * Stores new sets for a workout
      *
@@ -74,8 +82,7 @@ public interface DataSource {
      * @throws SQLException
      */
     public void storeNewWorkoutSets(List<DataItem> sets) throws SQLException;
-    
-    
+
     /**
      * Store a new exercise to the data source
      *
