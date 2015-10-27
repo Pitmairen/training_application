@@ -69,9 +69,9 @@ public class DataSourceSqlite extends BaseDataSource {
                 data.get("customer_email"),
                 data.get("customer_pw"),
                 data.get("customer_sex"),
-                1,
-                10,
-                34);
+                data.get("customer_program_id"),
+                60, // height and weight and date of birth hard coded for now
+                180);
 
     }
 
@@ -169,6 +169,19 @@ public class DataSourceSqlite extends BaseDataSource {
     public DataItem getProgramById(int id) throws SQLException {
         return querySingle(
                 "SELECT * FROM program WHERE program_id=?", id);
+    }
+
+    @Override
+    public int storeNewProgram(DataItem data) throws SQLException {
+
+        String query = "INSERT INTO program "
+                + "(program_name, program_description)"
+                + "VALUES(?, ?)";
+
+        return executeInsert(query,
+                data.get("program_name"),
+                data.get("program_description"));
+
     }
 
     /**

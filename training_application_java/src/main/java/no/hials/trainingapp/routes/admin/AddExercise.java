@@ -40,7 +40,7 @@ public class AddExercise extends FormRoute {
                     tx.commit();
                 });
 
-                getResponse().redirect("/admin");
+                getResponse().redirect("/admin/");
                 Spark.halt();
 
             }

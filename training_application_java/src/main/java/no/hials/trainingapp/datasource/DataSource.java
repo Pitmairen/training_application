@@ -109,6 +109,15 @@ public interface DataSource {
     public DataItem getProgramById(int id) throws SQLException;
 
     /**
+     * Store a new training program to the data source
+     *
+     * @param data the data that represents the program
+     * @return returns the new id of the program
+     * @throws SQLException
+     */
+    public int storeNewProgram(DataItem data) throws SQLException;
+
+    /**
      * Wraps the transaction runner in a database transaction.
      *
      * If everything goes well the runner must commit the transaction before it
