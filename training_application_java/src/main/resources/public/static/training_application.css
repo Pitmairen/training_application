@@ -1,14 +1,17 @@
 
+
 html {
     box-sizing: border-box;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
 }
 
+
 body {
     background: #eaeaea;
-    color: #242424;
+    color: #000000;
 }
+
 
 header, footer {
     background: #45619d;
@@ -27,7 +30,7 @@ header li, footer li {
     padding: 0.2rem 0.5rem 0.2rem 0.5rem;
     background: #b6b6b6;
     text-decoration: none;
-    color: #242424;
+    color: #000000;
     border: 2px solid #000000;
     border-radius: 5px;
 }
@@ -35,6 +38,7 @@ header li:hover, footer li:hover {
     background: #388dcb;
     color: #000000;
 }
+
 
 main {
     background: #ffffff;
@@ -55,59 +59,62 @@ main li {
     color: #242424;
 }
 
-.table {
+
+.standardTable {
     border-collapse: collapse;
     text-align: center;
     margin: 0 0 1rem 0;
     display: inline-block;
     border: 2px solid #000000;
-    background: #b6b6b6;
+    background: #cccccc;
     border-radius: 5px;
 }
-.table.center {
+.standardTable.center {
     margin-left: auto; 
     margin-right: auto;
 }
-.table tr {
-    padding: 0 0 0 0;
-}
-.table tr:hover {
+.standardTable tr:hover {
     background: #388dcb;
     color: #000000;
 }
-.table td {
+.standardTable td {
     border: 1px solid #000000;
     padding: 0 0 0 0;
 }
-.table a {
+.standardTable a {
     text-decoration: none;
-    color: #242424;
+    color: #000000;
     display: block;
     height: 100%;
     width: 100%;
     padding: 0.2rem 1rem 0.2rem 0;
 }
 
-.tableExercises {
-    width: 50%;
+
+.setTable {
     border-collapse: collapse;
     text-align: center;
-    margin: 0 0 1rem 0;
+    margin: 0 0 2rem 0;
     display: inline-block;
-    border: 1px solid #000000;
-    background: #b6b6b6;
+    border: 2px solid #000000;
+    background: #cccccc;
     border-radius: 5px;
+    max-width: 40rem;
 }
-.tableExercises.center {
+.setTable.center {
     margin-left: auto; 
     margin-right: auto;
 }
-.tableExercises tr {
-    padding: 0 0 0 0;
-    width: 100%;
+.exerciseTitle {
+    padding: 1.2rem 0.2rem 0rem 0.2rem;
+    font-weight: bold;
+    border: none;
 }
-.tableExercises td {
+.exerciseDescription {
+    font-style: italic;
+    border: none;
+    padding: 0.4rem 0.2rem 0.8rem 0.2rem;
+}
+.exerciseSet {
     border: 1px solid #000000;
-    padding: 0 0 0 0;
-    width: 100%;
 }

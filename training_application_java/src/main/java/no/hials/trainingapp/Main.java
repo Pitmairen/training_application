@@ -41,22 +41,21 @@ public class Main {
 
         String ds = System.getenv("DATA_SOURCE");
         String conString = System.getenv("DATA_SOURCE_CS");
-        
+
         System.out.println(ds);
-        
-        if(ds == null || ds.equals("sqlite")){
-           
-            if(conString == null){
+
+        if (ds == null || ds.equals("sqlite")) {
+
+            if (conString == null) {
                 conString = "jdbc:sqlite:/tmp/trainingdbjava.db";
             }
-            
+
             DataSourceSqlite.initPool(conString);
             sDataSource = new DataSourceSqlite();
-        }else if(ds.equals("mssql")){
-            
-            
+        } else if (ds.equals("mssql")) {
+
         }
-        
+
         sRouter = new Router(sDataSource, TemplateEngines.createPebbleEngine());
 
         addRoutes(sRouter);
@@ -77,18 +76,15 @@ public class Main {
         r.getAndPost("/logout", Logout.class);
         r.get("/workouts", Workouts.class);
         r.get("/history", History.class);
-        r.get("/workout/:id/:id2", Workout.class);
+        r.get("/workout/:id", Workout.class);
 
         r.get("/tos", new SimpleTemplateRoute("tos"));
         r.get("/help", new SimpleTemplateRoute("help"));
         r.get("/about", new SimpleTemplateRoute("about"));
 
-        
         // Admin 
-        
-        
         Spark.before("/admin/*", new AdminFilter());
-  
+
         r.get("/admin/", AdminIndex.class);
         r.getAndPost("/admin/logout", AdminLogout.class);
         r.getAndPost("/admin/list-customers", AdminListCustomers.class);

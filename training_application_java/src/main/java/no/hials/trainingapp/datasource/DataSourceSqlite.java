@@ -101,11 +101,11 @@ public class DataSourceSqlite extends BaseDataSource {
      * XXX
      */
     @Override
-    public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException {
+    public DataItem getWorkout(int workoutId) throws SQLException {
         return querySingle(
                 "SELECT * FROM workout "
-                + "WHERE workout_program_id=? AND workout_id=? ",
-                workoutId, workoutProgramId);
+                + "WHERE workout_id=?",
+                workoutId);
     }
 
     @Override
@@ -190,7 +190,8 @@ public class DataSourceSqlite extends BaseDataSource {
     @Override
     public List<DataItem> getSets(int set_workout_id) throws SQLException {
         return queryList(
-                "SELECT * FROM exercise, exercise_set WHERE set_workout_id=? AND set_exercise_id=exercise_id", set_workout_id);
+                "SELECT * FROM exercise, exercise_set "
+                + "WHERE set_workout_id=? AND set_exercise_id=exercise_id", set_workout_id);
     }
 
     /**

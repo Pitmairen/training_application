@@ -60,11 +60,10 @@ public interface DataSource {
      * Returns a specific workout.
      *
      * @param workoutId The workout ID.
-     * @param workoutProgramId The workout program ID.
      * @return a specific workout.
      * @throws SQLException
      */
-    public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException;
+    public DataItem getWorkout(int workoutId) throws SQLException;
 
     /**
      * Stores a new workout in the data source
