@@ -112,11 +112,6 @@ public class Router
      */
     private void addExceptionHandlers()
     {
-        Spark.exception(MethodNotSupportedException.class, (e, req, resp) -> {
-            // Should probably respond with a 405 but uses 404 for now.
-            resp.status(404);
-            resp.body("Not found");
-        });
 
     }
 }
