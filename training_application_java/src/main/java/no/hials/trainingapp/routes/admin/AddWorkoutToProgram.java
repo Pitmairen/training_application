@@ -168,7 +168,7 @@ public class AddWorkoutToProgram extends FormRoute {
             ;
         }
 
-        addValidationError("Date should be in the format yyyy/mm/dd");
+        addValidationError("Date should be in the format yyyy-mm-dd");
 
     }
 
