@@ -77,3 +77,7 @@ main {
     width: 100%;
     padding: 0.2rem 1rem 0.2rem 0;
 }
+
+.new-form-entry{
+    margin: 1.5em 0;
+}
