@@ -21,7 +21,7 @@
     <tr><td colspan='3' class='exerciseDescription'>{{ set.exercise_description }}</td></tr>
     {% endif %}
 
-    <tr class='exerciseSet'><td>{{ set.set_reps_planned }} reps with {{ set.set_weight_planned }} Kg</td><td>[Reps completed]</td><td>[Load used]</td></tr>
+    <tr class='exerciseSet'><td><span class='bold'>{{ set.set_reps_planned }}</span> reps with <span class='bold'>{{ set.set_weight_planned }}</span> Kg</td><td>[Reps completed]</td><td>[Load used]</td></tr>
 
     {% else %}
     <p>You have no workouts scheduled. Please contact your trainer.</p>
