@@ -66,17 +66,15 @@ main li {
 
 
 .standardTable {
+    margin-left: auto; 
+    margin-right: auto;
     border-collapse: collapse;
     text-align: center;
     margin: 0 0 1rem 0;
     display: inline-block;
     border: 2px solid #000000;
-    background: #cccccc;
+    background: #dddddd;
     border-radius: 5px;
-}
-.standardTable.center {
-    margin-left: auto; 
-    margin-right: auto;
 }
 .standardTable tr:hover {
     background: #388dcb;
@@ -97,18 +95,20 @@ main li {
 
 
 .setTable {
-    border-collapse: collapse;
-    text-align: center;
-    margin: 0 0 2rem 0;
-    display: inline-block;
-    border: 2px solid #000000;
-    background: #cccccc;
-    border-radius: 5px;
-    max-width: 40rem;
-}
-.setTable.center {
     margin-left: auto; 
     margin-right: auto;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    max-width: 35rem;
+    margin: 0 0 2rem 0;
+    background: #eeeeee;
+    border-collapse: collapse;
+    text-align: center;
+    display: inline-block;
+    border: 2px solid #000000;
+    border-radius: 5px;
+}
+.setTable input {
+    width: 5.5rem;
 }
 .exerciseTitle {
     padding: 1.2rem 0.2rem 0rem 0.2rem;
@@ -123,6 +123,7 @@ main li {
 }
 .exerciseSet {
     border: 1px solid #000000;
+    background: #dddddd;
 }
 .bold {
     font-weight: bold;

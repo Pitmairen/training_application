@@ -6,7 +6,7 @@
 
 <h2>Upcoming workout sessions:</h2>
 
-<table class="standardTable center">
+<table class="standardTable">
     {% for wk in workouts %}
     <tr><td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
         <td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_name }}</a></td></tr>
