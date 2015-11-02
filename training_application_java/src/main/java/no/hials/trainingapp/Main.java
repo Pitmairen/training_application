@@ -34,32 +34,27 @@ public class Main {
     /**
      * xxx
      */
-
-
-
-
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
         String ds = System.getenv("DATA_SOURCE");
         String conString = System.getenv("DATA_SOURCE_CS");
-        
+
         System.out.println(ds);
-        
-        if(ds == null || ds.equals("sqlite")){
-           
-            if(conString == null){
+
+        if (ds == null || ds.equals("sqlite")) {
+
+            if (conString == null) {
                 conString = "jdbc:sqlite:/tmp/trainingdbjava.db";
             }
-            
+
             DataSourceSqlite.initPool(conString);
             sDataSource = new DataSourceSqlite();
-        }else if(ds.equals("mssql")){
+        } else if (ds.equals("mssql")) {
             conString = "jdbc:sqlserver://tmh-touchpc\\tmserver:1433;databaseName=training_application;integratedSecurity=true;selectMethod=cursor";
             DataSourceMssql.initPool(conString);
-                sDataSource = new DataSourceMssql();
-                System.out.println(sDataSource.getCustomerByUsername("duke@gmail.com")); //Works
+            sDataSource = new DataSourceMssql();
+            System.out.println(sDataSource.getCustomerByUsername("duke@gmail.com")); //Works
         }
-        
 
         sRouter = new Router(sDataSource, TemplateEngines.createPebbleEngine());
 
@@ -90,6 +85,6 @@ public class Main {
         // Admin 
         r.get("/admin", AdminIndex.class);
         r.getAndPost("/admin/add-new-customer", AddNewCustomer.class);
-        
+
     }
 }

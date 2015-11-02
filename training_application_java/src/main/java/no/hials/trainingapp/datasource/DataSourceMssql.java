@@ -31,7 +31,8 @@ public class DataSourceMssql extends BaseDataSource {
     public List<DataItem> getCustomers() throws SQLException {
         return queryList("Exec GetCustomers");
     }
-
+    
+  
     @Override
     public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException {
         return querySingle(
@@ -110,9 +111,17 @@ public class DataSourceMssql extends BaseDataSource {
         return new DataSourceMssql(tr);
     }
 
+   /**
+     * XXX
+     */
     @Override
     public List<DataItem> getExercises(int set_id, int set_workout_id, int set_exercise_id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queryList(
+                "SELECT * FROM exercise_set "
+                + "WHERE set_id=? AND set_workout_id=? AND set_exercise_id=?" //+ "INNER JOIN set_exercise "
+                //+ "ON exercise.exercise_id=exercise_set.set_workout_id "
+                //+ "WHERE set_workout_id=?",
+                , set_id, set_workout_id, set_exercise_id);
     }
 
 }
