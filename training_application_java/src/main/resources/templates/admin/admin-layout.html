@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block "title" %}{% endblock %} :: Admin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/static/training_application.css">
+        <script src="/static/jquery.js"></script>
+    </head>
+    <body>
+        <header class="clearfix">
+            <ul>
+                <li><a href="/admin/">Admin Index</a></li>
+                <li><a href="/admin/logout">Logout</a></li>
+            </ul>
+        </header>
+        <main>
+            {% block "content" %}{% endblock %}
+        </main>
+        {% block "js_bottom" %}{% endblock %}
+    </body>
+</html>

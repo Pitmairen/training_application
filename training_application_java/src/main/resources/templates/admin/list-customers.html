@@ -1,0 +1,26 @@
+{% extends "admin/admin-layout" %}
+
+{% block "title" %}Customers{% endblock %}
+
+{% block "content" %}
+
+    <h2>Customers</h2>
+
+    <table>
+        <tr>
+            <th>User id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th></th>
+        </tr>
+        {% for cu in customers %}
+            <tr>
+                <td>{{ cu.customer_id }}</td>
+                <td>{{ cu.customer_first_name }}</td>
+                <td>{{ cu.customer_last_name }}</td>
+                <td>(<a href="/admin/add-new-workout/{{ cu.customer_program_id }}">Add New Workout</a>)</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

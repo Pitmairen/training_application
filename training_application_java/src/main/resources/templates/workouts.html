@@ -6,10 +6,10 @@
 
 <h2>Upcoming workout sessions:</h2>
 
-<table class="table center">
+<table class="standardTable">
     {% for wk in workouts %}
-    <tr><td><a href="/workout/{{ wk.workout_program_id }}/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
-        <td><a href="/workout/{{ wk.workout_program_id }}/{{ wk.workout_id }}">{{ wk.workout_name }}</a></td></tr>
+    <tr><td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
+        <td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_name }}</a></td></tr>
     {% else %}
     <p>You have no workouts scheduled. Please contact your trainer.</p>
     {% endfor %}

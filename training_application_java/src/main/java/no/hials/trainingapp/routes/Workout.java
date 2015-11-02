@@ -25,11 +25,11 @@ public class Workout extends TemplateRoute {
     public ModelAndView handle() throws SQLException {
 
         // (rewrite this by using only sparc)
-        DataItem workout = getDataSource().getWorkout(Integer.parseInt(getRequest().params("id")), Integer.parseInt(getRequest().params("id2")));
+        DataItem workout = getDataSource().getWorkout(Integer.parseInt(getRequest().params("id")));
         setData("workout", workout);
 
-        List<DataItem> exercises = getDataSource().getExercises(1, 1, 1);
-        setData("workout", exercises);
+        List<DataItem> sets = getDataSource().getSets(Integer.parseInt(getRequest().params("id")));
+        setData("sets", sets);
 
         if (workout == null) {
             halt(404);

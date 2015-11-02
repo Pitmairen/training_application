@@ -4,18 +4,32 @@
 
 {% block "content" %}
 
+
 <h2>{{ workout.workout_name }}</h2>
 <ul>
     <li>{{ workout.workout_description }}</li>
-    <li>{{ workout.workout_date }}</li>
 </ul>
 
-{% for exercise in exercises %}
-<ul>
-    <li>{{ exercise.set_reps_planned }}</li>
-</ul>
-{% else %}
-<p>You have no workouts scheduled. Please contact your trainer.</p>
-{% endfor %}
+<table class="setTable">
+    {% set exercise_id = -1 %}
+
+    {% for set in sets %}
+
+    {% if exercise_id != set.exercise_id %}
+    {% set exercise_id = set.exercise_id %}
+    <tr><td colspan='2' class='exerciseTitle'>{{ set.exercise_name }}</td></tr>
+    <tr><td colspan='2' class='exerciseDescription'>{{ set.exercise_description }}</td></tr>
+    {% endif %}
+
+    <tr class='exerciseSet'>
+        <td><span class='bold'>{{ set.set_reps_planned }}</span> reps with <span class='bold'>{{ set.set_weight_planned }}</span> Kg</td>
+        <td><input type="number" name="set{{ set.set_id }}RepsDone"  placeholder="Reps done" min='0' max="100">
+            <input type="number" name="set{{ set.set_id }}LoadUsed" placeholder="Load used" min='0' max="1000"></td></tr>
+
+    {% else %}
+    <p>You have no workouts scheduled. Please contact your trainer.</p>
+    {% endfor %}
+</table>
+
 
 {% endblock %}

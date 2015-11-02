@@ -20,6 +20,15 @@ public interface DataSource {
     public DataItem getCustomerByUsername(String username) throws SQLException;
 
     /**
+     * Returns all the customers
+     *
+     * @param limit limit the number of users returned
+     * @return a list of customers
+     * @throws SQLException
+     */
+    public List<DataItem> getAllCustomers(int limit) throws SQLException;
+
+    /**
      * Store a new customer in the data source
      *
      * @param data the data that represents the user
@@ -51,11 +60,61 @@ public interface DataSource {
      * Returns a specific workout.
      *
      * @param workoutId The workout ID.
-     * @param workoutProgramId The workout program ID.
      * @return a specific workout.
      * @throws SQLException
      */
-    public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException;
+    public DataItem getWorkout(int workoutId) throws SQLException;
+
+    /**
+     * Stores a new workout in the data source
+     *
+     * @param data the data that represents the workout
+     * @return the data item representing the workout with added primary key
+     * @throws SQLException
+     */
+    public DataItem storeNewWorkout(DataItem data) throws SQLException;
+
+    /**
+     * Stores new sets for a workout
+     *
+     * @param sets a data representing the sets
+     * @throws SQLException
+     */
+    public void storeNewWorkoutSets(List<DataItem> sets) throws SQLException;
+
+    /**
+     * Store a new exercise to the data source
+     *
+     * @param data the data that represents the exercise
+     * @throws SQLException
+     */
+    public void storeNewExercise(DataItem data) throws SQLException;
+
+    /**
+     * Returns all exercises
+     *
+     * @return a list of exercises
+     * @throws SQLException
+     */
+    public List<DataItem> getAllExercises() throws SQLException;
+
+    /**
+     * Returns a training program by id
+     *
+     * @param id the id of the program
+     * @return data representing the program
+     * @throws SQLException
+     */
+    public DataItem getProgramById(int id) throws SQLException;
+
+    /**
+     * Store a new training program to the data source
+     *
+     * @param data the data that represents the program
+     * @return returns the new id of the program
+     * @throws SQLException
+     */
+    public int storeNewProgram(DataItem data) throws SQLException;
 
     /**
      * Wraps the transaction runner in a database transaction.
@@ -71,7 +130,7 @@ public interface DataSource {
     public void runTransaction(TransactionRunner runner) throws SQLException;
 
     /**
-     * Returns all exercises and their corresponding sets in a workout.
+     * Returns all sets in a specific workout session.
      */
-    public List<DataItem> getExercises(int set_id, int set_workout_id, int set_exercise_id) throws SQLException;
+    public List<DataItem> getSets(int set_workout_id) throws SQLException;
 }
