@@ -1,9 +1,11 @@
 package no.hials.trainingapp.datasource;
 
-//import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-//import com.microsoft.sqlserver.jdbc.SQLServerException;
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import java.sql.SQLException;
 import java.util.List;
+
 
 /**
  *
