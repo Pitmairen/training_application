@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
-        <action>
-            <actionName>run</actionName>
-            <packagings>
-                <packaging>jar</packaging>
-            </packagings>
-            <goals>
-                <goal>process-classes</goal>
-                <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
-            </goals>
-            <properties>
-                <exec.args>-classpath %classpath no.hials.trainingapp.Main</exec.args>
-                <exec.executable>java</exec.executable>
+    <action>
+        <actionName>run</actionName>
+        <packagings>
+            <packaging>jar</packaging>
+        </packagings>
+        <goals>
+            <goal>process-classes</goal>
+            <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
+        </goals>
+        <properties>
+            <exec.args>-classpath %classpath no.hials.trainingapp.Main</exec.args>
+            <exec.executable>java</exec.executable>
 
-                <Env.DATA_SOURCE>mssql</Env.DATA_SOURCE>
+            <Env.DATA_SOURCE>sqlite</Env.DATA_SOURCE>
+            <Env.DATA_SOURCE_CS>jdbc:sqlite:/tmp/trainingdbjava.db</Env.DATA_SOURCE_CS>
 
-                <!--<Env.DATA_SOURCE>sqlite</Env.DATA_SOURCE>
-                <Env.DATA_SOURCE_CS>jdbc:sqlite:/tmp/trainingdbjava.db</Env.DATA_SOURCE_CS>-->
+            <!--<Env.DATA_SOURCE>mssql</Env.DATA_SOURCE>
+            <Env.DATA_SOURCE_CS>jdbc:sqlserver://tmh-touchpc\\tmserver:1433;databaseName=training_application;integratedSecurity=true;selectMethod=cursor</Env.DATA_SOURCE_CS>-->
                 
-            </properties>
-        </action>
-    </actions>
+        </properties>
+    </action>
+</actions>
