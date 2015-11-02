@@ -84,7 +84,7 @@ INSERT INTO program(program_name, program_description) VALUES
 
 
 INSERT INTO customer(customer_program_id, customer_email, customer_pw, customer_first_name, customer_last_name, customer_weight, customer_height, customer_date_Of_birth, customer_sex) VALUES
-    (1, 'test', 'test', 'test', 'test', 80, 180, '1970-01-01', 'm'),
+    (1, 'test', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'test', 'test', 80, 180, '1970-01-01', 'm'),
     (1, 'duke@gmail.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Duke', 'Davidson', 68, 179, '1976-12-05', 'm'),
     (2, 'fancypants@gmail.com', '$2a$10$nxHZlY0Tr.fvcYJNgYJDZO7k1MxS4HuUYHeuk7ZncPuGJ9YfIPeE6', 'Tiffany', 'McDonald', 55, 157, '1989-02-23', 'f'),
     (2, 's.harrison@gmail.com', '$2a$10$p1MX36OjGtkakgGiZ9zjUOqRqBqyj8bGTuvHsgvSaPwx1nwklR.he', 'Sam', 'Harrison', 77, 164, '1954-07-19', 'm');
