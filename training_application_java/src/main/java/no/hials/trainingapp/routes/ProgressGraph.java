@@ -8,6 +8,7 @@ import no.hials.trainingapp.routing.TemplateRoute;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Spark;
 
 /**
  * Displays a graph of the customers progress
@@ -23,6 +24,11 @@ public class ProgressGraph extends TemplateRoute {
         
         DataItem exercise = getExercise();
        
+        if(exercise == null){
+            Spark.halt(404);
+            return null;
+        }
+        
         List<DataItem> progress = getDataSource().getProgressForExercise(
                 getCurrentUser().getId(),
                 exercise.getInteger("exercise_id"));
