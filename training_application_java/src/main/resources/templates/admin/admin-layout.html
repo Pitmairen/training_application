@@ -17,6 +17,12 @@
         <main>
             {% block "content" %}{% endblock %}
         </main>
+        <header class="clearfix">
+            <ul>
+                <li><a href="/admin/">Admin Index</a></li>
+                <li><a href="/admin/logout">Logout</a></li>
+            </ul>
+        </header>
         {% block "js_bottom" %}{% endblock %}
     </body>
 </html>

@@ -84,6 +84,11 @@ main li {
     border: 1px solid #000000;
     padding: 0 0 0 0;
 }
+.standardTable th {
+    border: 1px solid #000000;
+    background: #aaa;
+    padding: 0.5em;
+}
 .standardTable a {
     text-decoration: none;
     color: #000000;
@@ -127,4 +132,15 @@ main li {
 }
 .bold {
     font-weight: bold;
+}
+
+a.link-button{
+    display: inline-block;
+    font-weight: bold;
+    padding: 0.5em;
+    margin: 0.5em;
+    height: auto;
+    width: auto;
+    background: #888;
+    color: #000;
 }
