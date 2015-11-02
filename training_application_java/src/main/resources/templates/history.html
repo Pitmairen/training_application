@@ -6,6 +6,15 @@
 
 <h2>History</h2>
 
+
+<select id="exercises">
+    {% for ex in exercises %}
+        <option value="{{ ex.exercise_id }}">{{ ex.exercise_name }}</option>
+    {% endfor %}
+</select>
+<button id="show-progress">Show progress</button>
+
+
 <ul>
     {% for wk in workouts %}
     <li><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_name }} - {{ wk.workout_date }}</a></li>
@@ -14,4 +23,12 @@
     {% endfor %}
 </ul>
 
+{% endblock %}
+{% block "js_bottom" %}
+<script>
+$("#show-progress").click(function(){
+    window.location = "/progress/" + $("#exercises").val();
+    return false;
+});
+</script>
 {% endblock %}

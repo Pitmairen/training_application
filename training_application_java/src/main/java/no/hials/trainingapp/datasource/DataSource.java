@@ -91,6 +91,26 @@ public interface DataSource {
     public void storeNewExercise(DataItem data) throws SQLException;
 
     /**
+     * Returns the exercise with the given id
+     *
+     * @param exerciseId the exercise id
+     * @return the exercise data
+     * @throws SQLException
+     */
+    public DataItem getExerciseById(int exerciseId) throws SQLException;
+
+    /**
+     * Returns the progress of the completed weight and resp for a given
+     * customer on a given exercise
+     *
+     * @param customerId the customer id
+     * @param exerciseId the exercise id
+     * @return a list of the progress data
+     * @throws SQLException
+     */
+    public List<DataItem> getProgressForExercise(int customerId, int exerciseId) throws SQLException;
+
+    /**
      * Returns all exercises
      *
      * @return a list of exercises

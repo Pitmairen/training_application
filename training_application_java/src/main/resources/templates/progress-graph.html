@@ -1,0 +1,58 @@
+{% extends "layout/default" %}
+
+{% block "title" %}Workout{% endblock %}
+
+{% block "content" %}
+
+    <p><a href="/history">Back</a></p>
+
+    {% if showGraph %}
+        <canvas id="progress-graph" width="800" height="500"></canvas>
+    {% else %}
+        <p>Not enough data to show progress. Please complete some workouts.</p>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block "js_bottom" %}
+{% if showGraph %}
+<script src="/static/chart.js"></script>
+<script>
+
+    var data = {
+        labels: [{% for prog in progress %}"{{ prog.workout_date }}",{% endfor %}],
+        datasets: [
+            {
+                label: "Maximal Weight",
+                fillColor: "rgba(189,56,39,0.6)",
+                strokeColor: "rgba(220,220,220,1)",
+                pointColor: "rgba(220,220,220,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(220,220,220,1)",
+                data: [{% for prog in progress %}{{ prog.max_weight }},{% endfor %}],
+            },
+            {
+                label: "Maximum number of reps",
+                fillColor: "rgba(92,189,90,0.3)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [{% for prog in progress %}{{ prog.max_reps }},{% endfor %}],
+            }
+        ]
+    };
+
+    var options = {}
+
+
+    var ctx = document.getElementById("progress-graph").getContext("2d");
+
+    var progressChart = new Chart(ctx).Line(data, options);
+
+</script>
+{% endif %}
+{% endblock %}

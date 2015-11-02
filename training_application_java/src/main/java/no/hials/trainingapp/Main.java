@@ -14,6 +14,7 @@ import no.hials.trainingapp.routes.SiteIndex;
 import no.hials.trainingapp.routes.admin.AddNewCustomer;
 import no.hials.trainingapp.routes.admin.AdminIndex;
 import no.hials.trainingapp.routes.History;
+import no.hials.trainingapp.routes.ProgressGraph;
 import no.hials.trainingapp.routes.admin.AddExercise;
 import no.hials.trainingapp.routes.admin.AddWorkoutToProgram;
 import no.hials.trainingapp.routes.admin.AdminListCustomers;
@@ -83,6 +84,7 @@ public class Main {
         r.get("/workouts", Workouts.class);
         r.get("/history", History.class);
         r.get("/workout/:id", Workout.class);
+        r.get("/progress/:id", ProgressGraph.class);
 
         r.get("/tos", new SimpleTemplateRoute("tos"));
         r.get("/help", new SimpleTemplateRoute("help"));

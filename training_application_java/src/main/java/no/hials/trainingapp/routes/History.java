@@ -23,9 +23,12 @@ public class History extends TemplateRoute {
     @Override
     public ModelAndView handle() throws SQLException {
 
+        List<DataItem> exercises = getDataSource().getAllExercises();
+        
         List<DataItem> workouts = getDataSource().getWorkoutLogForCustomer(getCurrentUser().getId(), 10);
 
         setData("workouts", workouts);
+        setData("exercises", exercises);
 
         return renderTemplate("history");
     }

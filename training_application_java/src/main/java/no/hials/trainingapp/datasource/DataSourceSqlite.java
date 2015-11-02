@@ -148,6 +148,13 @@ public class DataSourceSqlite extends BaseDataSource {
     }
 
     @Override
+    public DataItem getExerciseById(int exerciseId) throws SQLException {
+        return querySingle("SELECT * FROM exercise "
+                + "WHERE exercise_id=?",
+                exerciseId);
+    }
+
+    @Override
     public void storeNewExercise(DataItem data) throws SQLException {
 
         String query = "INSERT INTO exercise "
@@ -159,7 +166,23 @@ public class DataSourceSqlite extends BaseDataSource {
                 data.get("exercise_description"));
 
     }
+    
+    @Override
+    public List<DataItem> getProgressForExercise(int customerId, int exerciseId) throws SQLException {
 
+        return queryList("SELECT workout_date, "
+                + "MAX(set_reps_done) AS max_reps, "
+                + "MAX(set_weight_done) AS max_weight "
+                + "FROM exercise_set "
+                + "INNER JOIN workout ON set_workout_id=workout_id "
+                + "INNER JOIN customer ON customer_program_id=workout_program_id "
+                + "WHERE set_exercise_id=? AND workout_done=? AND customer_id=? "
+                + "GROUP BY workout_id "
+                + "ORDER BY workout_id ",
+                exerciseId, true, customerId);
+
+    }
+    
     @Override
     public List<DataItem> getAllExercises() throws SQLException {
         return queryList("SELECT * FROM exercise ORDER BY exercise_name ASC");
@@ -193,6 +216,8 @@ public class DataSourceSqlite extends BaseDataSource {
                 "SELECT * FROM exercise, exercise_set "
                 + "WHERE set_workout_id=? AND set_exercise_id=exercise_id", set_workout_id);
     }
+
+
 
     /**
      * Creates a new data source for use in a transaction
