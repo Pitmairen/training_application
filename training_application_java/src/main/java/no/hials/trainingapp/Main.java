@@ -1,8 +1,11 @@
 package no.hials.trainingapp;
 
+
+import java.sql.SQLException;
 import no.hials.trainingapp.auth.AdminFilter;
 import no.hials.trainingapp.auth.AuthenticationFilter;
 import no.hials.trainingapp.datasource.DataSource;
+import no.hials.trainingapp.datasource.DataSourceMssql;
 import no.hials.trainingapp.datasource.DataSourceSqlite;
 import no.hials.trainingapp.routes.Workout;
 import no.hials.trainingapp.routes.Login;
@@ -37,7 +40,7 @@ public class Main {
     /**
      * xxx
      */
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
         String ds = System.getenv("DATA_SOURCE");
         String conString = System.getenv("DATA_SOURCE_CS");
@@ -53,6 +56,10 @@ public class Main {
             DataSourceSqlite.initPool(conString);
             sDataSource = new DataSourceSqlite();
         } else if (ds.equals("mssql")) {
+
+            conString = "jdbc:sqlserver://tmh-touchpc\\tmserver:1433;databaseName=training_application;integratedSecurity=true;selectMethod=cursor";
+            DataSourceMssql.initPool(conString);
+            sDataSource = new DataSourceMssql();
 
         }
 
@@ -89,8 +96,10 @@ public class Main {
         r.getAndPost("/admin/logout", AdminLogout.class);
         r.getAndPost("/admin/list-customers", AdminListCustomers.class);
         r.getAndPost("/admin/add-new-customer", AddNewCustomer.class);
+
         r.getAndPost("/admin/add-new-exercise", AddExercise.class);
         r.getAndPost("/admin/add-new-workout/:prog_id", AddWorkoutToProgram.class);
+
 
     }
 }

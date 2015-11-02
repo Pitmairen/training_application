@@ -10,26 +10,12 @@ BEGIN
 SELECT * FROM customer
 END;
 -- Procedure test
-Exec GetCustomers;
-
--- New procedure
-CREATE PROCEDURE GetUserByEmail(
-	@email varchar(100)
-)
-AS
-BEGIN
-SELECT customer_first_name, customer_last_name FROM customer WHERE customer_email = @email
-END;
--- Procedure test
-Exec GetUserByEmail  N'duke@gmail.com';
-
+EXEC GetCustomers;
 
 -- New procedure
 CREATE PROCEDURE GetWorkouts
 AS
-BEGIN
-SELECT * FROM workout
-END;
+SELECT * FROM [training_application].[dbo].[workout]
+GO
 -- Procedure test
-Exec GetWorkouts;
-
+EXEC GetWorkouts;
