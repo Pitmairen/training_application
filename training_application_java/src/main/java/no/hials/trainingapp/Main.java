@@ -1,6 +1,5 @@
 package no.hials.trainingapp;
 
-
 import no.hials.trainingapp.auth.AdminFilter;
 import no.hials.trainingapp.auth.AuthenticationFilter;
 import no.hials.trainingapp.datasource.DataSource;
@@ -55,8 +54,8 @@ public class Main {
             DataSourceSqlite.initPool(conString);
             sDataSource = new DataSourceSqlite();
         } else if (ds.equals("mssql")) {
-
-            conString = "jdbc:sqlserver://tmh-touchpc\\tmserver:1433;databaseName=training_application;integratedSecurity=true;selectMethod=cursor";
+            
+            System.setProperty("java.net.preferIPv6Addresses", "true");
             DataSourceMssql.initPool(conString);
             sDataSource = new DataSourceMssql();
 
