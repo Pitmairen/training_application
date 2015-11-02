@@ -1,6 +1,5 @@
 package no.hials.trainingapp;
 
-import java.sql.SQLException;
 import no.hials.trainingapp.auth.AdminFilter;
 import no.hials.trainingapp.auth.AuthenticationFilter;
 import no.hials.trainingapp.datasource.DataSource;
@@ -39,7 +38,7 @@ public class Main {
     /**
      * xxx
      */
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    public static void main(String[] args) throws ClassNotFoundException {
 
         String ds = System.getenv("DATA_SOURCE");
         String conString = System.getenv("DATA_SOURCE_CS");
