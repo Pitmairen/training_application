@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -167,6 +168,20 @@ public class AddWorkoutToProgram extends FormRoute {
             Date date = dateFormat.parse(value);
 
             if (dateFormat.format(date).equals(value)) {
+                
+                Calendar c = Calendar.getInstance();
+                // set the calendar to start of today
+                c.set(Calendar.HOUR_OF_DAY, 0);
+                c.set(Calendar.MINUTE, 0);
+                c.set(Calendar.SECOND, 0);
+                c.set(Calendar.MILLISECOND, 0);
+                
+                Date today = c.getTime();
+                
+                if(date.compareTo(today) < 0){
+                    addValidationError("Date is in the past");
+                }
+
                 return;
             }
 
