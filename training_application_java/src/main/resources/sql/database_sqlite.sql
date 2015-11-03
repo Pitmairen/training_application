@@ -1,4 +1,6 @@
 
+PRAGMA foreign_keys = ON;
+
 CREATE TABLE program(
     program_id INTEGER PRIMARY KEY,
     program_name VARCHAR(100) NOT NULL,
@@ -79,9 +81,8 @@ CREATE INDEX s_workout_idx ON exercise_set(set_workout_id);
 
 -- Test data.
 INSERT INTO program(program_name, program_description) VALUES
-    ('Test Program', 'This is a test'),
-    ('Empty Program', 'Dummy for new users');
-
+    ('Test Program1', 'This is a test'),
+    ('Test Program2', 'This is a test');
 
 INSERT INTO customer(customer_program_id, customer_email, customer_pw, customer_first_name, customer_last_name, customer_weight, customer_height, customer_date_Of_birth, customer_sex) VALUES
     (1, 'test', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'test', 'test', 80, 180, '1970-01-01', 'm'),
@@ -94,12 +95,12 @@ INSERT INTO workout(workout_program_id, workout_name, workout_description, worko
     (1, 'Legs of Endurance', 'Workout program with exercises that improves the endurence in your legs', date("now", "+1 day")),
     (1, 'Arms of Strength', 'Workout program with exercises that improves your arm strength', date("now", "+3 day")),
     (1, 'Abs of Steel', 'Workout program with exercises that gives you well defined abs', date("now", "+5 day")),
-	(2, 'Starting Strength A','Full body strength routine for novices and beginners. Very core- and lower body intensive.', date("now", "+2 day")),
-	(2, 'Starting Strength B','Full body strength routine for novices and beginners. Very core- and lower body intensive.', date("now", "+3 day")),
-    (3, 'Stronglifts','Full body strength routine for novices and beginners. More balanced.', date("now", "+1 day")),
-    (4, 'Push Pull 4 day','Full body strength routine for advanced and above, days and exercises are split according to the motions in push and pull categories.', date("now", "+1 day")),
-	(5, 'Madcow/Bill Starr','Very intensive full body strength routine. Recommended for advanced lifters and above.', date("now", "+1 day")),
-	(6, 'Tabata regimen', 'Anything above 12 reps is cardio.', date("now","+1 day"));
+	(1, 'Starting Strength A','Full body strength routine for novices and beginners. Very core- and lower body intensive.', date("now", "+7 day")),
+	(2, 'Starting Strength B','Full body strength routine for novices and beginners. Very core- and lower body intensive.', date("now", "+1 day")),
+    (2, 'Stronglifts','Full body strength routine for novices and beginners. More balanced.', date("now", "+2 day")),
+    (2, 'Push Pull 4 day','Full body strength routine for advanced and above, days and exercises are split according to the motions in push and pull categories.', date("now", "+4 day")),
+	(2, 'Madcow/Bill Starr','Very intensive full body strength routine. Recommended for advanced lifters and above.', date("now", "+5 day")),
+	(2, 'Tabata regimen', 'Anything above 12 reps is cardio.', date("now","+1 day"));
 	
 INSERT INTO exercise(exercise_name, exercise_description) VALUES
     ('The 90-degree', 'Find a wall, support your back against it and make sure you have 90 degrees between the following: your legs and the floor, your legs and thighs. Hold for x number of seconds'),
