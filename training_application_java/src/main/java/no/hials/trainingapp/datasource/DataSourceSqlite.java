@@ -214,7 +214,8 @@ public class DataSourceSqlite extends BaseDataSource {
     public List<DataItem> getSets(int set_workout_id) throws SQLException {
         return queryList(
                 "SELECT * FROM exercise, exercise_set "
-                + "WHERE set_workout_id=? AND set_exercise_id=exercise_id", set_workout_id);
+                + "WHERE set_workout_id=? AND set_exercise_id=exercise_id"
+                        + " ORDER BY set_id ASC", set_workout_id);
     }
 
     /**
@@ -239,11 +240,11 @@ public class DataSourceSqlite extends BaseDataSource {
     private static HikariDataSource createConnectionPool(String connectionString) throws ClassNotFoundException {
 
         Class.forName("org.sqlite.JDBC");
+        
         HikariConfig config = new HikariConfig();
+       
         config.setJdbcUrl(connectionString);
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("foreign_keys", "true");
 
         HikariDataSource ds = new HikariDataSource(config);
         return ds;
