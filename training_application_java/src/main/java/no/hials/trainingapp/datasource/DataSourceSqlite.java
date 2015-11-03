@@ -215,7 +215,7 @@ public class DataSourceSqlite extends BaseDataSource {
         return queryList(
                 "SELECT * FROM exercise, exercise_set "
                 + "WHERE set_workout_id=? AND set_exercise_id=exercise_id"
-                        + "ORDER BY set_id ASC", set_workout_id);
+                        + " ORDER BY set_id ASC", set_workout_id);
     }
 
 
