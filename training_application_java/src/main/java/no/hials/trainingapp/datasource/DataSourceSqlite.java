@@ -214,7 +214,8 @@ public class DataSourceSqlite extends BaseDataSource {
     public List<DataItem> getSets(int set_workout_id) throws SQLException {
         return queryList(
                 "SELECT * FROM exercise, exercise_set "
-                + "WHERE set_workout_id=? AND set_exercise_id=exercise_id", set_workout_id);
+                + "WHERE set_workout_id=? AND set_exercise_id=exercise_id"
+                        + "ORDER BY set_id ASC", set_workout_id);
     }
 
 
