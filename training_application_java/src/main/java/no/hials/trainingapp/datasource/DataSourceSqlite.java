@@ -166,7 +166,7 @@ public class DataSourceSqlite extends BaseDataSource {
                 data.get("exercise_description"));
 
     }
-    
+
     @Override
     public List<DataItem> getProgressForExercise(int customerId, int exerciseId) throws SQLException {
 
@@ -182,7 +182,7 @@ public class DataSourceSqlite extends BaseDataSource {
                 exerciseId, true, customerId);
 
     }
-    
+
     @Override
     public List<DataItem> getAllExercises() throws SQLException {
         return queryList("SELECT * FROM exercise ORDER BY exercise_name ASC");
@@ -217,8 +217,6 @@ public class DataSourceSqlite extends BaseDataSource {
                 + "WHERE set_workout_id=? AND set_exercise_id=exercise_id", set_workout_id);
     }
 
-
-
     /**
      * Creates a new data source for use in a transaction
      *
@@ -251,4 +249,19 @@ public class DataSourceSqlite extends BaseDataSource {
         return ds;
     }
 
+    /**
+     * XXX
+     */
+    @Override
+    public void setDone(int setID, int repsDone, int loadUsed) {
+
+    }
+
+    /**
+     * XXX
+     */
+    @Override
+    public void exerciseDone(int workoutID) {
+
+    }
 }

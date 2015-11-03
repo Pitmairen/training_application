@@ -1,5 +1,4 @@
 
-
 html {
     box-sizing: border-box;
     margin: 0 0 0 0;
@@ -133,6 +132,10 @@ main li {
 .bold {
     font-weight: bold;
 }
+.setTableSubmitButton {
+    margin: 1rem 0 0 0;
+}
+
 
 a.link-button{
     display: inline-block;

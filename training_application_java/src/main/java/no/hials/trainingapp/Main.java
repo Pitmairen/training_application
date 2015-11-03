@@ -55,7 +55,7 @@ public class Main {
             DataSourceSqlite.initPool(conString);
             sDataSource = new DataSourceSqlite();
         } else if (ds.equals("mssql")) {
-            
+
             System.setProperty("java.net.preferIPv6Addresses", "true");
             DataSourceMssql.initPool(conString);
             sDataSource = new DataSourceMssql();
@@ -82,7 +82,7 @@ public class Main {
         r.getAndPost("/logout", Logout.class);
         r.get("/workouts", Workouts.class);
         r.get("/history", History.class);
-        r.get("/workout/:id", Workout.class);
+        r.getAndPost("/workout/:id", Workout.class);
         r.get("/progress/:id", ProgressGraph.class);
 
         r.get("/tos", new SimpleTemplateRoute("tos"));
@@ -99,7 +99,5 @@ public class Main {
 
         r.getAndPost("/admin/add-new-exercise", AddExercise.class);
         r.getAndPost("/admin/add-new-workout/:prog_id", AddWorkoutToProgram.class);
-
-
     }
 }
