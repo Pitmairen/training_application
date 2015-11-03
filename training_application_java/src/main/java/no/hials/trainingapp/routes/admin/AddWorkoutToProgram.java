@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import no.hials.trainingapp.datasource.DataItem;
@@ -92,17 +93,22 @@ public class AddWorkoutToProgram extends FormRoute {
 
     private void prepareSetsForInsert(DataItem workout, List<DataItem> sets) {
 
-        int prevExId = -1;
-        int currentSetNr = 0;
+        HashMap<Integer, Integer> setNrs = new HashMap<>();
+
         for (DataItem set : sets) {
 
-            if (set.getInteger("set_exercise_id") != prevExId) {
-                currentSetNr = 0;
+            int exId = set.getInteger("set_exercise_id");
+
+            if (!setNrs.containsKey(set.getInteger("set_exercise_id"))) {
+                setNrs.put(exId, 0);
             }
-            set.put("set_nr", ++currentSetNr);
+
+            setNrs.put(exId, setNrs.get(exId) + 1);
+
+            set.put("set_nr", setNrs.get(exId));
             set.put("set_duration_planned", 0);
             set.put("set_workout_id", workout.get("workout_id"));
-            prevExId = set.getInteger("set_exercise_id");
+
         }
     }
 
