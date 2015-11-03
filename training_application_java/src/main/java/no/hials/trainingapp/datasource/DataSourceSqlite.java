@@ -246,9 +246,6 @@ public class DataSourceSqlite extends BaseDataSource {
         HikariConfig config = new HikariConfig();
        
         config.setJdbcUrl(connectionString);
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
         config.addDataSourceProperty("foreign_keys", "true");
 
         HikariDataSource ds = new HikariDataSource(config);
