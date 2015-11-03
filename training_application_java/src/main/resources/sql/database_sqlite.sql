@@ -57,7 +57,6 @@ CREATE TABLE exercise(
 CREATE TABLE exercise_set(
     set_id INTEGER PRIMARY KEY,
 
-    set_nr INTEGER NOT NULL,
     set_exercise_id INTEGER NOT NULL,
     set_workout_id INTEGER NOT NULL,
 
@@ -67,14 +66,10 @@ CREATE TABLE exercise_set(
     set_weight_planned INTEGER NOT NULL,
     set_weight_done INTEGER NULL,
 
-    set_duration_planned INTEGER NOT NULL,
-    set_duration_done INTEGER NULL,
-
     FOREIGN KEY (set_workout_id) REFERENCES workout(workout_id),
     FOREIGN KEY (set_exercise_id) REFERENCES exercise(exercise_id)
 );
 
-CREATE UNIQUE INDEX s_uniq_idx ON exercise_set(set_nr, set_exercise_id, set_workout_id);
 CREATE INDEX s_exercise_idx ON exercise_set(set_exercise_id);
 CREATE INDEX s_workout_idx ON exercise_set(set_workout_id);
 
@@ -111,44 +106,44 @@ INSERT INTO exercise(exercise_name, exercise_description) VALUES
     ('The plank','Lay down, then support your weight with your forearms so your body is straight and only your feet and forearms touch the ground, hold for x seconds');
 	
 
-INSERT INTO exercise_set(set_workout_id, set_nr, set_exercise_id, set_reps_planned,
-    set_reps_done, set_weight_planned, set_weight_done, set_duration_planned, set_duration_done) VALUES
+INSERT INTO exercise_set(set_workout_id, set_exercise_id, set_reps_planned,
+    set_reps_done, set_weight_planned, set_weight_done) VALUES
 
     --- Day 1
-    (1, 1, 1, 20, null, 0, null, 0, null),
-    (1, 2, 1, 20, null, 0, null, 0, null),
-    (1, 3, 1, 20, null, 0, null, 0, null),
+    (1, 1, 20, null, 0, null),
+    (1, 1, 20, null, 0, null),
+    (1, 1, 20, null, 0, null),
 
-    (1, 1, 2, 20, null, 0, null, 0, null),
-    (1, 2, 2, 20, null, 0, null, 0, null),
-    (1, 3, 2, 20, null, 0, null, 0, null),
+    (1, 2, 20, null, 0, null),
+    (1, 2, 20, null, 0, null),
+    (1, 2, 20, null, 0, null),
 
-    (1, 1, 4, 10, null, 80, null, 0, null),
-    (1, 2, 4, 10, null, 80, null, 0, null),
-    (1, 3, 4, 10, null, 80, null, 0, null),
+    (1, 4, 10, null, 80, null),
+    (1, 4, 10, null, 80, null),
+    (1, 4, 10, null, 80, null),
 
-    --- Day 2
-    (2, 1, 2, 20, null, 0, null, 0, null),
-    (2, 2, 2, 20, null, 0, null, 0, null),
-    (2, 3, 2, 20, null, 0, null, 0, null),
+    ---  2
+    (2, 2, 20, null, 0, null),
+    (2, 2, 20, null, 0, null),
+    (2, 2, 20, null, 0, null),
 
-    (2, 1, 5, 20, null, 0, null, 0, null),
-    (2, 2, 5, 20, null, 0, null, 0, null),
-    (2, 3, 5, 20, null, 0, null, 0, null),
+    (2, 5, 20, null, 0, null),
+    (2, 5, 20, null, 0, null),
+    (2, 5, 20, null, 0, null),
 
-    (2, 1, 6, 1, null, 0, null, 120, null),
-    (2, 2, 6, 1, null, 0, null, 120, null),
-    (2, 3, 6, 1, null, 0, null, 120, null),
+    (2, 6, 1, null, 0, null),
+    (2, 6, 1, null, 0, null),
+    (2, 6, 1, null, 0, null),
 
-    ---- Day 3
-    (3, 1, 3, 20, null, 0, null, 0, null),
-    (3, 2, 3, 20, null, 0, null, 0, null),
-    (3, 3, 3, 20, null, 0, null, 0, null),
+    ----y 3
+    (3, 3, 20, null, 0, null),
+    (3, 3, 20, null, 0, null),
+    (3, 3, 20, null, 0, null),
 
-    (3, 1, 6, 1, null, 0, null, 120, null),
-    (3, 2, 6, 1, null, 0, null, 120, null),
-    (3, 3, 6, 1, null, 0, null, 120, null),
+    (3, 6, 1, null, 0, null),
+    (3, 6, 1, null, 0, null),
+    (3, 6, 1, null, 0, null),
 
-    (3, 1, 4, 10, null, 80, null, 0, null),
-    (3, 2, 4, 10, null, 80, null, 0, null),
-    (3, 3, 4, 10, null, 80, null, 0, null);
+    (3, 4, 10, null, 80, null),
+    (3, 4, 10, null, 80, null),
+    (3, 4, 10, null, 80, null);

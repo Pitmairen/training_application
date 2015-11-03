@@ -93,23 +93,8 @@ public class AddWorkoutToProgram extends FormRoute {
     }
 
     private void prepareSetsForInsert(DataItem workout, List<DataItem> sets) {
-
-        HashMap<Integer, Integer> setNrs = new HashMap<>();
-
         for (DataItem set : sets) {
-
-            int exId = set.getInteger("set_exercise_id");
-
-            if (!setNrs.containsKey(set.getInteger("set_exercise_id"))) {
-                setNrs.put(exId, 0);
-            }
-
-            setNrs.put(exId, setNrs.get(exId) + 1);
-
-            set.put("set_nr", setNrs.get(exId));
-            set.put("set_duration_planned", 0);
             set.put("set_workout_id", workout.get("workout_id"));
-
         }
     }
 
