@@ -162,4 +162,20 @@ public interface DataSource {
      * Returns all sets in a specific workout session.
      */
     public List<DataItem> getSets(int set_workout_id) throws SQLException;
+
+    /**
+     * Stores a completed set in the database.
+     *
+     * @param setID The unique ID of the set.
+     * @param repsDone Number of repetitions done.
+     * @param loadUsed Kg's of load used in the exercise.
+     */
+    public void setDone(int setID, int repsDone, int loadUsed);
+
+    /**
+     * Sets the completed flag of an exercise to true.
+     *
+     * @param workoutID The unique ID of an exercise.
+     */
+    public void exerciseDone(int workoutID);
 }

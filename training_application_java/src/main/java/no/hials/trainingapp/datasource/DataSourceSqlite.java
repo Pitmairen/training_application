@@ -136,19 +136,16 @@ public class DataSourceSqlite extends BaseDataSource {
     public void storeNewWorkoutSets(List<DataItem> sets) throws SQLException {
 
         String query = "INSERT INTO exercise_set "
-                + "(set_nr, set_exercise_id, set_workout_id,"
-                + "set_reps_planned, set_weight_planned, "
-                + "set_duration_planned)"
-                + "VALUES(?, ?, ?, ?, ?, ?)";
+                + "(set_exercise_id, set_workout_id,"
+                + "set_reps_planned, set_weight_planned) "
+                + "VALUES(?, ?, ?, ?)";
 
         for (DataItem set : sets) {
             executeUpdate(query,
-                    set.get("set_nr"),
                     set.get("set_exercise_id"),
                     set.get("set_workout_id"),
                     set.get("set_reps_planned"),
-                    set.get("set_weight_planned"),
-                    set.get("set_duration_planned"));
+                    set.get("set_weight_planned"));
         }
 
     }
@@ -220,7 +217,8 @@ public class DataSourceSqlite extends BaseDataSource {
     public List<DataItem> getSets(int set_workout_id) throws SQLException {
         return queryList(
                 "SELECT * FROM exercise, exercise_set "
-                + "WHERE set_workout_id=? AND set_exercise_id=exercise_id", set_workout_id);
+                + "WHERE set_workout_id=? AND set_exercise_id=exercise_id"
+                        + " ORDER BY set_id ASC", set_workout_id);
     }
 
     /**
@@ -245,14 +243,29 @@ public class DataSourceSqlite extends BaseDataSource {
     private static HikariDataSource createConnectionPool(String connectionString) throws ClassNotFoundException {
 
         Class.forName("org.sqlite.JDBC");
+        
         HikariConfig config = new HikariConfig();
+       
         config.setJdbcUrl(connectionString);
-        config.addDataSourceProperty("cachePrepStmts", "true");
-        config.addDataSourceProperty("prepStmtCacheSize", "250");
-        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        config.addDataSourceProperty("foreign_keys", "true");
 
         HikariDataSource ds = new HikariDataSource(config);
         return ds;
     }
 
+    /**
+     * XXX
+     */
+    @Override
+    public void setDone(int setID, int repsDone, int loadUsed) {
+
+    }
+
+    /**
+     * XXX
+     */
+    @Override
+    public void exerciseDone(int workoutID) {
+
+    }
 }

@@ -175,19 +175,16 @@ public class DataSourceMssql extends BaseDataSource {
     public void storeNewWorkoutSets(List<DataItem> sets) throws SQLException {
 
         String query = "INSERT INTO exercise_set "
-                + "(set_nr, set_exercise_id, set_workout_id,"
-                + "set_reps_planned, set_weight_planned, "
-                + "set_duration_planned)"
+                + "(set_exercise_id, set_workout_id,"
+                + "set_reps_planned, set_weight_planned)"
                 + "VALUES(?, ?, ?, ?, ?, ?)";
 
         for (DataItem set : sets) {
             executeUpdate(query,
-                    set.get("set_nr"),
                     set.get("set_exercise_id"),
                     set.get("set_workout_id"),
                     set.get("set_reps_planned"),
-                    set.get("set_weight_planned"),
-                    set.get("set_duration_planned"));
+                    set.get("set_weight_planned"));
         }
 
     }
@@ -261,4 +258,19 @@ public class DataSourceMssql extends BaseDataSource {
                 + "WHERE set_workout_id=? AND set_exercise_id=exercise_id", set_workout_id);
     }
 
+    /**
+     * XXX
+     */
+    @Override
+    public void setDone(int setID, int repsDone, int loadUsed) {
+
+    }
+
+    /**
+     * XXX
+     */
+    @Override
+    public void exerciseDone(int workoutID) {
+
+    }
 }

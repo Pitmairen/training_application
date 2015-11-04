@@ -35,6 +35,18 @@ public class Workout extends TemplateRoute {
             halt(404);
         }
 
+//        // When user submits workout form.
+//        if (getRequest().requestMethod().equals("POST")) {
+//            for (DataItem set : sets) {
+//                Integer setID = set.getInteger("set_id");
+//                String repsDone = getRequest().queryParams("set-" + set.getInteger("set_id") + "-RepsDone");
+//                String loadUsed = getRequest().queryParams("set-" + set.getInteger("set_id") + "-LoadUsed");
+//                setDone(setID, repsDone, loadUsed);
+//            }
+//            Integer workoutID = workout.getInteger("workout_id");
+//            exerciseDone(workoutID);
+//        }
+
         return renderTemplate("workout");
     }
 }
