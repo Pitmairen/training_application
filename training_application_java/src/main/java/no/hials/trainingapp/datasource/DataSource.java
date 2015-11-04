@@ -20,6 +20,15 @@ public interface DataSource {
     public DataItem getCustomerByUsername(String username) throws SQLException;
 
     /**
+     * Returns the customer with the given ID
+     *
+     * @param id the id of the user
+     * @return the user data
+     * @throws SQLException
+     */
+    public DataItem getCustomerById(int id) throws SQLException;
+    
+    /**
      * Returns all the customers
      *
      * @param limit limit the number of users returned

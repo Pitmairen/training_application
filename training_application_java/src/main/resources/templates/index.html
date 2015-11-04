@@ -4,7 +4,51 @@
 
 {% block "content" %}
 
-<h2>Hi {{ currentUser.getName }}</h2>
-<p>This is your profile page.</p>
+<h2>Welcome back {{ currentUser.getName }}!</h2>
+<p></p>
+<table>
+    <th colspan="2">Profile info:</th>
+    <tr>
+        <td>Name: </td>
+        <td>{{userinfo.customer_first_name}} {{userinfo.customer_last_name}}</td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>{{userinfo.customer_email}}</td>
+    </tr>
+
+    <tr>
+        <td>Height:</td>
+        <td>{{userinfo.customer_height}} cm</td>
+    </tr>
+    <tr>
+        <td>Weight:</td>
+        <td>{{userinfo.customer_weight}} kg</td>
+    </tr>
+    <tr>
+        <td>Sex:</td>
+
+        <td>
+            {% if userinfo.customer_sex equals "m" %}
+            Male
+            {% endif %}
+
+            {% if userinfo.customer_sex equals "f" %}
+            Female
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>Date of birth:</td>
+        <td>{{userinfo.customer_date_of_birth}}</td>
+    </tr>
+    <tr>
+        <td>User ID:</td>
+        <td>{{userinfo.customer_id}}</td>
+    </tr>
+</table>
 
 {% endblock %}

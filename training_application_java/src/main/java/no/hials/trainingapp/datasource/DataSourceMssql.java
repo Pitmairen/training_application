@@ -6,14 +6,12 @@ import com.microsoft.sqlserver.jdbc.SQLServerDriver;
 import java.sql.SQLException;
 import java.util.List;
 
-
 /**
  *
  * @author tor-martin
  */
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
 
 public class DataSourceMssql extends BaseDataSource {
 
@@ -33,8 +31,7 @@ public class DataSourceMssql extends BaseDataSource {
     public List<DataItem> getCustomers() throws SQLException {
         return queryList("Exec GetCustomers");
     }
-    
-  
+
 //    @Override
 //    public DataItem getWorkout(int workoutId, int workoutProgramId) throws SQLException {
 //        return querySingle(
@@ -42,13 +39,18 @@ public class DataSourceMssql extends BaseDataSource {
 //                + "WHERE workout_program_id=? AND workout_id=? ",
 //                workoutId, workoutProgramId);
 //    }
-
     @Override
     public DataItem getCustomerByUsername(String username) throws SQLException {
 
         return querySingle(
                 "select * from customer WHERE customer_email=?", username);
 
+    }
+
+    @Override
+    public DataItem getCustomerById(int id) throws SQLException {
+        return querySingle(
+                "select * from customer WHERE customer_id=?", id);
     }
 
     @Override
@@ -125,7 +127,6 @@ public class DataSourceMssql extends BaseDataSource {
 //                //+ "WHERE set_workout_id=?",
 //                , set_id, set_workout_id, set_exercise_id);
 //    }
-
     /**
      * Returns all the customers
      *
@@ -141,7 +142,7 @@ public class DataSourceMssql extends BaseDataSource {
                 + " customer_last_name LIMIT ?", limit);
     }
 
-   /**
+    /**
      * XXX
      */
     @Override
@@ -190,16 +191,15 @@ public class DataSourceMssql extends BaseDataSource {
         }
 
     }
-    
-    
+
     @Override
     public DataItem getExerciseById(int exerciseId) throws SQLException {
         return querySingle("SELECT * FROM exercise "
                 + "WHERE exercise_id=?",
                 exerciseId);
     }
-    
-   @Override
+
+    @Override
     public void storeNewExercise(DataItem data) throws SQLException {
 
         String query = "INSERT INTO exercise "
@@ -218,7 +218,7 @@ public class DataSourceMssql extends BaseDataSource {
     }
 
     @Override
-   public List<DataItem> getProgressForExercise(int customerId, int exerciseId) throws SQLException {
+    public List<DataItem> getProgressForExercise(int customerId, int exerciseId) throws SQLException {
 
         return queryList("SELECT workout_date, "
                 + "MAX(set_reps_done) AS max_reps, "
@@ -231,8 +231,7 @@ public class DataSourceMssql extends BaseDataSource {
                 + "ORDER BY workout_id ",
                 exerciseId, true, customerId);
     }
-    
-    
+
     @Override
     public DataItem getProgramById(int id) throws SQLException {
         return querySingle(
@@ -252,7 +251,7 @@ public class DataSourceMssql extends BaseDataSource {
 
     }
 
-        /**
+    /**
      * XXX
      */
     @Override
