@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
-import no.hials.trainingapp.routing.TemplateRoute;
+import no.hials.trainingapp.routing.FormRoute;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -15,7 +15,7 @@ import static spark.Spark.halt;
  *
  * @author Kristian Honningsvag.
  */
-public class Workout extends TemplateRoute {
+public class Workout extends FormRoute {
 
     public Workout(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
@@ -41,10 +41,10 @@ public class Workout extends TemplateRoute {
 //                Integer setID = set.getInteger("set_id");
 //                String repsDone = getRequest().queryParams("set-" + set.getInteger("set_id") + "-RepsDone");
 //                String loadUsed = getRequest().queryParams("set-" + set.getInteger("set_id") + "-LoadUsed");
-//                setDone(setID, repsDone, loadUsed);
+//                storeSetDone(setID, repsDone, loadUsed);
 //            }
 //            Integer workoutID = workout.getInteger("workout_id");
-//            exerciseDone(workoutID);
+//            storeExerciseDone(workoutID);
 //        }
 
         return renderTemplate("workout");

@@ -170,12 +170,12 @@ public interface DataSource {
      * @param repsDone Number of repetitions done.
      * @param loadUsed Kg's of load used in the exercise.
      */
-    public void setDone(int setID, int repsDone, int loadUsed);
+    public void storeSetDone(int setID, int repsDone, int loadUsed);
 
     /**
      * Sets the completed flag of an exercise to true.
      *
      * @param workoutID The unique ID of an exercise.
      */
-    public void exerciseDone(int workoutID);
+    public void storeExerciseDone(int workoutID);
 }

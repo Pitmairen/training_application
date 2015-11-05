@@ -257,7 +257,7 @@ public class DataSourceSqlite extends BaseDataSource {
      * XXX
      */
     @Override
-    public void setDone(int setID, int repsDone, int loadUsed) {
+    public void storeSetDone(int setID, int repsDone, int loadUsed) {
 
     }
 
@@ -265,7 +265,7 @@ public class DataSourceSqlite extends BaseDataSource {
      * XXX
      */
     @Override
-    public void exerciseDone(int workoutID) {
+    public void storeExerciseDone(int workoutID) {
 
     }
 }

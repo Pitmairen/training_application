@@ -8,21 +8,22 @@
         <script src="/static/jquery.js"></script>
     </head>
     <body>
-        <header class="clearfix">
+        <header>
             <ul>
-                <li><a href="/admin/">Admin Index</a></li>
-                <li><a href="/admin/logout">Logout</a></li>
+                <a href="/admin/"><li>Admin Index</li></a>
+                <a href="/admin/logout"><li>Logout</li></a>
             </ul>
         </header>
         <main>
             {% block "content" %}{% endblock %}
         </main>
-        <header class="clearfix">
+        <footer>
             <ul>
-                <li><a href="/admin/">Admin Index</a></li>
-                <li><a href="/admin/logout">Logout</a></li>
+                <a href="/help"><li>Help</li></a>
+                <a href="/about"><li>About</li></a>
+                <a href="/tos"><li>ToS</li></a>
             </ul>
-        </header>
+        </footer>
         {% block "js_bottom" %}{% endblock %}
     </body>
 </html>
