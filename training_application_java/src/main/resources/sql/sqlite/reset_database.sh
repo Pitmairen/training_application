@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Default db file
-DB_FILE="/tmp/trainingappjava.db"
+DB_FILE="/tmp/trainingdbjava.db"
 
 # Check if an alternate db file is specified as a command line argument
 if [ -n "$1" ]; then
