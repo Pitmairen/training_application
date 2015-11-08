@@ -47,7 +47,7 @@ CREATE INDEX w_program_idx ON workout(workout_program_id);
 CREATE INDEX w_done_idx ON workout(workout_done);
 
 
-CREATE TABLE exercise(        --Exercises makes up a workout.
+CREATE TABLE exercise(        --Several exercises makes up a workout.
     exercise_id INTEGER PRIMARY KEY,
     exercise_name VARCHAR(50) NOT NULL,
     exercise_description TEXT NOT NULL

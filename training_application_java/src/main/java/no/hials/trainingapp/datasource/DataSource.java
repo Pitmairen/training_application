@@ -27,7 +27,7 @@ public interface DataSource {
      * @throws SQLException
      */
     public DataItem getCustomerById(int id) throws SQLException;
-    
+
     /**
      * Returns all the customers
      *

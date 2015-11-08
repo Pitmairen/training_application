@@ -237,7 +237,7 @@ public class DataSourceSqlite extends BaseDataSource {
         return queryList(
                 "SELECT * FROM exercise, exercise_set "
                 + "WHERE set_workout_id=? AND set_exercise_id=exercise_id"
-                        + " ORDER BY set_id ASC", set_workout_id);
+                + " ORDER BY set_id ASC", set_workout_id);
     }
 
     /**
@@ -262,9 +262,9 @@ public class DataSourceSqlite extends BaseDataSource {
     private static HikariDataSource createConnectionPool(String connectionString) throws ClassNotFoundException {
 
         Class.forName("org.sqlite.JDBC");
-        
+
         HikariConfig config = new HikariConfig();
-       
+
         config.setJdbcUrl(connectionString);
         config.addDataSourceProperty("foreign_keys", "true");
 

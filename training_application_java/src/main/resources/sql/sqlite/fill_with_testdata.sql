@@ -2,6 +2,7 @@
 PRAGMA foreign_keys = ON;
 
 INSERT INTO program(program_name, program_description) VALUES
+    ('Full body routine', 'This is a very intensive full body strenght routine aimed at experienced individuals.'),
     ('Starting Strength A', 'Full body strength routine for novices and beginners. Very core- and lower body intensive.'),
     ('Starting Strength B', 'Full body strength routine for novices and beginners. Very core- and lower body intensive.'),
     ('Stronglifts', 'Full body strength routine for novices and beginners. More balanced.'),
@@ -12,20 +13,22 @@ INSERT INTO program(program_name, program_description) VALUES
 
 
 INSERT INTO customer(customer_program_id, customer_email, customer_pw, customer_first_name, customer_last_name, customer_weight, customer_height, customer_date_Of_birth, customer_sex) VALUES
-    (5, 'test', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'FIRSTNAME', 'LASTNAME', 80, 180, '1911-11-11', 'm'),
-    (5, 'w.wilson@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Wade', 'Wilson', 95, 188, '1997-12-05', 'm'),
-    (5, 's.rogers@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Steven', 'Rogers', 100, 188, '1941-23-11', 'm'),    
-    (5, 'j.walters@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Jennifer', 'Walters', 64, 178, '1980-02-23', 'f'),
-    (5, 'f.castle@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Frank', 'Castle', 91, 185, '1975-07-06', 'm')
+    (1, 'test', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Test Name', 'Test Name', 80, 180, '1911-11-11', 'm'),
+    (1, 'w.wilson@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Wade', 'Wilson', 95, 188, '1997-12-05', 'm'),
+    (1, 's.rogers@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Steven', 'Rogers', 100, 188, '1941-23-11', 'm'),    
+    (1, 'j.walters@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Jennifer', 'Walters', 64, 178, '1980-02-23', 'f'),
+    (1, 'f.castle@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Frank', 'Castle', 91, 185, '1975-07-06', 'm')
 ;
 
 
 INSERT INTO workout(workout_program_id, workout_name, workout_description, workout_date) VALUES
-    (5, 'Overall strength','This session will target the entire body.', date("now", "+1 day")),
-    (5, 'Overall strength','This session will target the entire body.', date("now", "+2 day")),
-    (5, 'Name','Description.', date("now", "+4 day")),
-    (5, 'Name','Description.', date("now", "+5 day")),
-    (5, 'Name','Description.', date("now", "+8 day"))
+    (1, 'Overall strength','This session will target the entire body.', date("now", "+1 day")),
+    (1, 'Overall strength','This session will target the entire body.', date("now", "+3 day")),
+    (1, 'Overall strength','This session will target the entire body.', date("now", "+5 day")),
+    (1, 'Overall strength','This session will target the entire body.', date("now", "+7 day")),
+    (1, 'Overall strength','This session will target the entire body.', date("now", "+9 day")),
+    (1, 'Overall strength','This session will target the entire body.', date("now", "+11 day")),
+    (1, 'Overall strength','This session will target the entire body.', date("now", "+13 day"))
 ;
 
 
@@ -62,45 +65,67 @@ INSERT INTO exercise_set(set_workout_id, set_exercise_id, set_reps_planned,
 
     -- Workout 1
     -- Deadlift
-    (1, 14, 5, null, 110, null),
-    (1, 14, 5, null, 110, null),
-    (1, 14, 5, null, 110, null),
-    (1, 14, 5, null, 110, null),
+    (1, 14, 1, null, 110, null),
+    (1, 14, 1, null, 110, null),
+    (1, 14, 1, null, 110, null),
+    (1, 14, 1, null, 110, null),
     -- Barbell benchpress
-    (1, 9, 5, null, 32, null),
-    (1, 9, 5, null, 32, null),
-    (1, 9, 5, null, 32, null),
-    (1, 9, 5, null, 32, null),
+    (1, 9, 1, null, 32, null),
+    (1, 9, 1, null, 32, null),
+    (1, 9, 1, null, 32, null),
+    (1, 9, 1, null, 32, null),
     -- Pull ups
-    (1, 4, 5, null, 5, null),
-    (1, 4, 5, null, 5, null),
-    (1, 4, 5, null, 5, null),
-    (1, 4, 5, null, 5, null),
+    (1, 4, 1, null, 5, null),
+    (1, 4, 1, null, 5, null),
+    (1, 4, 1, null, 5, null),
+    (1, 4, 1, null, 5, null),
     -- Squats
-    (1, 3, 5, null, 90, null),
-    (1, 3, 5, null, 90, null),
-    (1, 3, 5, null, 90, null),
-    (1, 3, 5, null, 90, null),
+    (1, 3, 1, null, 90, null),
+    (1, 3, 1, null, 90, null),
+    (1, 3, 1, null, 90, null),
+    (1, 3, 1, null, 90, null),
 
     -- Workout 2
     -- Deadlift
-    (2, 14, 5, null, 110, null),
-    (2, 14, 5, null, 110, null),
-    (2, 14, 5, null, 110, null),
-    (2, 14, 5, null, 110, null),
+    (2, 14, 1, null, 110, null),
+    (2, 14, 1, null, 110, null),
+    (2, 14, 1, null, 110, null),
+    (2, 14, 1, null, 110, null),
     -- Barbell benchpress
-    (2, 9, 5, null, 32, null),
-    (2, 9, 5, null, 32, null),
-    (2, 9, 5, null, 32, null),
-    (2, 9, 5, null, 32, null),
+    (2, 9, 1, null, 32, null),
+    (2, 9, 1, null, 32, null),
+    (2, 9, 1, null, 32, null),
+    (2, 9, 1, null, 32, null),
     -- Pull ups
-    (2, 4, 5, null, 5, null),
-    (2, 4, 5, null, 5, null),
-    (2, 4, 5, null, 5, null),
-    (2, 4, 5, null, 5, null),
+    (2, 4, 1, null, 5, null),
+    (2, 4, 1, null, 5, null),
+    (2, 4, 1, null, 5, null),
+    (2, 4, 1, null, 5, null),
     -- Squats
-    (2, 3, 5, null, 90, null),
-    (2, 3, 5, null, 90, null),
-    (2, 3, 5, null, 90, null),
-    (2, 3, 5, null, 90, null)
+    (2, 3, 1, null, 90, null),
+    (2, 3, 1, null, 90, null),
+    (2, 3, 1, null, 90, null),
+    (2, 3, 1, null, 90, null),
+
+    -- Workout 3
+    -- Deadlift
+    (3, 14, 1, null, 110, null),
+    (3, 14, 1, null, 110, null),
+    (3, 14, 1, null, 110, null),
+    (3, 14, 1, null, 110, null),
+    -- Barbell benchpress
+    (3, 9, 1, null, 32, null),
+    (3, 9, 1, null, 32, null),
+    (3, 9, 1, null, 32, null),
+    (3, 9, 1, null, 32, null),
+    -- Pull ups
+    (3, 4, 1, null, 5, null),
+    (3, 4, 1, null, 5, null),
+    (3, 4, 1, null, 5, null),
+    (3, 4, 1, null, 5, null),
+    -- Squats
+    (3, 3, 1, null, 90, null),
+    (3, 3, 1, null, 90, null),
+    (3, 3, 1, null, 90, null),
+    (3, 3, 1, null, 90, null)
 ;

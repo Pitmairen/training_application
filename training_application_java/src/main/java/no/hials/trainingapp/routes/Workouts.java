@@ -24,8 +24,11 @@ public class Workouts extends TemplateRoute {
     public ModelAndView handle() throws SQLException {
 
         List<DataItem> workouts = getDataSource().getNextWorkoutsForCustomer(getCurrentUser().getId(), 10);
-
         setData("workouts", workouts);
+
+        DataItem user = getDataSource().getCustomerById(getCurrentUser().getId());
+        DataItem program = getDataSource().getProgramById(user.getInteger("customer_program_id"));
+        setData("program", program);
 
         return renderTemplate("workouts");
     }
