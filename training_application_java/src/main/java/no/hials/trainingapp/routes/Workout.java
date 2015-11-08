@@ -35,18 +35,21 @@ public class Workout extends FormRoute {
             halt(404);
         }
 
-//        // When user submits workout form.
-//        if (getRequest().requestMethod().equals("POST")) {
-//            for (DataItem set : sets) {
-//                Integer setID = set.getInteger("set_id");
-//                String repsDone = getRequest().queryParams("set-" + set.getInteger("set_id") + "-RepsDone");
-//                String loadUsed = getRequest().queryParams("set-" + set.getInteger("set_id") + "-LoadUsed");
-//                storeSetDone(setID, repsDone, loadUsed);
-//            }
-//            Integer workoutID = workout.getInteger("workout_id");
-//            storeExerciseDone(workoutID);
-//        }
+        // When user submits workout form.
+        if (getRequest().requestMethod().equals("POST")) {
+            for (DataItem set : sets) {
 
+                String setID = String.valueOf(set.getInteger("set_id"));
+                String repsDone = getRequest().queryParams("set-" + set.getInteger("set_id") + "-RepsDone");
+                String loadUsed = getRequest().queryParams("set-" + set.getInteger("set_id") + "-LoadUsed");
+
+                // Store the completed set in the database.
+                getDataSource().storeSetDone(setID, repsDone, loadUsed);
+            }
+            // Mark the workout as done.
+            Integer workoutID = workout.getInteger("workout_id");
+            getDataSource().storeExerciseDone(workoutID);
+        }
         return renderTemplate("workout");
     }
 }
