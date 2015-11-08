@@ -4,18 +4,23 @@
 
 {% block "content" %}
 
-<h2>Current workout profile: <i>{{ program.program_name }}</i></h2>
+<h2>Current workout profile: [<i>{{ program.program_name }}</i>]</h2>
 <p>{{ program.program_description }}</p>
 
 <h2>Upcoming workout sessions:</h2>
 
+{% set containsWorkouts = 0 %}
+
 <table class="standardTable">
     {% for wk in workouts %}
-    <tr><td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
+    {% set containsWorkouts = 1 %}
+    <tr"><td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
         <td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_name }}</a></td></tr>
-    {% else %}
-    <p>You have no workouts scheduled. Please contact your trainer.</p>
     {% endfor %}
+
+    {% if (containsWorkouts == 0) %}
+    <tr><td colspan="2" class="standardTableErrorText"><b>You have no workouts scheduled. Please contact your trainer.</b></td></tr>
+    {% endif %}
 </table>
 
 {% endblock %}
