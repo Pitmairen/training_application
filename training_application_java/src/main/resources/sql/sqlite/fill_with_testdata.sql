@@ -2,29 +2,34 @@
 PRAGMA foreign_keys = ON;
 
 INSERT INTO program(program_name, program_description) VALUES
-    ('Test Program1', 'This is a test'),
-    ('Test Program2', 'This is a test');
+    ('Starting Strength A', 'Full body strength routine for novices and beginners. Very core- and lower body intensive.'),
+    ('Starting Strength B', 'Full body strength routine for novices and beginners. Very core- and lower body intensive.'),
+    ('Stronglifts', 'Full body strength routine for novices and beginners. More balanced.'),
+    ('Push Pull 4 day', 'Full body strength routine for advanced and above, days and exercises are split according to the motions in push and pull categories.'),
+    ('Madcow/Bill Starr', 'Very intensive full body strength routine. Recommended for advanced lifters and above.'),
+    ('Tabata regimen', 'Anything above 12 reps is cardio.')
+;
+
 
 INSERT INTO customer(customer_program_id, customer_email, customer_pw, customer_first_name, customer_last_name, customer_weight, customer_height, customer_date_Of_birth, customer_sex) VALUES
-    (1, 'test', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'test', 'test', 80, 180, '1970-01-01', 'm'),
-    (1, 'duke@gmail.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Duke', 'Davidson', 68, 179, '1976-12-05', 'm'),
-    (2, 'fancypants@gmail.com', '$2a$10$nxHZlY0Tr.fvcYJNgYJDZO7k1MxS4HuUYHeuk7ZncPuGJ9YfIPeE6', 'Tiffany', 'McDonald', 55, 157, '1989-02-23', 'f'),
-    (2, 's.harrison@gmail.com', '$2a$10$p1MX36OjGtkakgGiZ9zjUOqRqBqyj8bGTuvHsgvSaPwx1nwklR.he', 'Sam', 'Harrison', 77, 164, '1954-07-19', 'm');
+    (5, 'test', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'FIRSTNAME', 'LASTNAME', 80, 180, '1911-11-11', 'm'),
+    (5, 'w.wilson@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Wade', 'Wilson', 95, 188, '1997-12-05', 'm'),
+    (5, 's.rogers@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Steven', 'Rogers', 100, 188, '1941-23-11', 'm'),    
+    (5, 'j.walters@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Jennifer', 'Walters', 64, 178, '1980-02-23', 'f'),
+    (5, 'f.castle@email.com', '$2a$10$w42h6OtYgtUJHyExOzTtiea3xK1LYd2JLlrDwEgJJ.WffF9GJcSjO', 'Frank', 'Castle', 91, 185, '1975-07-06', 'm')
+;
 
 
 INSERT INTO workout(workout_program_id, workout_name, workout_description, workout_date) VALUES
-    (1, 'Legs of Endurance', 'Workout program with exercises that improves the endurence in your legs', date("now", "+1 day")),
-    (1, 'Arms of Strength', 'Workout program with exercises that improves your arm strength', date("now", "+3 day")),
-    (1, 'Abs of Steel', 'Workout program with exercises that gives you well defined abs', date("now", "+5 day")),
-    (1, 'Starting Strength A','Full body strength routine for novices and beginners. Very core- and lower body intensive.', date("now", "+7 day")),
-    (2, 'Starting Strength B','Full body strength routine for novices and beginners. Very core- and lower body intensive.', date("now", "+1 day")),
-    (2, 'Stronglifts','Full body strength routine for novices and beginners. More balanced.', date("now", "+2 day")),
-    (2, 'Push Pull 4 day','Full body strength routine for advanced and above, days and exercises are split according to the motions in push and pull categories.', date("now", "+4 day")),
-    (2, 'Madcow/Bill Starr','Very intensive full body strength routine. Recommended for advanced lifters and above.', date("now", "+5 day")),
-    (2, 'Tabata regimen', 'Anything above 12 reps is cardio.', date("now","+1 day"));
-	
+    (5, 'Overall strength','This session will target the entire body.', date("now", "+1 day")),
+    (5, 'Overall strength','This session will target the entire body.', date("now", "+2 day")),
+    (5, 'Name','Description.', date("now", "+4 day")),
+    (5, 'Name','Description.', date("now", "+5 day")),
+    (5, 'Name','Description.', date("now", "+8 day"))
+;
+
+
 INSERT INTO exercise(exercise_name, exercise_description) VALUES
-    ('The 90-degree', 'Find a wall, support your back against it and make sure you have 90 degrees between the following: your legs and the floor, your legs and thighs. Hold for x number of seconds'),
     ('Push-ups', 'Lay down and use your arms to push your body up, keep body stright. You are now in starting position. Now use your arms to lower your chest down towards the floor and then up again, repeat x times.'),
     ('Sit-ups', 'Lay on your back with your knees bent and your feet firmly planted on the floor. Hold your arms crossed on your chest and use your abs to raise your upper body from the floor, towards your knees and down again. Repeat x times'),
     ('Squats', 'Take a stance with your legs, toes pointing outwards in a 45 degree angle. Now crouch towards the floor as if you were trying to sit on it. During the motion make sure to keep your lower and upper spine straight, neither rounding or hyper-extending it. Repeat x times.'),
@@ -48,47 +53,54 @@ INSERT INTO exercise(exercise_name, exercise_description) VALUES
     ('Alternating dumbell curl','Pick two dumbells of equal weight off the floor. Hold them on opposite sides and with a supinated grip pull one dumbell up towards your chest. Repeat but alternate between left and right.'),
     ('Hammer curl','Pick two dumbells of equal weight, or a hammer curl bar off the floor. Hold the weights with a supinated grip and the weights up towards your chest. Lower and repeat.'),
     ('Upright row ','For this exercise you can use barbell, dumbells and the EZ-bar. Pick up the weights of your choice off the floor and stand in an upright position. Now with the weights at, or close to hip height pull them up to shoulder height, hold and lower again'),
-    ('Shrug','For this exercise you can use dumbells, barbell, kettlebell etc. Pick up the weights off the floor and stand in the upright position. Now raise your shoulders in a shrugging motion, hold and then lower your shoulders again.');
-	
+    ('Shrug','For this exercise you can use dumbells, barbell, kettlebell etc. Pick up the weights off the floor and stand in the upright position. Now raise your shoulders in a shrugging motion, hold and then lower your shoulders again.')
+;
+
 
 INSERT INTO exercise_set(set_workout_id, set_exercise_id, set_reps_planned,
     set_reps_done, set_weight_planned, set_weight_done) VALUES
 
-    --- Day 1
-    (1, 1, 20, null, 0, null),
-    (1, 1, 20, null, 0, null),
-    (1, 1, 20, null, 0, null),
+    -- Workout 1
+    -- Deadlift
+    (1, 14, 5, null, 110, null),
+    (1, 14, 5, null, 110, null),
+    (1, 14, 5, null, 110, null),
+    (1, 14, 5, null, 110, null),
+    -- Barbell benchpress
+    (1, 9, 5, null, 32, null),
+    (1, 9, 5, null, 32, null),
+    (1, 9, 5, null, 32, null),
+    (1, 9, 5, null, 32, null),
+    -- Pull ups
+    (1, 4, 5, null, 5, null),
+    (1, 4, 5, null, 5, null),
+    (1, 4, 5, null, 5, null),
+    (1, 4, 5, null, 5, null),
+    -- Squats
+    (1, 3, 5, null, 90, null),
+    (1, 3, 5, null, 90, null),
+    (1, 3, 5, null, 90, null),
+    (1, 3, 5, null, 90, null),
 
-    (1, 2, 20, null, 0, null),
-    (1, 2, 20, null, 0, null),
-    (1, 2, 20, null, 0, null),
-
-    (1, 4, 10, null, 80, null),
-    (1, 4, 10, null, 80, null),
-    (1, 4, 10, null, 80, null),
-
-    ---  2
-    (2, 2, 20, null, 0, null),
-    (2, 2, 20, null, 0, null),
-    (2, 2, 20, null, 0, null),
-
-    (2, 5, 20, null, 0, null),
-    (2, 5, 20, null, 0, null),
-    (2, 5, 20, null, 0, null),
-
-    (2, 6, 1, null, 0, null),
-    (2, 6, 1, null, 0, null),
-    (2, 6, 1, null, 0, null),
-
-    ----y 3
-    (3, 3, 20, null, 0, null),
-    (3, 3, 20, null, 0, null),
-    (3, 3, 20, null, 0, null),
-
-    (3, 6, 1, null, 0, null),
-    (3, 6, 1, null, 0, null),
-    (3, 6, 1, null, 0, null),
-
-    (3, 4, 10, null, 80, null),
-    (3, 4, 10, null, 80, null),
-    (3, 4, 10, null, 80, null);
+    -- Workout 2
+    -- Deadlift
+    (2, 14, 5, null, 110, null),
+    (2, 14, 5, null, 110, null),
+    (2, 14, 5, null, 110, null),
+    (2, 14, 5, null, 110, null),
+    -- Barbell benchpress
+    (2, 9, 5, null, 32, null),
+    (2, 9, 5, null, 32, null),
+    (2, 9, 5, null, 32, null),
+    (2, 9, 5, null, 32, null),
+    -- Pull ups
+    (2, 4, 5, null, 5, null),
+    (2, 4, 5, null, 5, null),
+    (2, 4, 5, null, 5, null),
+    (2, 4, 5, null, 5, null),
+    -- Squats
+    (2, 3, 5, null, 90, null),
+    (2, 3, 5, null, 90, null),
+    (2, 3, 5, null, 90, null),
+    (2, 3, 5, null, 90, null)
+;

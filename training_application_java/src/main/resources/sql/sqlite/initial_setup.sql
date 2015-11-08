@@ -1,14 +1,14 @@
 
 PRAGMA foreign_keys = ON;
 
-CREATE TABLE program(
+CREATE TABLE program(         --The users overall program. Beginner, advanced, etc.  
     program_id INTEGER PRIMARY KEY,
     program_name VARCHAR(100) NOT NULL,
     program_description TEXT NOT NULL
 );
 
 
-CREATE TABLE customer(
+CREATE TABLE customer(        --The user. Both admin and non-admin.
     customer_id INTEGER PRIMARY KEY,
     customer_program_id INTEGER NOT NULL,
 
@@ -29,7 +29,7 @@ CREATE INDEX c_program_idx ON customer(customer_program_id);
 CREATE UNIQUE INDEX c_email_idx ON customer(customer_email);
 
 
-CREATE TABLE workout(
+CREATE TABLE workout(         --The workout to be done on a specific day.
     workout_id INTEGER PRIMARY KEY,
     workout_program_id INTEGER NOT NULL, 
 
@@ -47,14 +47,14 @@ CREATE INDEX w_program_idx ON workout(workout_program_id);
 CREATE INDEX w_done_idx ON workout(workout_done);
 
 
-CREATE TABLE exercise(
+CREATE TABLE exercise(        --Exercises makes up a workout.
     exercise_id INTEGER PRIMARY KEY,
     exercise_name VARCHAR(50) NOT NULL,
     exercise_description TEXT NOT NULL
 );
 
 
-CREATE TABLE exercise_set(
+CREATE TABLE exercise_set(    --Individual sets in an exercise.
     set_id INTEGER PRIMARY KEY,
 
     set_exercise_id INTEGER NOT NULL,
