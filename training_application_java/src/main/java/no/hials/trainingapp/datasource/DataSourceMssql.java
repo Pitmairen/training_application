@@ -75,6 +75,27 @@ public class DataSourceMssql extends BaseDataSource {
     }
 
     @Override
+    public List<DataItem> getWorkoutLogForCustomer(int customerId, Pagination pag) throws SQLException {
+
+        DataItem count = querySingle("SELECT COUNT(1) AS count FROM workout AS w "
+                + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                + "WHERE u.customer_id=? AND w.workout_done=?", customerId, true);
+
+        pag.setItemCount(count.getInteger("count"));
+
+        // FIXME: Don't know if this is working
+        return queryList(
+                "SELECT w.* FROM workout AS w "
+                        + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                        + "WHERE u.customer_id=? AND w.workout_done=? "
+                        + "ORDER BY w.workout_id DESC "
+                        + "OFFSET ? ROWS "
+                        + "FETCH NEXT ? ROWS ONLY",
+                customerId, true, pag.getOffset(), pag.getLimit());
+
+    }
+
+    @Override
     public void storeNewCustomer(DataItem data) throws SQLException {
 
         String query = "INSERT INTO customer "

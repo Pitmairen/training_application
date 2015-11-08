@@ -66,6 +66,18 @@ public interface DataSource {
     public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException;
 
     /**
+     * Returns a list of the user's completed workouts
+     *
+     * The pagination object will be modified with the total number of log entries in the database.
+     *
+     * @param customerId the customer id
+     * @param pag a pagination object that defines the pagination of the log
+     * @return a list of workouts
+     * @throws SQLException
+     */
+    public List<DataItem> getWorkoutLogForCustomer(int customerId, Pagination pag) throws SQLException;
+
+    /**
      * Returns a specific workout.
      *
      * @param workoutId The workout ID.

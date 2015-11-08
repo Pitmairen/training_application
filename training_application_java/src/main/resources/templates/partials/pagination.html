@@ -1,0 +1,12 @@
+{% if pagination.totalPageCount > 1 %}
+    <ul class="pagination">
+        {% if pagination.hasPreviousPage %}
+            <li><a href="?page={{ pagination.getPreviousPage }}">Previous</a></li>
+        {% endif  %}
+        <li>{{ pagination.getCurrentPage }}</li>
+        {% if pagination.hasNextPage %}
+            <li><a href="?page={{ pagination.getNextPage }}">Next</a></li>
+        {% endif %}
+    </ul>
+    <p>Total pages: {{ pagination.totalPageCount }}</p>
+{% endif %}

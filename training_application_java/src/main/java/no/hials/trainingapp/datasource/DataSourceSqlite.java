@@ -103,6 +103,25 @@ public class DataSourceSqlite extends BaseDataSource {
                 customerId, true, limit);
     }
 
+    @Override
+    public List<DataItem> getWorkoutLogForCustomer(int customerId, Pagination pag) throws SQLException {
+
+        DataItem count = querySingle("SELECT COUNT(1) AS count FROM workout AS w "
+                        + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                        + "WHERE u.customer_id=? AND w.workout_done=?", customerId, true);
+
+        pag.setItemCount(count.getInteger("count"));
+
+        return queryList(
+                "SELECT w.* FROM workout AS w "
+                        + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                        + "WHERE u.customer_id=? AND w.workout_done=? "
+                        + "ORDER BY w.workout_id DESC "
+                        + "LIMIT ? OFFSET ?",
+                customerId, true, pag.getLimit(), pag.getOffset());
+    }
+
+
     /**
      * XXX
      */
