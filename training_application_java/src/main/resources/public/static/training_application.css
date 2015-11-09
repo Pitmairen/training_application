@@ -135,6 +135,9 @@ main li {
     font-weight: bold;
     padding: 1.4rem 0.2rem 0.2rem 0.2rem;
 }
+.setTableUserComment {
+    padding: 1.6rem 0.2rem 0.2rem 0.2rem;
+}
 
 
 a.link-button{

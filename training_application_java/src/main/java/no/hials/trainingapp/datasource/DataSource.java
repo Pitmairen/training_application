@@ -189,6 +189,7 @@ public interface DataSource {
      * Sets the completed flag of an exercise to true.
      *
      * @param workoutID The unique ID of an exercise.
+     * @param userComment Comment typed in by the user.
      */
-    public void storeExerciseDone(int workoutID) throws SQLException;
+    public void storeExerciseDone(int workoutID, String userComment) throws SQLException;
 }

@@ -296,12 +296,12 @@ public class DataSourceMssql extends BaseDataSource {
      * XXX
      */
     @Override
-    public void storeExerciseDone(int workoutID) throws SQLException {
+    public void storeExerciseDone(int workoutID, String userComment) throws SQLException {
 
         String query = "UPDATE workout "
-                + "SET workout_done=? "
+                + "SET workout_done=?, workout_comment=? "
                 + "WHERE workout_id=?";
 
-        executeUpdate(query, 1, workoutID);
+        executeUpdate(query, 1, userComment, workoutID);
     }
 }
