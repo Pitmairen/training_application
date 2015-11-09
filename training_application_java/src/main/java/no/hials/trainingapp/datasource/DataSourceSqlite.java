@@ -107,20 +107,19 @@ public class DataSourceSqlite extends BaseDataSource {
     public List<DataItem> getWorkoutLogForCustomer(int customerId, Pagination pag) throws SQLException {
 
         DataItem count = querySingle("SELECT COUNT(1) AS count FROM workout AS w "
-                        + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
-                        + "WHERE u.customer_id=? AND w.workout_done=?", customerId, true);
+                + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                + "WHERE u.customer_id=? AND w.workout_done=?", customerId, true);
 
         pag.setItemCount(count.getInteger("count"));
 
         return queryList(
                 "SELECT w.* FROM workout AS w "
-                        + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
-                        + "WHERE u.customer_id=? AND w.workout_done=? "
-                        + "ORDER BY w.workout_id DESC "
-                        + "LIMIT ? OFFSET ?",
+                + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                + "WHERE u.customer_id=? AND w.workout_done=? "
+                + "ORDER BY w.workout_id DESC "
+                + "LIMIT ? OFFSET ?",
                 customerId, true, pag.getLimit(), pag.getOffset());
     }
-
 
     /**
      * XXX
@@ -237,7 +236,7 @@ public class DataSourceSqlite extends BaseDataSource {
         return queryList(
                 "SELECT * FROM exercise, exercise_set "
                 + "WHERE set_workout_id=? AND set_exercise_id=exercise_id"
-                        + " ORDER BY set_id ASC", set_workout_id);
+                + " ORDER BY set_id ASC", set_workout_id);
     }
 
     /**
@@ -262,9 +261,9 @@ public class DataSourceSqlite extends BaseDataSource {
     private static HikariDataSource createConnectionPool(String connectionString) throws ClassNotFoundException {
 
         Class.forName("org.sqlite.JDBC");
-        
+
         HikariConfig config = new HikariConfig();
-       
+
         config.setJdbcUrl(connectionString);
         config.addDataSourceProperty("foreign_keys", "true");
 
@@ -276,15 +275,25 @@ public class DataSourceSqlite extends BaseDataSource {
      * XXX
      */
     @Override
-    public void storeSetDone(int setID, int repsDone, int loadUsed) {
+    public void storeSetDone(String setID, String repsDone, String loadUsed) throws SQLException {
 
+        String query = "UPDATE exercise_set "
+                + "SET set_reps_done=?, set_weight_done=? "
+                + "WHERE set_id=?";
+
+        executeUpdate(query, repsDone, loadUsed, setID);
     }
 
     /**
      * XXX
      */
     @Override
-    public void storeExerciseDone(int workoutID) {
+    public void storeExerciseDone(int workoutID) throws SQLException {
 
+        String query = "UPDATE workout "
+                + "SET workout_done=? "
+                + "WHERE workout_id=?";
+
+        executeUpdate(query, 1, workoutID);
     }
 }

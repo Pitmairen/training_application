@@ -86,11 +86,11 @@ public class DataSourceMssql extends BaseDataSource {
         // FIXME: Don't know if this is working
         return queryList(
                 "SELECT w.* FROM workout AS w "
-                        + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
-                        + "WHERE u.customer_id=? AND w.workout_done=? "
-                        + "ORDER BY w.workout_id DESC "
-                        + "OFFSET ? ROWS "
-                        + "FETCH NEXT ? ROWS ONLY",
+                + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                + "WHERE u.customer_id=? AND w.workout_done=? "
+                + "ORDER BY w.workout_id DESC "
+                + "OFFSET ? ROWS "
+                + "FETCH NEXT ? ROWS ONLY",
                 customerId, true, pag.getOffset(), pag.getLimit());
 
     }
@@ -283,15 +283,25 @@ public class DataSourceMssql extends BaseDataSource {
      * XXX
      */
     @Override
-    public void storeSetDone(int setID, int repsDone, int loadUsed) {
+    public void storeSetDone(String setID, String repsDone, String loadUsed) throws SQLException {
 
+        String query = "UPDATE exercise_set "
+                + "SET set_reps_done=?, set_weight_done=? "
+                + "WHERE set_id=?";
+
+        executeUpdate(query, repsDone, loadUsed, setID);
     }
 
     /**
      * XXX
      */
     @Override
-    public void storeExerciseDone(int workoutID) {
+    public void storeExerciseDone(int workoutID) throws SQLException {
 
+        String query = "UPDATE workout "
+                + "SET workout_done=? "
+                + "WHERE workout_id=?";
+
+        executeUpdate(query, 1, workoutID);
     }
 }

@@ -27,7 +27,7 @@ public interface DataSource {
      * @throws SQLException
      */
     public DataItem getCustomerById(int id) throws SQLException;
-    
+
     /**
      * Returns all the customers
      *
@@ -68,7 +68,8 @@ public interface DataSource {
     /**
      * Returns a list of the user's completed workouts
      *
-     * The pagination object will be modified with the total number of log entries in the database.
+     * The pagination object will be modified with the total number of log
+     * entries in the database.
      *
      * @param customerId the customer id
      * @param pag a pagination object that defines the pagination of the log
@@ -182,12 +183,12 @@ public interface DataSource {
      * @param repsDone Number of repetitions done.
      * @param loadUsed Kg's of load used in the exercise.
      */
-    public void storeSetDone(int setID, int repsDone, int loadUsed);
+    public void storeSetDone(String setID, String repsDone, String loadUsed) throws SQLException;
 
     /**
      * Sets the completed flag of an exercise to true.
      *
      * @param workoutID The unique ID of an exercise.
      */
-    public void storeExerciseDone(int workoutID);
+    public void storeExerciseDone(int workoutID) throws SQLException;
 }
