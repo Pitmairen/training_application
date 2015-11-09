@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
+import no.hials.trainingapp.datasource.Transaction;
 import no.hials.trainingapp.routing.FormRoute;
 import spark.ModelAndView;
 import spark.Request;
@@ -37,19 +38,26 @@ public class Workout extends FormRoute {
 
         // When user submits workout form.
         if (getRequest().requestMethod().equals("POST")) {
-            for (DataItem set : sets) {
 
-                String setID = String.valueOf(set.getInteger("set_id"));
-                String repsDone = getRequest().queryParams("set-" + set.getInteger("set_id") + "-RepsDone");
-                String loadUsed = getRequest().queryParams("set-" + set.getInteger("set_id") + "-LoadUsed");
+            getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
 
-                // Store the completed set in the database.
-                getDataSource().storeSetDone(setID, repsDone, loadUsed);
-            }
-            // Mark the workout as done.
-            Integer workoutID = workout.getInteger("workout_id");
-            String userComment = getRequest().queryParams("userComment");
-            getDataSource().storeExerciseDone(workoutID, userComment);
+                for (DataItem set : sets) {
+
+                    String setID = String.valueOf(set.getInteger("set_id"));
+                    String repsDone = getRequest().queryParams("set-" + set.getInteger("set_id") + "-RepsDone");
+                    String loadUsed = getRequest().queryParams("set-" + set.getInteger("set_id") + "-LoadUsed");
+
+                    // Store the completed set in the database.
+                    getDataSource().storeSetDone(setID, repsDone, loadUsed);
+                }
+                // Mark the workout as done.
+                Integer workoutID = workout.getInteger("workout_id");
+                String userComment = getRequest().queryParams("userComment");
+                getDataSource().storeExerciseDone(workoutID, userComment);
+
+                tx.commit();
+
+            });
         }
         return renderTemplate("workout");
     }
