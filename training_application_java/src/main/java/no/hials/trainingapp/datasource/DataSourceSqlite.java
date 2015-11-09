@@ -228,6 +228,17 @@ public class DataSourceSqlite extends BaseDataSource {
 
     }
 
+    @Override
+    public void updateProgram(DataItem data) throws SQLException{
+        String query = "UPDATE program SET program_name=?, program_description=? "
+                + " WHERE program_id=?";
+
+        executeUpdate(query,
+                data.get("program_name"),
+                data.get("program_description"),
+                data.get("program_id"));
+    }
+
     /**
      * XXX
      */

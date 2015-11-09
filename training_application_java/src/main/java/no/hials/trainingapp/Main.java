@@ -10,14 +10,15 @@ import no.hials.trainingapp.routes.Login;
 import no.hials.trainingapp.routes.Logout;
 import no.hials.trainingapp.routes.Workouts;
 import no.hials.trainingapp.routes.SiteIndex;
-import no.hials.trainingapp.routes.admin.AddNewCustomer;
-import no.hials.trainingapp.routes.admin.AdminIndex;
 import no.hials.trainingapp.routes.History;
 import no.hials.trainingapp.routes.ProgressGraph;
 import no.hials.trainingapp.routes.admin.AddExercise;
+import no.hials.trainingapp.routes.admin.AddNewCustomer;
 import no.hials.trainingapp.routes.admin.AddWorkoutToProgram;
+import no.hials.trainingapp.routes.admin.AdminIndex;
 import no.hials.trainingapp.routes.admin.AdminListCustomers;
 import no.hials.trainingapp.routes.admin.AdminLogout;
+import no.hials.trainingapp.routes.admin.EditProgram;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
 import no.hials.trainingapp.routing.TemplateEngines;
@@ -99,5 +100,7 @@ public class Main {
 
         r.getAndPost("/admin/add-new-exercise", AddExercise.class);
         r.getAndPost("/admin/add-new-workout/:prog_id", AddWorkoutToProgram.class);
+        r.getAndPost("/admin/edit-program/:prog_id", EditProgram.class);
+
     }
 }

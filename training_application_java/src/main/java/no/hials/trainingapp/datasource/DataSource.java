@@ -159,6 +159,14 @@ public interface DataSource {
     public int storeNewProgram(DataItem data) throws SQLException;
 
     /**
+     * Updates a training program with new data
+     *
+     * @param data the data that represents the program
+     * @throws SQLException
+     */
+    public void updateProgram(DataItem data) throws SQLException;
+
+    /**
      * Wraps the transaction runner in a database transaction.
      *
      * If everything goes well the runner must commit the transaction before it
