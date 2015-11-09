@@ -105,7 +105,7 @@ def generate_exercise_sets(workout_id, count, weight_gen, reps_gen):
             exercise_nr += 1
 
 
-def generate_workouts(program_id, count, word_list):
+def generate_workouts(program_id, count, done, word_list):
 
     date = datetime.now().date() - timedelta(days=count+1)
 
@@ -113,7 +113,7 @@ def generate_workouts(program_id, count, word_list):
 
     for i in range(count):
 
-        yield create_workout(program_id, date, name_gen)
+        yield create_workout(program_id, date, done, name_gen)
         date += timedelta(days=1)
 
 
