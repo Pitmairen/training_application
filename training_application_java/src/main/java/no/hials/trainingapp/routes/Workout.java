@@ -48,7 +48,8 @@ public class Workout extends FormRoute {
             }
             // Mark the workout as done.
             Integer workoutID = workout.getInteger("workout_id");
-            getDataSource().storeExerciseDone(workoutID);
+            String userComment = getRequest().queryParams("userComment");
+            getDataSource().storeExerciseDone(workoutID, userComment);
         }
         return renderTemplate("workout");
     }
