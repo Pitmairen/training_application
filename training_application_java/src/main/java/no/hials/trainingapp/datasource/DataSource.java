@@ -187,11 +187,9 @@ public interface DataSource {
     /**
      * Stores a completed set in the database.
      *
-     * @param setID The unique ID of the set.
-     * @param repsDone Number of repetitions done.
-     * @param loadUsed Kg's of load used in the exercise.
+     * @param set The completed workout set.
      */
-    public void storeSetDone(String setID, String repsDone, String loadUsed) throws SQLException;
+    public void storeSetDone(DataItem set) throws SQLException;
 
     /**
      * Sets the completed flag of an exercise to true.

@@ -6,6 +6,7 @@ import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.DataSourceMssql;
 import no.hials.trainingapp.datasource.DataSourceSqlite;
 import no.hials.trainingapp.routes.Workout;
+import no.hials.trainingapp.routes.WorkoutLog;
 import no.hials.trainingapp.routes.Login;
 import no.hials.trainingapp.routes.Logout;
 import no.hials.trainingapp.routes.Workouts;
@@ -83,6 +84,7 @@ public class Main {
         r.getAndPost("/logout", Logout.class);
         r.get("/workouts", Workouts.class);
         r.get("/history", History.class);
+        r.get("/workoutLog/:id", WorkoutLog.class);
         r.getAndPost("/workout/:id", Workout.class);
         r.get("/progress/:id", ProgressGraph.class);
 

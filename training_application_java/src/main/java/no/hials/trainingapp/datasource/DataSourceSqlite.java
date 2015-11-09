@@ -287,13 +287,13 @@ public class DataSourceSqlite extends BaseDataSource {
      * XXX
      */
     @Override
-    public void storeSetDone(String setID, String repsDone, String loadUsed) throws SQLException {
+    public void storeSetDone(DataItem set) throws SQLException {
 
         String query = "UPDATE exercise_set "
                 + "SET set_reps_done=?, set_weight_done=? "
                 + "WHERE set_id=?";
 
-        executeUpdate(query, repsDone, loadUsed, setID);
+        executeUpdate(query, set.get("set_reps_done"), set.get("set_weight_done"), set.get("set_id"));
     }
 
     /**
