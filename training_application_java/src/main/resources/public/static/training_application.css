@@ -150,3 +150,7 @@ a.link-button{
     background: #888;
     color: #000;
 }
+
+.exercise-progress-buttons{
+    margin-bottom: 1em;
+}
