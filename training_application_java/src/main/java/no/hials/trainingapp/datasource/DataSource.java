@@ -27,7 +27,7 @@ public interface DataSource {
      * @throws SQLException
      */
     public DataItem getCustomerById(int id) throws SQLException;
-    
+
     /**
      * Returns all the customers
      *
@@ -178,4 +178,14 @@ public interface DataSource {
      * @param workoutID The unique ID of an exercise.
      */
     public void storeExerciseDone(int workoutID);
+
+    /**
+     * Updates the weight of a customer
+     *
+     * @param customerId The unique ID of a customer
+     * @param newWeight the new weight the customer has entered
+     */
+    public void changeCustomerWeight(int customerId, int newWeight);
+    
+    
 }

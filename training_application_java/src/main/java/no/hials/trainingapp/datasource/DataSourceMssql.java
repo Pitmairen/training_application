@@ -73,6 +73,14 @@ public class DataSourceMssql extends BaseDataSource {
                 + "ORDER BY w.workout_id DESC ",
                 customerId, true);
     }
+    
+    
+    @Override
+    public void changeCustomerWeight(int customerId, int newWeight){
+        String query = "UPDATE customer "
+                + "SET customer_weight=" + newWeight
+                + "WHERE customer_id=" + customerId;
+    }
 
     @Override
     public void storeNewCustomer(DataItem data) throws SQLException {

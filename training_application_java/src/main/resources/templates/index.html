@@ -6,7 +6,7 @@
 
 <h2>Welcome back {{ currentUser.getName }}!</h2>
 <p></p>
-<table>
+<table class="standardTable">
     <th colspan="2">Profile info:</th>
     <tr>
         <td>Name: </td>
@@ -50,5 +50,9 @@
         <td>{{userinfo.customer_id}}</td>
     </tr>
 </table>
+
+<ul>
+    <li><a href="/account-info">Change Account Info</a></li>
+</ul>
 
 {% endblock %}
