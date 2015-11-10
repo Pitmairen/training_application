@@ -152,19 +152,6 @@ public class DataSourceSqlite extends BaseDataSource {
     }
 
     /**
-     * Updates customers weight
-     * 
-     * @param customerId
-     * @param newWeight 
-     */
-    @Override
-    public void changeCustomerWeight(int customerId, int newWeight) {
-        String query = "UPDATE customer "
-                + "SET customer_weight=" + newWeight
-                + "WHERE customer_id=" + customerId;
-    }
-
-    /**
      * XXX
      */
     @Override

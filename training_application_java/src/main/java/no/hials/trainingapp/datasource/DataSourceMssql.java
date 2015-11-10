@@ -52,14 +52,6 @@ public class DataSourceMssql extends BaseDataSource {
                 + "ORDER BY w.workout_id DESC ",
                 customerId, true);
     }
-    
-    
-    @Override
-    public void changeCustomerWeight(int customerId, int newWeight){
-        String query = "UPDATE customer "
-                + "SET customer_weight=" + newWeight
-                + "WHERE customer_id=" + customerId;
-    }
 
     @Override
     public List<DataItem> getWorkoutLogForCustomer(int customerId, Pagination pag) throws SQLException {
@@ -103,6 +95,7 @@ public class DataSourceMssql extends BaseDataSource {
                 34);
 
     }
+
 
     private static HikariDataSource createConnectionPool(String connectionString) throws ClassNotFoundException {
 

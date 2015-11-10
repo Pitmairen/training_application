@@ -294,6 +294,51 @@ public abstract class BaseDataSource implements DataSource {
         executeUpdate(query, 1, userComment, workoutID);
     }
 
+    
+    //Account info queries
+    @Override
+    public void changeCustomerWeight(int customerId, int newWeight) {
+        String query = "UPDATE customer "
+                + "SET customer_weight=?" + newWeight
+                + "WHERE customer_id=?" + customerId;
+    }
+
+    @Override
+    public void changeCustomerHeight(int customerId, int newHeight) {
+        String query = "UPDATE customer "
+                + "SET customer_height=?" + newHeight
+                + "WHERE customer_id=?" + customerId;
+    }
+
+    @Override
+    public void changeCustomerFirstName(int customerId, String newFirstname) {
+        String query = "UPDATE customer "
+                + "SET customer_first_name=?" + newFirstname
+                + "WHERE customer_id=?" + customerId;
+    }
+
+    @Override
+    public void changeCustomerLastName(int customerId, String newLastname) {
+        String query = "UPDATE customer "
+                + "SET customer_first_name=?" + newLastname
+                + "WHERE customer_id=?" + customerId;
+    }
+
+    
+    
+    @Override
+    public void changeCustomerPassword(int customerId, String newPassword) {
+        String query = "UPDATE customer "
+                + "SET customer_password=?" + newPassword
+                + "WHERE customer_id=?" + customerId;
+    }
+    
+    @Override
+    public DataItem getCustomerPassword(int customerId) throws SQLException{
+        
+        return querySingle("SELECT customer_pw FROM customer WHERE customer_id =?", customerId);
+    }
+
     /**
      * Wraps the transaction runner in a database transaction.
      *
@@ -526,7 +571,7 @@ public abstract class BaseDataSource implements DataSource {
     }
 
     /**
-     * database transaction 
+     * database transaction
      */
     protected static class BaseTransaction
             implements Transaction, AutoCloseable {

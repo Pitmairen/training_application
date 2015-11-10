@@ -13,11 +13,11 @@
             <exec.args>-classpath %classpath no.hials.trainingapp.Main</exec.args>
             <exec.executable>java</exec.executable>
 
-            <Env.DATA_SOURCE>sqlite</Env.DATA_SOURCE>
-            <Env.DATA_SOURCE_CS>jdbc:sqlite:/tmp/trainingdbjava.db</Env.DATA_SOURCE_CS>
+            <!--<Env.DATA_SOURCE>sqlite</Env.DATA_SOURCE>
+            <Env.DATA_SOURCE_CS>jdbc:sqlite:/tmp/trainingdbjava.db</Env.DATA_SOURCE_CS>-->
 
-            <!--<Env.DATA_SOURCE>mssql</Env.DATA_SOURCE>
-            <Env.DATA_SOURCE_CS>jdbc:sqlserver://tmh-touchpc\\tmserver:1433;databaseName=training_application;integratedSecurity=true;selectMethod=cursor</Env.DATA_SOURCE_CS>-->
+            <Env.DATA_SOURCE>mssql</Env.DATA_SOURCE>
+            <Env.DATA_SOURCE_CS>jdbc:sqlserver://tmh-touchpc\\tmserver:1433;databaseName=training_application;integratedSecurity=true;selectMethod=cursor</Env.DATA_SOURCE_CS>
                 
         </properties>
     </action>

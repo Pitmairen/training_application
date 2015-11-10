@@ -199,6 +199,8 @@ public interface DataSource {
      */
     public void storeExerciseDone(int workoutID);
 
+    public void storeExerciseDone(int workoutID, String userComment) throws SQLException;
+
     /**
      * Updates the weight of a customer
      *
@@ -206,9 +208,52 @@ public interface DataSource {
      * @param newWeight the new weight the customer has entered
      */
     public void changeCustomerWeight(int customerId, int newWeight);
-    
-    
 
-    public void storeExerciseDone(int workoutID, String userComment) throws SQLException;
+    /**
+     * Updates the height of a customer
+     *
+     * @param customerId The unique ID of a customer
+     * @param newWeight The new height the customer has entered
+     */
+    public void changeCustomerHeight(int customerId, int newWeight);
 
+    /**
+     * Updates the first name of a customer
+     *
+     * @param customerId The unique ID of a customer
+     * @param newFirstname The new first name the customer has entered
+     */
+    public void changeCustomerFirstName(int customerId, String newFirstname);
+
+    /**
+     * Updates the first name of a customer
+     *
+     * @param customerId The unique ID of a customer
+     * @param newLastname The new last name the customer has entered
+     */
+    public void changeCustomerLastName(int customerId, String newLastname);
+
+    /**
+     * Updates the sex of a customer
+     *
+     * @param customerId The unique ID of a customer
+     * @param sex The new sex the customer has entered
+     */
+    public void changeCustomerSex(int customerId, String sex);
+
+    /**
+     * Update the password of a customer
+     *
+     * @param customerId The unique ID of a customer
+     * @param newPassword The new password the customer wants
+     */
+    public void changeCustomerPassword(int customerId, String newPassword);
+
+    /**
+     * Returns the customers encrypted password
+     *
+     * @param customerId The unique ID of a customer
+     * @return password The users password in a encrypted format
+     */
+    public DataItem getCustomerPassword(int customerId) throws SQLException;
 }
