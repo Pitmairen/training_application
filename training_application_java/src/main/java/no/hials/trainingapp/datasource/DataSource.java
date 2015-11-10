@@ -197,5 +197,18 @@ public interface DataSource {
      * @param workoutID The unique ID of an exercise.
      * @param userComment Comment typed in by the user.
      */
+    public void storeExerciseDone(int workoutID);
+
+    /**
+     * Updates the weight of a customer
+     *
+     * @param customerId The unique ID of a customer
+     * @param newWeight the new weight the customer has entered
+     */
+    public void changeCustomerWeight(int customerId, int newWeight);
+    
+    
+
     public void storeExerciseDone(int workoutID, String userComment) throws SQLException;
+
 }

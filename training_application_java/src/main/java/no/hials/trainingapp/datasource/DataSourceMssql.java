@@ -52,6 +52,14 @@ public class DataSourceMssql extends BaseDataSource {
                 + "ORDER BY w.workout_id DESC ",
                 customerId, true);
     }
+    
+    
+    @Override
+    public void changeCustomerWeight(int customerId, int newWeight){
+        String query = "UPDATE customer "
+                + "SET customer_weight=" + newWeight
+                + "WHERE customer_id=" + customerId;
+    }
 
     @Override
     public List<DataItem> getWorkoutLogForCustomer(int customerId, Pagination pag) throws SQLException {
@@ -113,6 +121,11 @@ public class DataSourceMssql extends BaseDataSource {
     @Override
     protected DataSource createTransactionDataSource(BaseTransaction tr) {
         return new DataSourceMssql(tr);
+    }
+
+    @Override
+    public void storeExerciseDone(int workoutID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

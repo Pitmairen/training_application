@@ -74,66 +74,63 @@ INSERT INTO exercise_set(set_workout_id, set_exercise_id, set_reps_planned,
     set_reps_done, set_weight_planned, set_weight_done) VALUES
 
     -- Workout 1
-    -- Deadlift
     (1, 14, 1, null, 110, null),
     (1, 14, 1, null, 110, null),
     (1, 14, 1, null, 110, null),
     (1, 14, 1, null, 110, null),
-    -- Barbell benchpress
+
     (1, 9, 1, null, 32, null),
     (1, 9, 1, null, 32, null),
     (1, 9, 1, null, 32, null),
     (1, 9, 1, null, 32, null),
-    -- Pull ups
+
     (1, 4, 1, null, 5, null),
     (1, 4, 1, null, 5, null),
     (1, 4, 1, null, 5, null),
     (1, 4, 1, null, 5, null),
-    -- Squats
+
     (1, 3, 1, null, 90, null),
     (1, 3, 1, null, 90, null),
     (1, 3, 1, null, 90, null),
     (1, 3, 1, null, 90, null),
 
     -- Workout 2
-    -- Deadlift
     (2, 14, 1, null, 110, null),
     (2, 14, 1, null, 110, null),
     (2, 14, 1, null, 110, null),
     (2, 14, 1, null, 110, null),
-    -- Barbell benchpress
+
     (2, 9, 1, null, 32, null),
     (2, 9, 1, null, 32, null),
     (2, 9, 1, null, 32, null),
     (2, 9, 1, null, 32, null),
-    -- Pull ups
+
     (2, 4, 1, null, 5, null),
     (2, 4, 1, null, 5, null),
     (2, 4, 1, null, 5, null),
     (2, 4, 1, null, 5, null),
-    -- Squats
+
     (2, 3, 1, null, 90, null),
     (2, 3, 1, null, 90, null),
     (2, 3, 1, null, 90, null),
     (2, 3, 1, null, 90, null),
 
     -- Workout 3
-    -- Deadlift
     (3, 14, 1, null, 110, null),
     (3, 14, 1, null, 110, null),
     (3, 14, 1, null, 110, null),
     (3, 14, 1, null, 110, null),
-    -- Barbell benchpress
+
     (3, 9, 1, null, 32, null),
     (3, 9, 1, null, 32, null),
     (3, 9, 1, null, 32, null),
     (3, 9, 1, null, 32, null),
-    -- Pull ups
+
     (3, 4, 1, null, 5, null),
     (3, 4, 1, null, 5, null),
     (3, 4, 1, null, 5, null),
     (3, 4, 1, null, 5, null),
-    -- Squats
+
     (3, 3, 1, null, 90, null),
     (3, 3, 1, null, 90, null),
     (3, 3, 1, null, 90, null),

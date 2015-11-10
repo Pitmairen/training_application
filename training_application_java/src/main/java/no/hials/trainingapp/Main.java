@@ -19,6 +19,7 @@ import no.hials.trainingapp.routes.admin.AddWorkoutToProgram;
 import no.hials.trainingapp.routes.admin.AdminIndex;
 import no.hials.trainingapp.routes.admin.AdminListCustomers;
 import no.hials.trainingapp.routes.admin.AdminLogout;
+import no.hials.trainingapp.routes.AccountInfo;
 import no.hials.trainingapp.routes.admin.EditProgram;
 import no.hials.trainingapp.routing.Router;
 import no.hials.trainingapp.routing.SimpleTemplateRoute;
@@ -75,7 +76,7 @@ public class Main {
     private static void addRoutes(Router r) {
 
         r.serveStatic("/public");
-
+        
         // Require users to be logged in
         Spark.before(new AuthenticationFilter());
 
@@ -91,6 +92,9 @@ public class Main {
         r.get("/tos", new SimpleTemplateRoute("tos"));
         r.get("/help", new SimpleTemplateRoute("help"));
         r.get("/about", new SimpleTemplateRoute("about"));
+
+        //Customer account info
+        r.getAndPost("/account-info", AccountInfo.class);
 
         // Admin 
         Spark.before("/admin/*", new AdminFilter());

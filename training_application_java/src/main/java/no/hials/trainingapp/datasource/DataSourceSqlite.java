@@ -128,8 +128,8 @@ public class DataSourceSqlite extends BaseDataSource {
                 + "WHERE u.customer_id=? AND w.workout_done=?", customerId, true);
 
         pag.setItemCount(count.getInteger("count"));
-
-        return queryList(
+        
+                return queryList(
                 "SELECT w.* FROM workout AS w "
                 + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
                 + "WHERE u.customer_id=? AND w.workout_done=? "
@@ -149,6 +149,30 @@ public class DataSourceSqlite extends BaseDataSource {
      */
     public int execureDDLStatement(String ddl) throws SQLException{
         return executeUpdate(ddl);
+    }
+
+    /**
+     * Updates customers weight
+     * 
+     * @param customerId
+     * @param newWeight 
+     */
+    @Override
+    public void changeCustomerWeight(int customerId, int newWeight) {
+        String query = "UPDATE customer "
+                + "SET customer_weight=" + newWeight
+                + "WHERE customer_id=" + customerId;
+    }
+
+    /**
+     * XXX
+     */
+    @Override
+    public List<DataItem> getSets(int set_workout_id) throws SQLException {
+        return queryList(
+                "SELECT * FROM exercise, exercise_set "
+                + "WHERE set_workout_id=? AND set_exercise_id=exercise_id"
+                + " ORDER BY set_id ASC", set_workout_id);
     }
 
     /**
@@ -187,6 +211,11 @@ public class DataSourceSqlite extends BaseDataSource {
 
         HikariDataSource ds = new HikariDataSource(config);
         return ds;
+    }
+
+    @Override
+    public void storeExerciseDone(int workoutID) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
