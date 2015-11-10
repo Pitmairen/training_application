@@ -114,6 +114,31 @@ main li {
     color: #000000;
 }
 
+.noLinkTable {
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 auto 1rem auto;
+    display: inline-block;
+    border: 2px solid #000000;
+    background: #dddddd;
+    border-radius: 5px;
+}
+.noLinkTable td {
+    border: 1px solid #000000;
+}
+.noLinkTable a {
+    text-decoration: none;
+    color: #000000;
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 0.3rem 1.2rem 0.3rem 0.1rem;
+}
+.noLinkTableErrorText {
+    font-weight: bold;
+    padding: 1.4rem 1.2rem 1.5rem 1.2rem;
+}
+
 
 .setTable {
     margin-left: auto; 

@@ -4,17 +4,19 @@
 
 {% block "content" %}
 
-<h2>Current workout profile: [<i>{{ program.program_name }}</i>]</h2>
+<h2>Workouts</h2>
+
+<h3>Current workout profile: [<i>{{ program.program_name }}</i>]</h3>
 <p>{{ program.program_description }}</p>
 
-<h2>Upcoming workout sessions:</h2>
+<h3>Upcoming workout sessions:</h3>
 
 {% set containsWorkouts = 0 %}
 
 <table class="standardTable">
     {% for wk in workouts %}
     {% set containsWorkouts = 1 %}
-    <tr"><td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
+    <tr><td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
         <td><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_name }}</a></td></tr>
     {% endfor %}
 
