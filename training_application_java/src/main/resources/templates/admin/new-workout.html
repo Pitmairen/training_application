@@ -4,13 +4,7 @@
 
 {% block "content" %}
 
-    {% if validationErrors is not empty %}
-        <ul>
-        {% for err in validationErrors %}
-            <li>{{ err}}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+    {% include "partials/validation-errors" %}
 
     <form action="" method="POST">
 

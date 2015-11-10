@@ -5,13 +5,7 @@
 
 <h2>Login</h2>
 
-{% if validationErrors is not empty %}
-<ul>
-    {% for err in validationErrors %}
-    <li>{{ err}}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+{% include "partials/validation-errors" %}
 
 <form action="" method="POST">
     <input type="text" name="username" required maxlength="100" placeholder="Username" tabindex="1" value={{ formData.username }}>

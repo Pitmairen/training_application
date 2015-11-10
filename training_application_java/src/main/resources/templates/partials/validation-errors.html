@@ -1,0 +1,7 @@
+{% if validationErrors is not empty %}
+<ul>
+    {% for err in validationErrors %}
+    <li>{{ err}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
