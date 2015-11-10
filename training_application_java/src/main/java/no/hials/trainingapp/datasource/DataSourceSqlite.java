@@ -137,6 +137,19 @@ public class DataSourceSqlite extends BaseDataSource {
                 + "LIMIT ? OFFSET ?",
                 customerId, true, pag.getLimit(), pag.getOffset());
     }
+    
+    
+    /**
+     * Method used by the SQLiteSetup script to create the database.
+     * (Shouldn't be used for anything else.)
+     * 
+     * @param ddl a SQL statement
+     * @return 
+     * @throws SQLException 
+     */
+    public int execureDDLStatement(String ddl) throws SQLException{
+        return executeUpdate(ddl);
+    }
 
     /**
      * Creates a new data source for use in a transaction
