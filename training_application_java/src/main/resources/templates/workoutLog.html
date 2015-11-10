@@ -23,13 +23,34 @@
             {% endif %}
 
             <tr class='exerciseSet'>
-                <td><span class='bold'>{{ set.set_reps_done }}</span> reps with <span class='bold'>{{ set.set_weight_done }}</span> Kg</td></tr>
+                <td><span class='bold'>     
+                    {% if set.set_reps_done is null %}
+                        0
+                    {% elseif set.set_reps_done is not null %}
+                        {{ set.set_reps_done }}
+                    {% endif %}
+                    </span> reps with 
+                    <span class='bold'>
+                    {% if set.set_weight_done is null %}
+                        0
+                    {% elseif set.set_weight_done is not null %}
+                        {{ set.set_weight_done }}
+                    {% endif %}
+                    </span> Kg
+                </td>
+            </tr>
             {% endfor %}
 
         {% if (containsSet == 0) %}
             <tr><td class="setTableErrorText"><b>This workout contains no exercises. Please notify your trainer.</b></td></tr>
         {% endif %}
-        <tr><td class="setTableUserComment"><span class='bold'>Your comment:</span> {{ workout.workout_comment }}</td></tr>
+        <tr><td class="setTableUserComment"><span class='bold'>Your comment:</span>
+            {% if workout.workout_comment == "" %}
+                <i>No comment registered.</i>
+            {% elseif workout.workout_comment is not null %}
+                {{ workout.workout_comment }}
+            {% endif %}
+        </td></tr>
     </table>
 </form>
 

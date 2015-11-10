@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
-import no.hials.trainingapp.datasource.Transaction;
 import no.hials.trainingapp.routing.TemplateRoute;
 import spark.ModelAndView;
 import spark.Request;
