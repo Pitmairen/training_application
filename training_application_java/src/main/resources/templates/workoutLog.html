@@ -6,7 +6,6 @@
 
 
 <h2>{{ workout.workout_name }}</h2>
-<p>{{ workout.workout_description }}</p>
 
 <form method="POST" action="">
     <table class="setTable">
@@ -20,7 +19,6 @@
         {% if exercise_id != set.exercise_id %}
         {% set exercise_id = set.exercise_id %}
         <tr><td colspan='2' class='exerciseTitle'>{{ set.exercise_name }}</td></tr>
-        <tr><td colspan='2' class='exerciseDescription'>{{ set.exercise_description }}</td></tr>
         {% endif %}
 
         <tr class='exerciseSet'>
@@ -31,14 +29,8 @@
 
 
         {% if (containsSet == 0) %}
-        <tr><td colspan="2" class="setTableErrorText"><b>No exercises have been added to this workout. Please contact your trainer.</b></td></tr>
+        <tr><td colspan="2" class="setTableErrorText"><b>This workout contains no exercises. Please contact your trainer.</b></td></tr>
         {% endif %}
-
-        {% if (containsSet == 1) %}
-        <tr><td colspan="2" class="setTableUserComment"><textarea cols="64" rows="4" name="userComment" placeholder="Comments on the workout."></textarea></td></tr>
-        <tr><td colspan="2"><input class="setTableSubmitButton" type="submit" value="Submit"></td></tr>
-        {% endif %}
-
     </table>
 </form>
 

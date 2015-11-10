@@ -14,9 +14,9 @@
 {% endif %}
 
 <form action="" method="POST">
-    <input type="text" name="username" required maxlength="100" placeholder="Username" value={{ formData.username }}>
-           <input type="password" name="password" required placeholder="Password">
-    <input type="submit" value="Login">
+    <input type="text" name="username" required maxlength="100" placeholder="Username" tabindex="1" value={{ formData.username }}>
+           <input type="password" name="password" required placeholder="Password" tabindex="2">
+    <input type="submit" value="Login" tabindex="3">
 </form>
 
 {% endblock %}

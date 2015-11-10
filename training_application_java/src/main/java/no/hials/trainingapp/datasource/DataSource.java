@@ -66,6 +66,19 @@ public interface DataSource {
     public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException;
 
     /**
+     * Returns a list of the user's completed workouts
+     *
+     * The pagination object will be modified with the total number of log
+     * entries in the database.
+     *
+     * @param customerId the customer id
+     * @param pag a pagination object that defines the pagination of the log
+     * @return a list of workouts
+     * @throws SQLException
+     */
+    public List<DataItem> getWorkoutLogForCustomer(int customerId, Pagination pag) throws SQLException;
+
+    /**
      * Returns a specific workout.
      *
      * @param workoutId The workout ID.
@@ -146,6 +159,14 @@ public interface DataSource {
     public int storeNewProgram(DataItem data) throws SQLException;
 
     /**
+     * Updates a training program with new data
+     *
+     * @param data the data that represents the program
+     * @throws SQLException
+     */
+    public void updateProgram(DataItem data) throws SQLException;
+
+    /**
      * Wraps the transaction runner in a database transaction.
      *
      * If everything goes well the runner must commit the transaction before it
@@ -166,16 +187,15 @@ public interface DataSource {
     /**
      * Stores a completed set in the database.
      *
-     * @param setID The unique ID of the set.
-     * @param repsDone Number of repetitions done.
-     * @param loadUsed Kg's of load used in the exercise.
+     * @param set The completed workout set.
      */
-    public void storeSetDone(int setID, int repsDone, int loadUsed);
+    public void storeSetDone(DataItem set) throws SQLException;
 
     /**
      * Sets the completed flag of an exercise to true.
      *
      * @param workoutID The unique ID of an exercise.
+     * @param userComment Comment typed in by the user.
      */
     public void storeExerciseDone(int workoutID);
 
@@ -188,4 +208,7 @@ public interface DataSource {
     public void changeCustomerWeight(int customerId, int newWeight);
     
     
+
+    public void storeExerciseDone(int workoutID, String userComment) throws SQLException;
+
 }

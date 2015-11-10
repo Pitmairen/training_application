@@ -112,6 +112,10 @@ public class Router
      */
     private void addExceptionHandlers()
     {
+        Spark.exception(NotFoundException.class, (e, request, response) -> {
+            response.status(404);
+            response.body("Resource not found");
+        });
 
     }
 }

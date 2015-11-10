@@ -31,19 +31,6 @@ public class DataSourceSqlite extends BaseDataSource {
         super(null);
     }
 
-    @Override
-    public DataItem getCustomerByUsername(String username) throws SQLException {
-
-        return querySingle(
-                "select * from customer WHERE customer_email=?", username);
-    }
-
-    @Override
-    public DataItem getCustomerById(int id) throws SQLException {
-        return querySingle(
-                "select * from customer WHERE customer_id=?", id);
-    }
-
     /**
      * Returns all the customers
      *
@@ -59,6 +46,12 @@ public class DataSourceSqlite extends BaseDataSource {
                 + " customer_last_name LIMIT ?", limit);
     }
 
+    /**
+     * Stores a new customer to the database
+     *
+     * @param data the customer data
+     * @throws SQLException
+     */
     @Override
     public void storeNewCustomer(DataItem data) throws SQLException {
 
@@ -81,6 +74,14 @@ public class DataSourceSqlite extends BaseDataSource {
 
     }
 
+    /**
+     * Returns the next workouts scheduled for the given customer
+     *
+     * @param customerId the customer id
+     * @param limit the maximum number of workouts to return
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<DataItem> getNextWorkoutsForCustomer(int customerId, int limit) throws SQLException {
 
@@ -92,6 +93,14 @@ public class DataSourceSqlite extends BaseDataSource {
                 customerId, false, limit);
     }
 
+    /**
+     * Returns the workout log for a customer. (completed workouts)
+     *
+     * @param customerId the customer id
+     * @param limit the maximum number of workouts to return
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<DataItem> getWorkoutLogForCustomer(int customerId, int limit) throws SQLException {
         return queryList(
@@ -104,112 +113,37 @@ public class DataSourceSqlite extends BaseDataSource {
     }
 
     /**
-     * XXX
+     * Returns the workout log for a customer. (completed workouts)
+     *
+     * @param customerId the customer id
+     * @param pag a pagination object which determines which workouts to return
+     * @return
+     * @throws SQLException
      */
     @Override
-    public DataItem getWorkout(int workoutId) throws SQLException {
-        return querySingle(
-                "SELECT * FROM workout "
-                + "WHERE workout_id=?",
-                workoutId);
+    public List<DataItem> getWorkoutLogForCustomer(int customerId, Pagination pag) throws SQLException {
+
+        DataItem count = querySingle("SELECT COUNT(1) AS count FROM workout AS w "
+                + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                + "WHERE u.customer_id=? AND w.workout_done=?", customerId, true);
+
+        pag.setItemCount(count.getInteger("count"));
+        
+                return queryList(
+                "SELECT w.* FROM workout AS w "
+                + "INNER JOIN customer AS u ON u.customer_program_id=w.workout_program_id "
+                + "WHERE u.customer_id=? AND w.workout_done=? "
+                + "ORDER BY w.workout_id DESC "
+                + "LIMIT ? OFFSET ?",
+                customerId, true, pag.getLimit(), pag.getOffset());
     }
 
-    @Override
-    public DataItem storeNewWorkout(DataItem data) throws SQLException {
-
-        String query = "INSERT INTO workout "
-                + "(workout_name, workout_description,"
-                + "workout_date, workout_program_id) "
-                + "VALUES(?, ?, ?, ?)";
-
-        int id = executeInsert(query,
-                data.get("workout_name"),
-                data.get("workout_description"),
-                data.get("workout_date"),
-                data.get("workout_program_id"));
-
-        data.put("workout_id", id);
-        return data;
-    }
-
-    @Override
-    public void storeNewWorkoutSets(List<DataItem> sets) throws SQLException {
-
-        String query = "INSERT INTO exercise_set "
-                + "(set_exercise_id, set_workout_id,"
-                + "set_reps_planned, set_weight_planned) "
-                + "VALUES(?, ?, ?, ?)";
-
-        for (DataItem set : sets) {
-            executeUpdate(query,
-                    set.get("set_exercise_id"),
-                    set.get("set_workout_id"),
-                    set.get("set_reps_planned"),
-                    set.get("set_weight_planned"));
-        }
-
-    }
-
-    @Override
-    public DataItem getExerciseById(int exerciseId) throws SQLException {
-        return querySingle("SELECT * FROM exercise "
-                + "WHERE exercise_id=?",
-                exerciseId);
-    }
-
-    @Override
-    public void storeNewExercise(DataItem data) throws SQLException {
-
-        String query = "INSERT INTO exercise "
-                + "(exercise_name, exercise_description)"
-                + "VALUES(?, ?)";
-
-        executeUpdate(query,
-                data.get("exercise_name"),
-                data.get("exercise_description"));
-
-    }
-
-    @Override
-    public List<DataItem> getProgressForExercise(int customerId, int exerciseId) throws SQLException {
-
-        return queryList("SELECT workout_date, "
-                + "MAX(set_reps_done) AS max_reps, "
-                + "MAX(set_weight_done) AS max_weight "
-                + "FROM exercise_set "
-                + "INNER JOIN workout ON set_workout_id=workout_id "
-                + "INNER JOIN customer ON customer_program_id=workout_program_id "
-                + "WHERE set_exercise_id=? AND workout_done=? AND customer_id=? "
-                + "GROUP BY workout_id "
-                + "ORDER BY workout_id ",
-                exerciseId, true, customerId);
-
-    }
-
-    @Override
-    public List<DataItem> getAllExercises() throws SQLException {
-        return queryList("SELECT * FROM exercise ORDER BY exercise_name ASC");
-    }
-
-    @Override
-    public DataItem getProgramById(int id) throws SQLException {
-        return querySingle(
-                "SELECT * FROM program WHERE program_id=?", id);
-    }
-
-    @Override
-    public int storeNewProgram(DataItem data) throws SQLException {
-
-        String query = "INSERT INTO program "
-                + "(program_name, program_description)"
-                + "VALUES(?, ?)";
-
-        return executeInsert(query,
-                data.get("program_name"),
-                data.get("program_description"));
-
-    }
-
+    /**
+     * Updates customers weight
+     * 
+     * @param customerId
+     * @param newWeight 
+     */
     @Override
     public void changeCustomerWeight(int customerId, int newWeight) {
         String query = "UPDATE customer "
@@ -239,6 +173,12 @@ public class DataSourceSqlite extends BaseDataSource {
         super(trans);
     }
 
+    /**
+     * Creates a new data source for use in a transaction
+     *
+     * @param tr
+     * @return
+     */
     @Override
     protected DataSource createTransactionDataSource(BaseTransaction tr) {
         return new DataSourceSqlite(tr);
@@ -260,19 +200,9 @@ public class DataSourceSqlite extends BaseDataSource {
         return ds;
     }
 
-    /**
-     * XXX
-     */
-    @Override
-    public void storeSetDone(int setID, int repsDone, int loadUsed) {
-
-    }
-
-    /**
-     * XXX
-     */
     @Override
     public void storeExerciseDone(int workoutID) {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 }

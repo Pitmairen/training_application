@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
+import no.hials.trainingapp.datasource.Pagination;
+import no.hials.trainingapp.routing.Helpers;
 import no.hials.trainingapp.routing.TemplateRoute;
 import spark.ModelAndView;
 import spark.Request;
@@ -24,9 +26,12 @@ public class History extends TemplateRoute {
     public ModelAndView handle() throws SQLException {
 
         List<DataItem> exercises = getDataSource().getAllExercises();
-        
-        List<DataItem> workouts = getDataSource().getWorkoutLogForCustomer(getCurrentUser().getId(), 10);
 
+        Pagination pag = new Pagination(20, Helpers.getPaginationPage(getRequest()));
+
+        List<DataItem> workouts = getDataSource().getWorkoutLogForCustomer(getCurrentUser().getId(), pag);
+
+        setData("pagination", pag);
         setData("workouts", workouts);
         setData("exercises", exercises);
 

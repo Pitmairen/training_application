@@ -16,7 +16,10 @@
             <tr>
                 <td>{{ cu.customer_first_name }}</td>
                 <td>{{ cu.customer_last_name }}</td>
-                <td><a class="link-button" href="/admin/add-new-workout/{{ cu.customer_program_id }}">Add New Workout</a></td>
+                <td>
+                    <a class="link-button" href="/admin/add-new-workout/{{ cu.customer_program_id }}">Add New Workout</a>
+                    <a class="link-button" href="/admin/edit-program/{{ cu.customer_program_id }}">Edit Program</a>
+                </td>
             </tr>
         {% endfor %}
     </table>

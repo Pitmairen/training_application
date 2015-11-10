@@ -1,0 +1,37 @@
+{% extends "admin/admin-layout" %}
+
+{% block "title" %}Edit Program{% endblock %}
+
+{% block "content" %}
+
+{% if validationErrors is not empty %}
+<ul>
+    {% for err in validationErrors %}
+    <li>{{ err}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form action="" method="POST">
+
+    <fieldset>
+        <legend><label for="programName">Program Name:</label></legend>
+        <input id="programName"
+               name="programName" type="text"
+               placeholder="Program Name"
+               value="{{ program.program_name }}">
+    </fieldset>
+
+    <fieldset>
+        <legend><label for="programDesc">Description:</label></legend>
+        <textarea rows="8" cols="50" name="programDesc" placeholder="Program Description">{{ program.program_description }}</textarea>
+    </fieldset>
+
+    <fieldset>
+        <input type="submit" value="Update program">
+    </fieldset>
+
+</form>
+
+
+{% endblock %}

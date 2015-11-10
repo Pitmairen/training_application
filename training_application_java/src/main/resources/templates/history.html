@@ -6,22 +6,24 @@
 
 <h2>History</h2>
 
-
+<div class="exercise-progress-buttons">
 <select id="exercises">
     {% for ex in exercises %}
         <option value="{{ ex.exercise_id }}">{{ ex.exercise_name }}</option>
     {% endfor %}
 </select>
 <button id="show-progress">Show progress</button>
+</div>
 
-
-<ul>
+<table class="standardTable">
     {% for wk in workouts %}
-    <li><a href="/workout/{{ wk.workout_id }}">{{ wk.workout_name }} - {{ wk.workout_date }}</a></li>
+    <tr><td><a href="/workoutLog/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
+        <td><a href="/workoutLog/{{ wk.workout_id }}">{{ wk.workout_name }}</a></td></tr>
     {% else %}
-    <p>You have not completed any workouts.</p>
+    <p>You have no workouts scheduled. Please contact your trainer.</p>
     {% endfor %}
-</ul>
+</table>
+{% include "partials/pagination" %}
 
 {% endblock %}
 {% block "js_bottom" %}
