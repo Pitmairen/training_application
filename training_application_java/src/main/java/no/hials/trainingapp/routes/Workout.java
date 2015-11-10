@@ -43,9 +43,14 @@ public class Workout extends FormRoute {
 
                 for (DataItem set : sets) {
 
-                    Integer setID = set.getInteger("set_id");
-                    set.put("set_reps_done", Integer.parseInt(getRequest().queryParams("set-" + set.getInteger("set_id") + "-RepsDone"))) ;
-                    set.put("set_weight_done", Integer.parseInt(getRequest().queryParams("set-" + set.getInteger("set_id") + "-LoadUsed")));
+                    try {
+                        Integer setID = set.getInteger("set_id");
+                        set.put("set_reps_done", Integer.parseInt(getRequest().queryParams("set-" + set.getInteger("set_id") + "-RepsDone")));
+                        set.put("set_weight_done", Integer.parseInt(getRequest().queryParams("set-" + set.getInteger("set_id") + "-LoadUsed")));
+                    }
+                    catch (NumberFormatException ex) {
+                        System.err.println(ex);
+                    }
 
                     // Store the completed set in the database.
                     getDataSource().storeSetDone(set);
