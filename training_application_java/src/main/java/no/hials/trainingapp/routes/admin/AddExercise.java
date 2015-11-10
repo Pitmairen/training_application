@@ -41,6 +41,7 @@ public class AddExercise extends FormRoute {
                 });
 
                 getResponse().redirect("/admin/");
+                flashMessage("The exercise has been added");
                 Spark.halt();
 
             }

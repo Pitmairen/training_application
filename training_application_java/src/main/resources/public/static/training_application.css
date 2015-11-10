@@ -200,3 +200,9 @@ a.link-button{
 .exercise-progress-buttons{
     margin-bottom: 1em;
 }
+
+.flash-message {
+    padding: 0.5em;
+    background: #9BC362;
+    display: inline-block;
+}

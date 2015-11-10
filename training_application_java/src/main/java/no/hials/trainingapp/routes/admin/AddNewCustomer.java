@@ -43,6 +43,7 @@ public class AddNewCustomer extends FormRoute {
                 });
 
                 getResponse().redirect("/admin/");
+                flashMessage("The customer has been created");
                 Spark.halt();
             }
         }

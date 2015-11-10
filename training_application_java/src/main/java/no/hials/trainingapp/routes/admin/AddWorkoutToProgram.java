@@ -63,6 +63,9 @@ public class AddWorkoutToProgram extends FormRoute {
                     tx.commit();
 
                     getResponse().redirect("/admin/");
+                    
+                    flashMessage("The workout has been created");
+                    
                     Spark.halt();
                 });
 

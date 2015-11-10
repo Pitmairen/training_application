@@ -23,6 +23,7 @@ public class AdminLogout extends TemplateRoute {
 
             Auth.logoutAdmin(getRequest());
             getResponse().redirect("/");
+            flashMessage("You have been logged out from the admin");
             Spark.halt();
         }
 

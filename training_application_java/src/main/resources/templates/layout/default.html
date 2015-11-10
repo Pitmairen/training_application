@@ -25,6 +25,9 @@
             </ul> 
         </header>
         <main>
+            {% if flashMessage is not empty %}
+            <div class="flash-message">{{ flashMessage }}</div>
+            {% endif %}
             {% block "content" %}{% endblock %}
         </main>
         <footer>

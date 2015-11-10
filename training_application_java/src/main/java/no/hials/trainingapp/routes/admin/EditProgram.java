@@ -49,6 +49,7 @@ public class EditProgram extends FormRoute {
                 });
 
                 getResponse().redirect("/admin/");
+                flashMessage("The program has been updated");
                 Spark.halt();
             }
 

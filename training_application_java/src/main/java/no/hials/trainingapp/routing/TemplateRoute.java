@@ -21,6 +21,8 @@ import spark.Response;
 public abstract class TemplateRoute extends BaseRoute
 {
 
+    private static final String FLASH_MESSAGE_SESSION_KEY = "_flash_msg";
+    
     // Data to pass to the template
     private final Map<String, Object> mTemplateData;
 
@@ -57,6 +59,17 @@ public abstract class TemplateRoute extends BaseRoute
     {
         mTemplateData.put(name, value);
     }
+    
+    
+    /**
+     * Flashes a message to the user on the next page that is loaded.
+     * 
+     * @param message the message to show to the user 
+     */
+    protected void flashMessage(String message){
+        getRequest().session().attribute(FLASH_MESSAGE_SESSION_KEY, message);
+    }
+    
 
     /**
      * Renders the template with the specified name.
@@ -72,6 +85,13 @@ public abstract class TemplateRoute extends BaseRoute
     {
         // Add the current user
         setData("currentUser", getCurrentUser());
+        
+        String flash = getRequest().session().attribute(FLASH_MESSAGE_SESSION_KEY);
+        if(flash != null){
+            getRequest().session().removeAttribute(FLASH_MESSAGE_SESSION_KEY);
+            setData("flashMessage", flash);
+        }
+        
         // Response data is html
         getResponse().type("text/html");
 

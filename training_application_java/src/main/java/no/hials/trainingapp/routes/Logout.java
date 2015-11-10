@@ -25,6 +25,7 @@ public class Logout extends TemplateRoute {
 
             Auth.logoutUser(getRequest());
             getResponse().redirect("/login");
+            flashMessage("You have been logged out");
             Spark.halt();
         }
 
