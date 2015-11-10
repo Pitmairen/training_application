@@ -54,10 +54,10 @@ public class Main {
             String dbFile = System.getenv("DATA_SOURCE_FILE");
             
             if (dbFile == null) {
-                dbFile = "jdbc:sqlite:" + dbFile;
+                dbFile = "/tmp/trainingdbjava.db";
             }
 
-            DataSourceSqlite.initPool(dbFile);
+            DataSourceSqlite.initPool("jdbc:sqlite:" + dbFile);
             sDataSource = new DataSourceSqlite();
             
         } else if (ds.equals("mssql")) {
