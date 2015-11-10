@@ -51,12 +51,15 @@ public class Main {
 
         if (ds == null || ds.equals("sqlite")) {
 
-            if (conString == null) {
-                conString = "jdbc:sqlite:/tmp/trainingdbjava.db";
+            String dbFile = System.getenv("DATA_SOURCE_FILE");
+            
+            if (dbFile == null) {
+                dbFile = "jdbc:sqlite:" + dbFile;
             }
 
-            DataSourceSqlite.initPool(conString);
+            DataSourceSqlite.initPool(dbFile);
             sDataSource = new DataSourceSqlite();
+            
         } else if (ds.equals("mssql")) {
 
             System.setProperty("java.net.preferIPv6Addresses", "true");
