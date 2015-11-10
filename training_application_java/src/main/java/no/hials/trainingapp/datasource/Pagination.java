@@ -129,7 +129,7 @@ public final class Pagination {
      * Validates the current values. Throws an exception if something is wrong.
      */
     public void validateValues() {
-        if (getCurrentPage() < 1 || getCurrentPage() > getTotalPageCount()) {
+        if (getCurrentPage() < 1 || (getTotalPageCount() > 0 && getCurrentPage() > getTotalPageCount())) {
             throw new NotFoundException("Unknown page number");
         }
     }
