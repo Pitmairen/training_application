@@ -5,6 +5,7 @@
 {% block "content" %}
 
 
+<h2>History</h2>
 <h2>{{ workout.workout_name }}</h2>
 
 <form method="POST" action="">
@@ -14,23 +15,21 @@
         {% set containsSet = 0 %}
 
         {% for set in sets %}
-        {% set containsSet = 1 %}
+            {% set containsSet = 1 %}
 
-        {% if exercise_id != set.exercise_id %}
-        {% set exercise_id = set.exercise_id %}
-        <tr><td colspan='2' class='exerciseTitle'>{{ set.exercise_name }}</td></tr>
-        {% endif %}
+            {% if exercise_id != set.exercise_id %}
+                {% set exercise_id = set.exercise_id %}
+                <tr><td class='exerciseTitle'>{{ set.exercise_name }}</td></tr>
+            {% endif %}
 
-        <tr class='exerciseSet'>
-            <td><span class='bold'>{{ set.set_reps_planned }}</span> reps with <span class='bold'>{{ set.set_weight_planned }}</span> Kg</td>
-            <td><input type="number" name="set-{{ set.set_id }}-RepsDone"  placeholder="Reps done" min='0' max="100">
-                <input type="number" name="set-{{ set.set_id }}-LoadUsed" placeholder="Load used" min='0' max="1000"></td></tr>
-        {% endfor %}
-
+            <tr class='exerciseSet'>
+                <td><span class='bold'>{{ set.set_reps_done }}</span> reps with <span class='bold'>{{ set.set_weight_done }}</span> Kg</td></tr>
+            {% endfor %}
 
         {% if (containsSet == 0) %}
-        <tr><td colspan="2" class="setTableErrorText"><b>This workout contains no exercises. Please contact your trainer.</b></td></tr>
+            <tr><td class="setTableErrorText"><b>This workout contains no exercises. Please notify your trainer.</b></td></tr>
         {% endif %}
+        <tr><td class="setTableUserComment"><span class='bold'>Your comment:</span> {{ workout.workout_comment }}</td></tr>
     </table>
 </form>
 

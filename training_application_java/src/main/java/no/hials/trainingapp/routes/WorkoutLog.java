@@ -36,7 +36,6 @@ public class WorkoutLog extends TemplateRoute {
             halt(404);
         }
 
-        
         return renderTemplate("workoutLog");
     }
 }
