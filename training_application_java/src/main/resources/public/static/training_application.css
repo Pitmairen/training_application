@@ -13,6 +13,7 @@ body {
 
 
 header, footer {
+    display: block;
     background: #45619d;
     text-align: center;
     margin: 1rem 1rem 1rem 1rem;
@@ -70,6 +71,7 @@ nav a:hover {
 
 
 main {
+    display: block;
     background: #ffffff;
     text-align: center;
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
