@@ -14,15 +14,16 @@
                 <li id="logoText">Training Application</li>
             </ul>
 
-
+            <nav>
             <ul>
-                <a href="/"><li>Profile</li></a>
-                <a href="/workouts"><li>Workouts</li></a>
-                <a href="/history"><li>History</li></a>
+                <li><a href="/">Profile</a></li>
+                <li><a href="/workouts">Workouts</a></li>
+                <li><a href="/history">History</a></li>
                 {% if currentUser.isAuthenticated %}
-                <a href="/logout"><li>Logout</li></a>
+                <li><a href="/logout">Logout</a></li>
                 {% endif %}
-            </ul> 
+            </ul>
+            </nav>
         </header>
         <main>
             {% if flashMessage is not empty %}
@@ -31,11 +32,13 @@
             {% block "content" %}{% endblock %}
         </main>
         <footer>
+            <nav>
             <ul>
-                <a href="/help"><li>Help</li></a>
-                <a href="/about"><li>About</li></a>
-                <a href="/tos"><li>ToS</li></a>
+                <li><a href="/help">Help</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/tos">ToS</a></li>
             </ul>
+            </nav>
         </footer>
         <script src="/static/training_application.js"></script>
         {% block "js_bottom" %}{% endblock %}

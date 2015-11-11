@@ -9,10 +9,12 @@
     </head>
     <body>
         <header>
+            <nav>
             <ul>
-                <a href="/admin/"><li>Admin Index</li></a>
-                <a href="/admin/logout"><li>Logout</li></a>
+                <li><a href="/admin/">Admin Index</a></li>
+                <li><a href="/admin/logout">Logout</a></li>
             </ul>
+            </nav>
         </header>
         <main>
             {% if flashMessage is not empty %}
@@ -21,11 +23,13 @@
             {% block "content" %}{% endblock %}
         </main>
         <footer>
+            <nav>
             <ul>
-                <a href="/help"><li>Help</li></a>
-                <a href="/about"><li>About</li></a>
-                <a href="/tos"><li>ToS</li></a>
+                <li><a href="/help">Help</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/tos">ToS</a></li>
             </ul>
+            </nav>
         </footer>
         {% block "js_bottom" %}{% endblock %}
     </body>

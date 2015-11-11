@@ -25,6 +25,10 @@ header ul, footer ul {
 }
 header li, footer li {
     display: inline-block;
+}
+
+nav a{
+    display: inline-block;
     margin: 0.1rem 0 0.1rem 0;
     padding: 0.2rem 0.5rem 0.2rem 0.5rem;
     background: #b6b6b6;
@@ -32,10 +36,10 @@ header li, footer li {
     color: #000000;
     border: 2px solid #000000;
     border-radius: 5px;
+
 }
-header li:hover, footer li:hover {
+nav a:hover {
     background: #388dcb;
-    color: #000000;
 }
 
 #logoContainer{
