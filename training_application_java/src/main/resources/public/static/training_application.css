@@ -206,3 +206,8 @@ a.link-button{
     background: #9BC362;
     display: inline-block;
 }
+
+.validation-errors li{
+    display: block;
+    color: red;
+}
