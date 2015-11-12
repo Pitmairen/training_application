@@ -1,5 +1,8 @@
 package no.hials.trainingapp;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import no.hials.trainingapp.auth.AdminFilter;
 import no.hials.trainingapp.auth.AuthenticationFilter;
 import no.hials.trainingapp.datasource.DataSource;
@@ -44,28 +47,29 @@ public class Main {
      */
     public static void main(String[] args) throws ClassNotFoundException {
 
-        String ds = System.getenv("DATA_SOURCE");
-        String conString = System.getenv("DATA_SOURCE_CS");
-
-        System.out.println(ds);
-
-        if (ds == null || ds.equals("sqlite")) {
-
-            String dbFile = System.getenv("DATA_SOURCE_FILE");
+        try {
+            loadConfig(args);
+        } catch (IOException ex) {
+            System.out.println("Failed to load config file");
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
+        
+        if (Config.getValue("DATA_SOURCE").equals("sqlite")) {
             
+            String dbFile = Config.getValue("DATA_SOURCE_FILE");
             if (dbFile == null) {
-                dbFile = "/tmp/trainingdbjava.db";
+                System.out.println("Missing DATA_SOURCE_FILE enty in config file");
+                return;
             }
-
             DataSourceSqlite.initPool("jdbc:sqlite:" + dbFile);
             sDataSource = new DataSourceSqlite();
             
-        } else if (ds.equals("mssql")) {
-
+        } else if (Config.getValue("DATA_SOURCE").equals("mssql")) {
+            
             System.setProperty("java.net.preferIPv6Addresses", "true");
-            DataSourceMssql.initPool(conString);
+            DataSourceMssql.initPool(Config.getValue("DATA_SOURCE_CONNECTION_STRING"));
             sDataSource = new DataSourceMssql();
-
         }
 
         sRouter = new Router(sDataSource, TemplateEngines.createPebbleEngine());
@@ -112,4 +116,14 @@ public class Main {
         r.getAndPost("/admin/edit-program/:prog_id", EditProgram.class);
 
     }
+    
+    
+    private static void loadConfig(String[] args) throws IOException{
+        if(args.length > 0){
+            Config.loadConfigFromFile(args[0]);
+        }else{
+            Config.loadConfigFromResource("/defaultConfig.cfg");
+        }
+    }
+    
 }
