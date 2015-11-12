@@ -1,6 +1,7 @@
 package no.hials.trainingapp.routes;
 
 import java.sql.SQLException;
+import no.hials.trainingapp.Config;
 import no.hials.trainingapp.auth.Auth;
 import no.hials.trainingapp.auth.Security;
 import no.hials.trainingapp.datasource.DataItem;
@@ -18,9 +19,6 @@ import spark.Spark;
  */
 public class Login extends FormRoute {
 
-    private final static String ADMIN_USERNAME = "admin";
-    private final static String ADMIN_PASSWORD = "1234";
-
     private final static String TEMPLATE_NAME = "login";
 
     // Used to cache the user object so we don't have to reload it again
@@ -28,10 +26,19 @@ public class Login extends FormRoute {
     private DataItem mUserCache = null;
 
     private boolean mIsAdminLogin = false;
+    private final String mAdminUsername;
+    private final String mAdminPassword;
 
     
     public Login(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
+        
+        mAdminUsername = Config.getValue("ADMIN_USERNAME", "admin");
+        // If no password is set in the config we just use the string
+        // "invalid" which will never validate as a correct password.
+        mAdminPassword = Config.getValue("ADMIN_PASSWORD", "invalid");
+
+        
     }
 
     @Override
@@ -88,7 +95,7 @@ public class Login extends FormRoute {
         String username = getRequest().queryParams("username");
         String password = getRequest().queryParams("password");
 
-        if(username.equals(ADMIN_USERNAME) && password.equals(ADMIN_PASSWORD)){
+        if(username.equals(mAdminUsername) && Security.checkPassword(password, mAdminPassword)){
             // If its a valid admin login we are done
             mIsAdminLogin = true;
             return;
