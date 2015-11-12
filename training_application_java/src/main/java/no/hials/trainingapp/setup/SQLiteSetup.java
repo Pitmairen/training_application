@@ -1,10 +1,20 @@
 package no.hials.trainingapp.setup;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Properties;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import no.hials.trainingapp.auth.Security;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.DataSourceSqlite;
 import no.hials.trainingapp.datasource.Transaction;
@@ -18,9 +28,10 @@ public class SQLiteSetup {
 
     public static void main(String[] args) {
 
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println("You need to provide the absolute path to the file "
-                    + " for the sqlite database as the first and only argument.");
+                    + " for the sqlite database as the first and the name of the config "
+                    + "file as the second argument");
             return;
         }
 
@@ -53,6 +64,40 @@ public class SQLiteSetup {
 
         System.out.println("The database has been successfully created in the"
                 + " file: " + dbFile.getAbsolutePath());
+
+        HashMap<String, String> props = new HashMap<>();
+
+        props.put("DATA_SOURCE", "sqlite");
+        props.put("DATA_SOURCE_FILE", dbFile.getAbsolutePath());
+        
+        try {
+            BufferedReader br
+                    = new BufferedReader(new InputStreamReader(System.in));
+
+            String input;
+            input = getInputValue(br, "Please type the username for the admin account: ");
+            props.put("ADMIN_USERNAME", input);
+            input = getInputValue(br, "Please type the password for the admin account: ");
+            props.put("ADMIN_PASSWORD", Security.hashPassword(input));
+
+        } catch (IOException ex) {
+            Logger.getLogger(SQLiteSetup.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Something went wrong.");
+            return;
+        }
+
+        String configFileName = args[1];
+        try {
+            writeConfigFile(configFileName, props);
+        } catch (IOException ex) {
+            Logger.getLogger(SQLiteSetup.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Something went wrong.");
+            return;
+
+        }
+
+        System.out.println("Config file has been written to " + configFileName);
+
     }
 
     public static void createDatabaseStructure(DataSourceSqlite dataSource) throws SQLException, FileNotFoundException {
@@ -83,6 +128,36 @@ public class SQLiteSetup {
         Scanner s = new Scanner(in);
         s.useDelimiter("(;(\r)?\n)|;");
         return s;
+    }
+
+    private static String getInputValue(BufferedReader in, String message) throws IOException {
+        System.out.println(message);
+        System.out.print("> ");
+
+        String input;
+        while ((input = in.readLine()) != null) {
+            if (input.isEmpty()) {
+                System.out.println("Empty value. Try again.");
+                continue;
+            }
+            return input;
+        }
+        return null;
+    }
+
+    private static void writeConfigFile(String configFilename, HashMap<String, String> propValues) throws IOException {
+
+        Properties prop = new Properties();
+
+        try (OutputStream output = new FileOutputStream(configFilename)) {
+
+            for (String key : propValues.keySet()) {
+                prop.setProperty(key, propValues.get(key));
+            }
+
+            prop.store(output, null);
+
+        }
     }
 
 }
