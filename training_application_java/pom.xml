@@ -35,7 +35,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>fully.qualified.MainClass</mainClass>
+                            <mainClass>no.hials.trainingapp.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
