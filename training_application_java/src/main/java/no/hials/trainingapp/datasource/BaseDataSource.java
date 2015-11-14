@@ -294,48 +294,64 @@ public abstract class BaseDataSource implements DataSource {
         executeUpdate(query, 1, userComment, workoutID);
     }
 
-    
     //Account info queries
     @Override
-    public void changeCustomerWeight(int customerId, int newWeight) {
+    public void changeCustomerWeight(int customerId, int newWeight) throws SQLException {
         String query = "UPDATE customer "
-                + "SET customer_weight=?" + newWeight
-                + "WHERE customer_id=?" + customerId;
+                + "SET customer_weight=?"
+                + "WHERE customer_id=?";
+
+        executeUpdate(query, newWeight, customerId);
     }
 
     @Override
-    public void changeCustomerHeight(int customerId, int newHeight) {
+    public void changeCustomerHeight(int customerId, int newHeight) throws SQLException {
         String query = "UPDATE customer "
-                + "SET customer_height=?" + newHeight
-                + "WHERE customer_id=?" + customerId;
+                + "SET customer_height=?"
+                + "WHERE customer_id=?";
+
+        executeUpdate(query, newHeight, customerId);
     }
 
     @Override
-    public void changeCustomerFirstName(int customerId, String newFirstname) {
+    public void changeCustomerFirstName(int customerId, String newFirstname) throws SQLException {
         String query = "UPDATE customer "
-                + "SET customer_first_name=?" + newFirstname
-                + "WHERE customer_id=?" + customerId;
+                + "SET customer_first_name=?"
+                + "WHERE customer_id=?";
+
+        executeUpdate(query, newFirstname, customerId);
     }
 
     @Override
-    public void changeCustomerLastName(int customerId, String newLastname) {
+    public void changeCustomerLastName(int customerId, String newLastname) throws SQLException {
         String query = "UPDATE customer "
-                + "SET customer_first_name=?" + newLastname
-                + "WHERE customer_id=?" + customerId;
+                + "SET customer_first_name=?"
+                + "WHERE customer_id=?";
+
+        executeUpdate(query, newLastname, customerId);
     }
 
-    
-    
     @Override
-    public void changeCustomerPassword(int customerId, String newPassword) {
+    public void changeCustomerPassword(int customerId, String newPassword) throws SQLException {
         String query = "UPDATE customer "
-                + "SET customer_password=?" + newPassword
-                + "WHERE customer_id=?" + customerId;
+                + "SET customer_password=?"
+                + "WHERE customer_id=?";
+
+        executeUpdate(query, newPassword, customerId);
     }
-    
+
     @Override
-    public DataItem getCustomerPassword(int customerId) throws SQLException{
+    public void changeCustomerSex(int customerId, String sex) throws SQLException {
+        String query = "UPDATE customer "
+                + "SET customer_sex=?"
+                + "WHERE customer_id=?";
         
+        executeUpdate(query, sex, customerId);
+    }
+
+    @Override
+    public DataItem getCustomerPassword(int customerId) throws SQLException {
+
         return querySingle("SELECT customer_pw FROM customer WHERE customer_id =?", customerId);
     }
 
