@@ -60,7 +60,7 @@ public class DataSourceSqlite extends BaseDataSource {
                 + "customer_email, customer_pw, customer_sex,"
                 + "customer_program_id, customer_weight,"
                 + "customer_height, customer_date_of_birth) "
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, date('now'))";
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         executeUpdate(query,
                 data.get("customer_first_name"),
@@ -69,8 +69,9 @@ public class DataSourceSqlite extends BaseDataSource {
                 data.get("customer_pw"),
                 data.get("customer_sex"),
                 data.get("customer_program_id"),
-                60, // height and weight and date of birth hard coded for now
-                180);
+                data.get("customer_weight"),
+                data.get("customer_height"),
+                data.get("customer_date_of_birth"));
 
     }
 

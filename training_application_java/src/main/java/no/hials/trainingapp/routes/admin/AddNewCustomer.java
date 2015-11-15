@@ -9,6 +9,7 @@ import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.Transaction;
 import no.hials.trainingapp.routing.FormInput;
 import no.hials.trainingapp.routing.FormRoute;
+import no.hials.trainingapp.routing.Validators;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -63,7 +64,10 @@ public class AddNewCustomer extends FormRoute {
         d.put("customer_last_name", form.getValue("lastName"));
         d.put("customer_email", form.getValue("userEmail"));
         d.put("customer_pw", pwHash);
-        d.put("customer_sex", "m");
+        d.put("customer_weight", Integer.parseInt(form.getValue("userWeight")));
+        d.put("customer_height", Integer.parseInt(form.getValue("userHeight")));
+        d.put("customer_date_of_birth", form.getValue("userDateOfBirth"));
+        d.put("customer_sex", form.getValue("userSex"));
 
         return d;
     }
@@ -83,7 +87,14 @@ public class AddNewCustomer extends FormRoute {
         
         FormInput form = getFormInput();
         
-        form.addRequiredInputs("firstName", "lastName", "userEmail", "userPassword");
+        form.addRequiredInputs("firstName", "lastName", "userEmail", "userPassword",
+                    "userDateOfBirth", "userWeight", "userHeight", "userSex");
+        
+        
+        form.addValidator("userWeight", new Validators.IntegerRange(10, 1000));
+        form.addValidator("userHeight", new Validators.IntegerRange(10, 1000));
+        form.addValidator("userSex", new Validators.ValidValues("m", "f"));
+        form.addValidator("userDateOfBirth", new Validators.DateValidator(true));
         
         form.addValidator("userEmail", (FormInput form1, String input) -> {
 

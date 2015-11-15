@@ -29,10 +29,38 @@
         </fieldset>
 
         <fieldset>
+            <legend><label for="userDateOfBirth">Date of Birth:</label></legend>
+            <input type="date" name="userDateOfBirth"  placeholder="Date of Birth"
+                                    value="{{ formData.userDateOfBirth }}">
+        </fieldset>
+        
+        <fieldset>
+            <legend><label for="userWeight">Weight:</label></legend>
+            <input type="number" min="10" max="1000" name="userWeight"  placeholder="Weight"
+                                    value="{{ formData.userWeight }}">
+        </fieldset>
+        
+       <fieldset>
+            <legend><label for="userHeight">Height:</label></legend>
+            <input type="number" min="10" max="1000" name="userHeight"  placeholder="Height"
+                                    value="{{ formData.userHeight }}">
+        </fieldset>
+        
+       <fieldset>
+            <legend>Sex:</legend>
+            <label for="sexMale">Male: </label><input id="sexMale" type="radio" name="userSex" value="m" {% if formData.userSex equals "m" %}checked{% endif %}>
+            <label for="sexFemale">Female: </label><input id="sexFemale" type="radio" name="userSex" value="f" {% if formData.userSex equals "f" %}checked{% endif %}>
+        </fieldset>
+
+        <fieldset>
             <legend><label for="userPassword">User password:</label></legend>
             <input type="password" name="userPassword"  placeholder="User password">
         </fieldset>
+        
+        
 
+        
+        
         <div>
         <input type="submit" value="Create User">
         </div>
