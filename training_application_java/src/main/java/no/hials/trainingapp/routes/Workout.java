@@ -9,6 +9,7 @@ import no.hials.trainingapp.routing.FormRoute;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Spark;
 import static spark.Spark.halt;
 
 /**
@@ -63,6 +64,11 @@ public class Workout extends FormRoute {
                 tx.commit();
 
             });
+            
+            flashMessage("The workout has been completed");
+            getResponse().redirect("/workoutLog/"+workout.getInteger("workout_id"));
+            Spark.halt();
+            
         }
         return renderTemplate("workout");
     }
