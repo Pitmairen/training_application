@@ -207,7 +207,7 @@ public interface DataSource {
      * @param customerId The unique ID of a customer
      * @param newWeight the new weight the customer has entered
      */
-    public void changeCustomerWeight(int customerId, int newWeight);
+    public void changeCustomerWeight(int customerId, int newWeight) throws SQLException;
 
     /**
      * Updates the height of a customer
@@ -215,7 +215,7 @@ public interface DataSource {
      * @param customerId The unique ID of a customer
      * @param newWeight The new height the customer has entered
      */
-    public void changeCustomerHeight(int customerId, int newWeight);
+    public void changeCustomerHeight(int customerId, int newWeight) throws SQLException;
 
     /**
      * Updates the first name of a customer
@@ -223,7 +223,7 @@ public interface DataSource {
      * @param customerId The unique ID of a customer
      * @param newFirstname The new first name the customer has entered
      */
-    public void changeCustomerFirstName(int customerId, String newFirstname);
+    public void changeCustomerFirstName(int customerId, String newFirstname) throws SQLException;
 
     /**
      * Updates the first name of a customer
@@ -231,7 +231,7 @@ public interface DataSource {
      * @param customerId The unique ID of a customer
      * @param newLastname The new last name the customer has entered
      */
-    public void changeCustomerLastName(int customerId, String newLastname);
+    public void changeCustomerLastName(int customerId, String newLastname) throws SQLException;
 
     /**
      * Updates the sex of a customer
@@ -239,7 +239,7 @@ public interface DataSource {
      * @param customerId The unique ID of a customer
      * @param sex The new sex the customer has entered
      */
-    public void changeCustomerSex(int customerId, String sex);
+    public void changeCustomerSex(int customerId, String sex) throws SQLException;
 
     /**
      * Update the password of a customer
@@ -247,7 +247,7 @@ public interface DataSource {
      * @param customerId The unique ID of a customer
      * @param newPassword The new password the customer wants
      */
-    public void changeCustomerPassword(int customerId, String newPassword);
+    public void changeCustomerPassword(int customerId, String newPassword) throws SQLException;
 
     /**
      * Returns the customers encrypted password

@@ -11,33 +11,38 @@
 
     <!--Name-->
     <h3>Change your name:</h3>
-    First Name: <input id="customerFirstName" type="text" value="{{userinfo.customer_first_name}}"  placeholder="First Name" min="2" max="50" ><br><br>
-    Last Name: <input id="customerLastName" type="text" value="{{userinfo.customer_last_name}}"  placeholder="Last Name" min="2" max="50" >
+    First Name: <input name="customerFirstName" type="text" value="{{userinfo.customer_first_name}}"  placeholder="First Name" ><br><br>
+    Last Name: <input name="customerLastName" type="text" value="{{userinfo.customer_last_name}}"  placeholder="Last Name" >
     <br>
-    <!--Weight-->
+    
+        <!--Submit-->
+    <h3>Submit Updates:</h3>
+    <input type="submit" value="Submit">
+    
+    </form>
+
+    <!--Weight-
     <h3>Change your weight:</h3>
-    Weight: <input id="customerWeight" type="number" value="{{userinfo.customer_weight}}"  placeholder="kg" min="20" max="400" >
+    Weight: <input name="customerWeight" type="number" value="{{userinfo.customer_weight}}"  placeholder="kg" min="20" max="400" >
     <br>
-    <!--Height-->
+    <!--Height-
     <h3>Change your height:</h3>
-    Height: <input id="customerHeight" type="number" value="{{userinfo.customer_height}}" placeholder="cm" min="40" max="300" >
+    Height: <input name="customerHeight" type="number" value="{{userinfo.customer_height}}" placeholder="cm" min="40" max="300" >
     <br>    
-    <!--PW-->
+    <!--PW-
     <h3>Change your password:</h3>
-    Enter your old password<input id="customerOldPassword" type="text" placeholder="Old Password" ><br><br>
-    Enter your new password<input id="customerNewPassword" type="text" placeholder="New Pasword">
+    Enter your old password<input name="customerOldPassword" type="text" placeholder="Old Password" ><br><br>
+    Enter your new password<input name="customerNewPassword" type="text" placeholder="New Pasword">
     
     <br>
-    <!--Sex-->
+    <!--Sex
     <h3>Change your sex:</h3>
     Sex: 
-    <input id="customerSex" type="radio" name="Sex" value="m">Male
-    <input id="customerSex" type="radio"name="Sex"  value="f">Female
+    <input name="customerSex" type="radio" value="m">Male
+    <input name="customerSex" type="radio" value="f">Female
 
-    <!--Submit-->
-    <h3>Submit Updates:</h3>
-    <input type="submit" value="Update Accout Info">
-</form>
+-->
+
 
 
 {% endblock %}
