@@ -8,7 +8,7 @@ import no.hials.trainingapp.routing.TemplateRoute;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import static spark.Spark.halt;
+import spark.Spark;
 
 /**
  * A specific workout that have been selected in the GUI.
@@ -24,16 +24,19 @@ public class WorkoutLog extends TemplateRoute {
     @Override
     public ModelAndView handle() throws SQLException {
 
-        // (rewrite this by using only sparc)
+        DataItem customer = getDataSource().getCustomerById(getCurrentUser().getId());
+        
         DataItem workout = getDataSource().getWorkout(Integer.parseInt(getRequest().params("id")));
+        
+        // Abort if workout does not exist or is not part of the user's program.
+        if(workout == null || customer.getInteger("customer_program_id") != workout.getInteger("workout_program_id")){
+            Spark.halt(404);
+        }
+        
         setData("workout", workout);
 
         List<DataItem> sets = getDataSource().getSets(Integer.parseInt(getRequest().params("id")));
         setData("sets", sets);
-
-        if (workout == null) {
-            halt(404);
-        }
 
         return renderTemplate("workoutLog");
     }
