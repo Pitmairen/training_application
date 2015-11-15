@@ -1,11 +1,14 @@
 package no.hials.trainingapp.routes;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import no.hials.trainingapp.Config;
 import no.hials.trainingapp.auth.Auth;
 import no.hials.trainingapp.auth.Security;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
+import no.hials.trainingapp.routing.FormInput;
 import no.hials.trainingapp.routing.FormRoute;
 import spark.ModelAndView;
 import spark.Request;
@@ -29,16 +32,14 @@ public class Login extends FormRoute {
     private final String mAdminUsername;
     private final String mAdminPassword;
 
-    
     public Login(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
-        
+
         mAdminUsername = Config.getValue("ADMIN_USERNAME", "admin");
         // If no password is set in the config we just use the string
         // "invalid" which will never validate as a correct password.
         mAdminPassword = Config.getValue("ADMIN_PASSWORD", "invalid");
 
-        
     }
 
     @Override
@@ -46,26 +47,22 @@ public class Login extends FormRoute {
 
         checkUserNotAuthenticated();
 
-        if (getRequest().requestMethod().equals("POST")) {
+        FormInput form = setupFormValidation();
 
-            checkUsernameAndPassword();
+        if (form.postedAndValid()) {
 
-            if (!hasValidationErrors()) {
+            if (mIsAdminLogin) {
+                Auth.loginAdmin(getRequest());
+                getResponse().redirect("/admin/");
+            } else {
+                Auth.loginUser(getRequest(),
+                        mUserCache.getInteger("customer_id"),
+                        mUserCache.getString("customer_first_name"));
 
-                if(mIsAdminLogin){
-                    Auth.loginAdmin(getRequest());
-                    getResponse().redirect("/admin/");
-                }
-                else{
-                    Auth.loginUser(getRequest(),
-                            mUserCache.getInteger("customer_id"),
-                            mUserCache.getString("customer_first_name"));
-
-                    getResponse().redirect("/");
-                }
-               
-                Spark.halt();
+                getResponse().redirect("/");
             }
+
+            Spark.halt();
 
         }
 
@@ -83,32 +80,44 @@ public class Login extends FormRoute {
         }
     }
 
-    /**
-     * Check that the username and password is valid
-     *
-     * FIXME: Currently not checking password.
-     *
-     * @throws SQLException
-     */
-    private void checkUsernameAndPassword() throws SQLException {
+    private FormInput setupFormValidation() {
 
-        String username = getRequest().queryParams("username");
-        String password = getRequest().queryParams("password");
+        FormInput form = getFormInput();
 
-        if(username.equals(mAdminUsername) && Security.checkPassword(password, mAdminPassword)){
-            // If its a valid admin login we are done
-            mIsAdminLogin = true;
-            return;
-        }
-        
-        DataItem customer = getDataSource().getCustomerByUsername(username);
+        form.addRequiredInputs("username", "password");
 
-        if (customer == null || !Security.checkPassword(password, customer.getString("customer_pw"))) {
-            addValidationError("Wrong username or password");
-        } else {
-            mUserCache = customer;
-        }
+        form.addValidator((FormInput) -> {
 
+            if(form.hasValidationErrors()){
+                return;
+            }
+            
+            String username = form.getValue("username");
+            String password = form.getValue("password");
+
+            if (username.equals(mAdminUsername) && Security.checkPassword(password, mAdminPassword)) {
+                // If its a valid admin login we are done
+                mIsAdminLogin = true;
+                return;
+            }
+
+            try {
+                DataItem customer = getDataSource().getCustomerByUsername(username);
+
+                if (customer != null && Security.checkPassword(password, customer.getString("customer_pw"))) {
+                    mUserCache = customer;
+                    return; // The login was valid
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            form.addValidationError("Wrong username or password");
+
+        });
+
+        return form;
     }
 
 }

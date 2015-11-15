@@ -2,18 +2,17 @@ package no.hials.trainingapp.routes.admin;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.Transaction;
+import no.hials.trainingapp.routing.FormInput;
 import no.hials.trainingapp.routing.FormRoute;
+import no.hials.trainingapp.routing.Validators;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -44,13 +43,15 @@ public class AddWorkoutToProgram extends FormRoute {
         List<DataItem> exercises = getDataSource().getAllExercises();
         setValidExerciseIds(exercises);
 
+        FormInput form = setupFormValidation();
+
         if (getRequest().requestMethod().equals("POST")) {
 
-            List<DataItem> sets = validateFormInput();
+            List<DataItem> sets = validateSets(form);
 
-            if (!hasValidationErrors()) {
+            if (form.postedAndValid()) {
 
-                final DataItem workout = createWorkoutForInsert(prog);
+                final DataItem workout = createWorkoutForInsert(form, prog);
 
                 getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
 
@@ -63,9 +64,9 @@ public class AddWorkoutToProgram extends FormRoute {
                     tx.commit();
 
                     getResponse().redirect("/admin/");
-                    
+
                     flashMessage("The workout has been created");
-                    
+
                     Spark.halt();
                 });
 
@@ -82,13 +83,12 @@ public class AddWorkoutToProgram extends FormRoute {
         return renderTemplate("admin/new-workout");
     }
 
-    private DataItem createWorkoutForInsert(DataItem program) {
+    private DataItem createWorkoutForInsert(FormInput form, DataItem program) {
 
-        Request req = getRequest();
         DataItem workout = new DataItem();
-        workout.put("workout_name", req.queryParams("workoutName"));
-        workout.put("workout_description", req.queryParams("workoutDesc"));
-        workout.put("workout_date", req.queryParams("workoutDate"));
+        workout.put("workout_name", form.getValue("workoutName"));
+        workout.put("workout_description", form.getValue("workoutDesc"));
+        workout.put("workout_date", form.getValue("workoutDate"));
         workout.put("workout_program_id", program.get("program_id"));
 
         return workout;
@@ -121,27 +121,6 @@ public class AddWorkoutToProgram extends FormRoute {
 
     }
 
-    private List<DataItem> validateFormInput() {
-
-        checkRequiredValues();
-        validateDate(getRequest().queryParams("workoutDate"));
-
-        return validateSets();
-    }
-
-    private void checkRequiredValues() {
-        String[] requiredParams = new String[]{
-            "workoutDesc", "workoutName", "workoutDate"};
-
-        Request req = getRequest();
-
-        for (String param : requiredParams) {
-            if (req.queryParams(param).isEmpty()) {
-                addValidationError(param + " is required");
-            }
-        }
-    }
-
     private String formatToday() {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -149,39 +128,18 @@ public class AddWorkoutToProgram extends FormRoute {
         return dateFormat.format(date);
     }
 
-    private void validateDate(String value) {
+    private FormInput setupFormValidation() {
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date date = dateFormat.parse(value);
+        FormInput form = getFormInput();
 
-            if (dateFormat.format(date).equals(value)) {
-                
-                Calendar c = Calendar.getInstance();
-                // set the calendar to start of today
-                c.set(Calendar.HOUR_OF_DAY, 0);
-                c.set(Calendar.MINUTE, 0);
-                c.set(Calendar.SECOND, 0);
-                c.set(Calendar.MILLISECOND, 0);
-                
-                Date today = c.getTime();
-                
-                if(date.compareTo(today) < 0){
-                    addValidationError("Date is in the past");
-                }
+        form.addRequiredInputs("workoutDesc", "workoutName", "workoutDate");
 
-                return;
-            }
+        form.addValidator("workoutDate", new Validators.DateValidator(false));
 
-        } catch (ParseException e) {
-            ;
-        }
-
-        addValidationError("Date should be in the format yyyy-mm-dd");
-
+        return form;
     }
 
-    private List<DataItem> validateSets() {
+    private List<DataItem> validateSets(FormInput form) {
 
         List<DataItem> sets = new ArrayList<>();
 
@@ -189,15 +147,15 @@ public class AddWorkoutToProgram extends FormRoute {
         for (int i = 0; i < 100; i++) {
 
             // End on first non existing set
-            if (getRequest().queryParams("set-" + i + "-weight") == null) {
+            if (form.getValue("set-" + i + "-weight") == null) {
                 break;
             }
 
-            DataItem set = getSubmittedSetData(i);
+            DataItem set = getSubmittedSetData(form, i);
 
             if (!mValidExerciseIds.contains(set.getInteger("set_exercise_id"))) {
 
-                addValidationError("Set nr" + (i + 1) + " has an invalid exercise");
+                form.addValidationError("Set nr" + (i + 1) + " has an invalid exercise");
 
                 set.put("set_exercise_id", 0); // Reset id to default
             }
@@ -206,41 +164,50 @@ public class AddWorkoutToProgram extends FormRoute {
         }
 
         if (sets.isEmpty()) {
-            addValidationError("The workout must define at least one set");
+            form.addValidationError("The workout must define at least one set");
         }
 
         return sets;
 
     }
 
-    private DataItem getSubmittedSetData(int setId) {
-
-        Request req = getRequest();
+    private DataItem getSubmittedSetData(FormInput form, int setId) {
         DataItem set = new DataItem();
+        set.put("set_weight_planned", "");
+        set.put("set_reps_planned", "");
+        set.put("set_exercise_id", "");
 
         try {
-            set.put("set_weight_planned",
-                    Integer.parseInt(req.queryParams("set-" + setId + "-weight")));
+            String value = form.getValue("set-" + setId + "-weight", "");
+            if (value.isEmpty()) {
+                form.addValidationError("Set nr " + (setId + 1) + " is missing weight ");
+            } else {
+                set.put("set_weight_planned",
+                        Integer.parseInt(form.getValue("set-" + setId + "-weight")));
+            }
         } catch (NumberFormatException e) {
-            addValidationError("Set nr " + (setId + 1) + " is missing weight");
-            set.put("set_weight_planned", "");
+            form.addValidationError("Set nr " + (setId + 1) + ": weight must be a number");
         }
 
         try {
-            set.put("set_reps_planned",
-                    Integer.parseInt(req.queryParams("set-" + setId + "-reps")));
+
+            String value = form.getValue("set-" + setId + "-reps", "");
+            if (value.isEmpty()) {
+                form.addValidationError("Set nr " + (setId + 1) + " is missing reps");
+            } else {
+                set.put("set_reps_planned",
+                        Integer.parseInt(form.getValue("set-" + setId + "-reps")));
+            }
         } catch (NumberFormatException e) {
-            addValidationError("Set nr " + (setId + 1) + " is missing reps");
-            set.put("set_reps_planned", "");
+            form.addValidationError("Set nr " + (setId + 1) + ": reps must be a number");
         }
 
         try {
             set.put("set_exercise_id",
-                    Integer.parseInt(req.queryParams("set-" + setId + "-exercise")));
+                    Integer.parseInt(form.getValue("set-" + setId + "-exercise", "")));
 
         } catch (NumberFormatException e) {
-            addValidationError("Set nr " + (setId + 1) + " has an invalid exercise");
-            set.put("set_exercise_id", 0);
+            form.addValidationError("Set nr " + (setId + 1) + " has an invalid exercise");
         }
 
         return set;
