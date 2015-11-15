@@ -1,11 +1,15 @@
 package no.hials.trainingapp.routes.admin;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import no.hials.trainingapp.auth.Security;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.Transaction;
+import no.hials.trainingapp.routing.FormInput;
 import no.hials.trainingapp.routing.FormRoute;
+import no.hials.trainingapp.routing.Validators;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -23,29 +27,27 @@ public class AddNewCustomer extends FormRoute {
     @Override
     public ModelAndView handle() throws SQLException {
 
-        if (getRequest().requestMethod().equals("POST")) {
+        FormInput form = setupFormValidation();
 
-            validateFormInput();
+        if (form.postedAndValid()) {
 
-            if (!hasValidationErrors()) {
-                
-                final DataItem customer = createCustomerForDB();
-                final DataItem program = createProgramForCustomer(
-                        customer.getString("customer_name"));
+            final DataItem customer = createCustomerForDB();
+            final DataItem program = createProgramForCustomer(
+                    customer.getString("customer_first_name"));
 
-                getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
+            getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
 
-                    int progam_id = ds.storeNewProgram(program);
-                    customer.put("customer_program_id", progam_id);
-                    ds.storeNewCustomer(customer);
-                    
-                    tx.commit();
-                });
+                int progam_id = ds.storeNewProgram(program);
+                customer.put("customer_program_id", progam_id);
+                ds.storeNewCustomer(customer);
 
-                getResponse().redirect("/admin/");
-                flashMessage("The customer has been created");
-                Spark.halt();
-            }
+                tx.commit();
+            });
+
+            getResponse().redirect("/admin/");
+            flashMessage("The customer has been created");
+            Spark.halt();
+
         }
 
         return renderTemplate("admin/new-customer");
@@ -53,16 +55,19 @@ public class AddNewCustomer extends FormRoute {
 
     private DataItem createCustomerForDB() {
 
-        Request r = getRequest();
+        FormInput form = getFormInput();
         DataItem d = new DataItem();
+        
+        String pwHash = Security.hashPassword(form.getValue("userPassword"));
 
-        String pwHash = Security.hashPassword(r.queryParams("userPassword"));
-
-        d.put("customer_first_name", r.queryParams("firstName"));
-        d.put("customer_last_name", r.queryParams("lastName"));
-        d.put("customer_email", r.queryParams("userEmail"));
+        d.put("customer_first_name", form.getValue("firstName"));
+        d.put("customer_last_name", form.getValue("lastName"));
+        d.put("customer_email", form.getValue("userEmail"));
         d.put("customer_pw", pwHash);
-        d.put("customer_sex", "m");
+        d.put("customer_weight", Integer.parseInt(form.getValue("userWeight")));
+        d.put("customer_height", Integer.parseInt(form.getValue("userHeight")));
+        d.put("customer_date_of_birth", form.getValue("userDateOfBirth"));
+        d.put("customer_sex", form.getValue("userSex"));
 
         return d;
     }
@@ -76,33 +81,42 @@ public class AddNewCustomer extends FormRoute {
         return it;
     }
 
-    private void validateFormInput() throws SQLException {
 
-        checkRequiredValues();
+    private FormInput setupFormValidation() throws SQLException {
+        
+        
+        FormInput form = getFormInput();
+        
+        form.addRequiredInputs("firstName", "lastName", "userEmail", "userPassword",
+                    "userDateOfBirth", "userWeight", "userHeight", "userSex");
+        
+        
+        form.addValidator("userWeight", new Validators.IntegerRange(10, 1000));
+        form.addValidator("userHeight", new Validators.IntegerRange(10, 1000));
+        form.addValidator("userSex", new Validators.ValidValues("m", "f"));
+        form.addValidator("userDateOfBirth", new Validators.DateValidator(true));
+        
+        form.addValidator(new Validators.MatchingInputs("userPassword", "userPasswordConfirm"));
+        
+        form.addValidator("userEmail", (FormInput form1, String input) -> {
 
-        checkEmailNotUsed();
-
-    }
-
-    private void checkRequiredValues() {
-        String[] requiredParams = new String[]{
-            "firstName", "lastName", "userEmail", "userPassword"};
-
-        Request req = getRequest();
-
-        for (String param : requiredParams) {
-            if (req.queryParams(param).isEmpty()) {
-                addValidationError(param + " is required");
+            try {
+                
+                String email = form.getValue(input);
+                DataItem user = getDataSource().getCustomerByUsername(email);
+                
+                if (user == null) {
+                    return;
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(AddNewCustomer.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-    }
 
-    private void checkEmailNotUsed() throws SQLException {
-        String email = getRequest().queryParams("userEmail");
-        DataItem user = getDataSource().getCustomerByUsername(email);
-
-        if (user != null) {
-            addValidationError("The email is already in use");
-        }
+            form.addValidationError("The email is already in use");
+            
+        });
+        
+        return form;
     }
 }

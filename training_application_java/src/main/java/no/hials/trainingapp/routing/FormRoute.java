@@ -1,8 +1,6 @@
 package no.hials.trainingapp.routing;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import no.hials.trainingapp.datasource.DataSource;
 import spark.ModelAndView;
@@ -22,29 +20,20 @@ import spark.Response;
  */
 public abstract class FormRoute extends TemplateRoute {
 
-    private final List<String> mValidationErrors;
+    private final FormInput mFormInput;
 
     public FormRoute(DataSource datasource, Request req, Response resp) {
         super(datasource, req, resp);
-        mValidationErrors = new ArrayList<>();
+        mFormInput = new FormInput(req);
     }
 
     /**
-     * Adds a new error message to the validation errors list
+     * Returns the form input processor object
      *
-     * @param errorMessage the message to add
+     * @return the form input processor
      */
-    protected void addValidationError(String errorMessage) {
-        mValidationErrors.add(errorMessage);
-    }
-
-    /**
-     * Checks if there is any validation errors
-     *
-     * @return true if there are any validation errors
-     */
-    protected boolean hasValidationErrors() {
-        return !mValidationErrors.isEmpty();
+    protected FormInput getFormInput() {
+        return mFormInput;
     }
 
     /**
@@ -59,7 +48,7 @@ public abstract class FormRoute extends TemplateRoute {
     @Override
     protected ModelAndView renderTemplate(String name) {
 
-        setData("validationErrors", mValidationErrors);
+        setData("validationErrors", mFormInput.getValidationErrors());
         setData("formData", createFormDataMap());
 
         return super.renderTemplate(name);

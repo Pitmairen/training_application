@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import no.hials.trainingapp.datasource.DataItem;
 import no.hials.trainingapp.datasource.DataSource;
 import no.hials.trainingapp.datasource.Transaction;
+import no.hials.trainingapp.routing.FormInput;
 import no.hials.trainingapp.routing.FormRoute;
 import spark.ModelAndView;
 import spark.Request;
@@ -22,51 +23,30 @@ public class AddExercise extends FormRoute {
     @Override
     public ModelAndView handle() throws SQLException {
 
-        if (getRequest().requestMethod().equals("POST")) {
+        FormInput form = getFormInput();
 
-            validateFormInput();
+        form.addRequiredInputs("exerciseDesc", "exerciseName");
 
-            if (!hasValidationErrors()) {
+        if (form.postedAndValid()) {
 
-                DataItem d = new DataItem();
-                Request r = getRequest();
+            DataItem d = new DataItem();
 
-                d.put("exercise_name", r.queryParams("exerciseName"));
-                d.put("exercise_description", r.queryParams("exerciseDesc"));
+            d.put("exercise_name", form.getValue("exerciseName"));
+            d.put("exercise_description", form.getValue("exerciseDesc"));
 
-                getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
+            getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
 
-                    ds.storeNewExercise(d);
-                    tx.commit();
-                });
+                ds.storeNewExercise(d);
+                tx.commit();
+            });
 
-                getResponse().redirect("/admin/");
-                flashMessage("The exercise has been added");
-                Spark.halt();
-
-            }
+            getResponse().redirect("/admin/");
+            flashMessage("The exercise has been added");
+            Spark.halt();
 
         }
 
         return renderTemplate("admin/add-exercise");
     }
 
-    private void validateFormInput() {
-
-        checkRequiredValues();
-
-    }
-
-    private void checkRequiredValues() {
-        String[] requiredParams = new String[]{
-            "exerciseDesc", "exerciseName"};
-
-        Request req = getRequest();
-
-        for (String param : requiredParams) {
-            if (req.queryParams(param).isEmpty()) {
-                addValidationError(param + " is required");
-            }
-        }
-    }
 }

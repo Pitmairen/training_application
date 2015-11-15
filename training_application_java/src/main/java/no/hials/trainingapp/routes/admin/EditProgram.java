@@ -10,6 +10,7 @@ import spark.Response;
 import spark.Spark;
 
 import java.sql.SQLException;
+import no.hials.trainingapp.routing.FormInput;
 
 /**
  * Edit a training program
@@ -30,17 +31,18 @@ public class EditProgram extends FormRoute {
             return null;
         }
 
+        FormInput form = getFormInput();
+
+        form.addRequiredInputs("programName", "programDesc");
 
         if (getRequest().requestMethod().equals("POST")) {
 
             // Update the program so the data is available in the templates
             // even if there is a validation error.
-            program.put("program_name", getRequest().queryParams("programName"));
-            program.put("program_description", getRequest().queryParams("programDesc"));
+            program.put("program_name", form.getValue("programName", ""));
+            program.put("program_description", form.getValue("programDesc", ""));
 
-            validateFormInput();
-
-            if (!hasValidationErrors()) {
+            if (form.postedAndValid()) {
 
                 getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
 
@@ -53,29 +55,12 @@ public class EditProgram extends FormRoute {
                 Spark.halt();
             }
 
-
-
         }
 
         setData("program", program);
 
         return renderTemplate("admin/edit-program");
     }
-
-    private void validateFormInput() {
-
-        String[] requiredParams = new String[]{
-                "programDesc", "programName"};
-
-        Request req = getRequest();
-
-        for (String param : requiredParams) {
-            if (req.queryParams(param).isEmpty()) {
-                addValidationError(param + " is required");
-            }
-        }
-    }
-
 
     private DataItem getProgram() throws SQLException {
 
@@ -88,6 +73,5 @@ public class EditProgram extends FormRoute {
 
         return null;
     }
-
 
 }

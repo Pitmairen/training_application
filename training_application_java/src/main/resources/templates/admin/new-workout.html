@@ -18,12 +18,12 @@
 
         <fieldset>
             <legend><label for="workoutDesc">Description:</label></legend>
-            <textarea name="workoutDesc" placeholder="Description">{{ formData.workoutDesc }}</textarea>
+            <textarea id="workoutDesc" name="workoutDesc" placeholder="Description">{{ formData.workoutDesc }}</textarea>
         </fieldset>
 
         <fieldset>
             <legend><label for="workoutDate">Workout date:</label></legend>
-            <input type="date" min="{{ toDay }}" name="workoutDate"  placeholder="workoutDate"
+            <input type="date" id="workoutDate" min="{{ toDay }}" name="workoutDate"  placeholder="workoutDate"
                                     value="{{ formData.workoutDate }}">
         </fieldset>
 
