@@ -33,7 +33,7 @@ public class AddNewCustomer extends FormRoute {
 
             final DataItem customer = createCustomerForDB();
             final DataItem program = createProgramForCustomer(
-                    customer.getString("customer_name"));
+                    customer.getString("customer_first_name"));
 
             getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
 
