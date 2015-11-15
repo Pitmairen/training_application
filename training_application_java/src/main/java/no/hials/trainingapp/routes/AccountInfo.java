@@ -119,7 +119,6 @@ public class AccountInfo extends FormRoute {
                     ds.changeCustomerHeight(uid, currentUser.getInteger("customer_height"));
                     ds.changeCustomerWeight(uid, currentUser.getInteger("customer_weight"));
                     ds.changeCustomerSex(uid, currentUser.getString("customer_sex"));
-                    ds.changeCustomerSex(uid, currentUser.getString("customer_sex"));
 
                     String newPass = form.getValue("customerNewPassword", "");
 
