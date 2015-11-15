@@ -135,7 +135,11 @@ public class FormInput {
      * @return the value if it exists else defaultValue
      */
     public String getValue(String name, String defaultValue) {
-        return mRequest.queryParams(name);
+        String value = mRequest.queryParams(name);
+        if(value == null){
+            value = defaultValue;
+        }
+        return value;
     }
 
     /**
