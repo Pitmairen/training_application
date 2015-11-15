@@ -325,7 +325,7 @@ public abstract class BaseDataSource implements DataSource {
     @Override
     public void changeCustomerLastName(int customerId, String newLastname) throws SQLException {
         String query = "UPDATE customer "
-                + "SET customer_first_name=?"
+                + "SET customer_last_name=?"
                 + "WHERE customer_id=?";
 
         executeUpdate(query, newLastname, customerId);
@@ -334,7 +334,7 @@ public abstract class BaseDataSource implements DataSource {
     @Override
     public void changeCustomerPassword(int customerId, String newPassword) throws SQLException {
         String query = "UPDATE customer "
-                + "SET customer_password=?"
+                + "SET customer_pw=?"
                 + "WHERE customer_id=?";
 
         executeUpdate(query, newPassword, customerId);
