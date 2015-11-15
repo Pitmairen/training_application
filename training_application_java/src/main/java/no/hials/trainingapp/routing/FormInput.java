@@ -187,7 +187,7 @@ public class FormInput {
      * @return a list of validation errors
      */
     public List<String> getValidationErrors() {
-        return new ArrayList(mValidationErrors);
+        return new ArrayList<>(mValidationErrors);
     }
 
     private void addInputs(String... inputs) {
