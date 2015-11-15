@@ -15,45 +15,26 @@ INSERT INTO exercise_set(set_workout_id, set_exercise_id, set_reps_planned,
     -- Workout 1
     (101, 11, 10, null, 50, null),
     (101, 11, 10, null, 60, null),
-    (101, 11, 10, null, 70, null),
-    (101, 11, 10, null, 80, null),
 
     (101, 17, 10, null, 15, null),
     (101, 17, 10, null, 20, null),
-    (101, 17, 10, null, 30, null),
-    (101, 17, 10, null, 30, null),
 
     (101, 22, 10, null, 20, null),
     (101, 22, 10, null, 30, null),
-    (101, 22, 10, null, 35, null),
-    (101, 22, 10, null, 35, null),
-
-    (101, 6, 10, null, 0, null),
-    (101, 6, 10, null, 10, null),
-    (101, 6, 10, null, 15, null),
-    (101, 6, 10, null, 15, null),
 
     
     -- Workout 2
     (102, 5, 8, null, 60, null),
     (102, 5, 8, null, 80, null),
-    (102, 5, 8, null, 100, null),
-    (102, 5, 8, null, 110, null),
 
     (102, 16, 8, null, 60, null),
     (102, 16, 8, null, 80, null),
-    (102, 16, 8, null, 100, null),
-    (102, 16, 8, null, 110, null),
 
     (102, 27, 15, null, 20, null),
     (102, 27, 15, null, 30, null),
-    (102, 27, 15, null, 40, null),
-    (102, 27, 15, null, 40, null),
 
     (102, 28, 15, null, 20, null),
     (102, 28, 15, null, 25, null),
-    (102, 28, 15, null, 35, null),
-    (102, 28, 15, null, 30, null),
 
     -- Workout 3
     (103, 8, 1, null, 0, null),
