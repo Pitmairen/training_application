@@ -52,11 +52,16 @@
             <label for="sexFemale">Female: </label><input id="sexFemale" type="radio" name="userSex" value="f" {% if formData.userSex equals "f" %}checked{% endif %}>
         </fieldset>
 
+        
         <fieldset>
             <legend><label for="userPassword">User password:</label></legend>
             <input type="password" name="userPassword"  placeholder="User password">
         </fieldset>
         
+        <fieldset>
+            <legend><label for="userPasswordConfirm">Confirm password:</label></legend>
+            <input type="password" name="userPasswordConfirm"  placeholder="User password">
+        </fieldset>
         
 
         

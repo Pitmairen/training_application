@@ -96,6 +96,8 @@ public class AddNewCustomer extends FormRoute {
         form.addValidator("userSex", new Validators.ValidValues("m", "f"));
         form.addValidator("userDateOfBirth", new Validators.DateValidator(true));
         
+        form.addValidator(new Validators.MatchingInputs("userPassword", "userPasswordConfirm"));
+        
         form.addValidator("userEmail", (FormInput form1, String input) -> {
 
             try {

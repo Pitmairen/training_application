@@ -81,6 +81,37 @@ public class Validators {
     
     
     /**
+     * Checks that all the specified inputs have the same value
+     */
+    public static class MatchingInputs implements FormInput.FormValidator {
+
+        private final String[] mInputs;
+        
+        public MatchingInputs(String ...inputs){
+            mInputs = inputs;
+        }
+        
+        @Override
+        public void validateInput(FormInput form) {
+
+            if(mInputs.length == 0){
+                return;
+            }
+            
+            String value = form.getValue(mInputs[0], "");
+            
+            for(String input : mInputs){
+                if(!value.equals(form.getValue(input))){
+                    form.addValidationError("The inputs " + Arrays.toString(mInputs) + " must match");
+                    return;
+                }
+                
+            }
+        }
+    }
+    
+    
+    /**
      * Checks that the value is a valid date
      */
     public static class DateValidator implements FormInput.FormInputValidator {
