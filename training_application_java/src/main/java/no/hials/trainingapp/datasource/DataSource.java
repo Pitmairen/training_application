@@ -220,15 +220,24 @@ public interface DataSource {
     public void changeCustomerHeight(int customerId, int newWeight) throws SQLException;
 
     /**
-     * Updates the name of a customer
+     * Updates the first name of a customer
      *
      * @param customerId The unique ID of a customer
      * @param newFirstname The new first name the customer has entered
+     * @throws java.sql.SQLException
+     */
+    public void changeCustomerFirstName(int customerId, String newFirstname) throws SQLException;
+
+    /**
+     * Updates the last name of a customer
+     *
+     * @param customerId The unique ID of a customer
      * @param newLastname The new last name the customer has entered
      * @throws java.sql.SQLException
      */
-    public void changeCustomerName(int customerId, String newFirstname, String newLastname) throws SQLException;
+    public void changeCustomerLastName(int customerId, String newLastname) throws SQLException;
 
+    
     /**
      * Updates the sex of a customer
      *
@@ -247,12 +256,4 @@ public interface DataSource {
      */
     public void changeCustomerPassword(int customerId, String newPassword) throws SQLException;
 
-    /**
-     * Returns the customers encrypted password
-     *
-     * @param customerId The unique ID of a customer
-     * @return password The users password in a encrypted format
-     * @throws java.sql.SQLException
-     */
-    public DataItem getCustomerPassword(int customerId) throws SQLException;
 }

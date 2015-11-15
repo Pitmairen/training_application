@@ -313,22 +313,30 @@ public abstract class BaseDataSource implements DataSource {
         executeUpdate(query, newHeight, customerId);
     }
 
-
-
     @Override
-    public void changeCustomerName(int customerId, String newFirstname, String newLastname) throws SQLException {
-         
+    public void changeCustomerFirstName(int customerId, String newFirstname) throws SQLException {
+
         String query = "UPDATE customer "
-                + "SET customer_first_name=?, customer_last_name=?"
+                + "SET customer_first_name=?"
                 + "WHERE customer_id=?";
 
-        executeUpdate(query, newFirstname, newLastname, customerId);
+        executeUpdate(query, newFirstname, customerId);
+    }
+
+    @Override
+    public void changeCustomerLastName(int customerId, String newLastname) throws SQLException {
+
+        String query = "UPDATE customer "
+                + "SET customer_last_name=?"
+                + "WHERE customer_id=?";
+
+        executeUpdate(query, newLastname, customerId);
     }
 
     @Override
     public void changeCustomerPassword(int customerId, String newPassword) throws SQLException {
         String query = "UPDATE customer "
-                + "SET customer_password=?"
+                + "SET customer_pw=?"
                 + "WHERE customer_id=?";
 
         executeUpdate(query, newPassword, customerId);
@@ -339,15 +347,10 @@ public abstract class BaseDataSource implements DataSource {
         String query = "UPDATE customer "
                 + "SET customer_sex=?"
                 + "WHERE customer_id=?";
-        
+
         executeUpdate(query, sex, customerId);
     }
 
-    @Override
-    public DataItem getCustomerPassword(int customerId) throws SQLException {
-
-        return querySingle("SELECT customer_pw FROM customer WHERE customer_id =?", customerId);
-    }
 
     /**
      * Wraps the transaction runner in a database transaction.
