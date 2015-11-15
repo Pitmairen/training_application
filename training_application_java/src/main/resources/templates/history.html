@@ -20,7 +20,7 @@
     <tr><td><a href="/workoutLog/{{ wk.workout_id }}">{{ wk.workout_date }}</a></td>
         <td><a href="/workoutLog/{{ wk.workout_id }}">{{ wk.workout_name }}</a></td></tr>
     {% else %}
-    <p>You have no workouts scheduled. Please contact your trainer.</p>
+        <tr><td colspan="2" class="standardTableErrorText"><b>You have not completed any workouts.</b></td></tr>
     {% endfor %}
 </table>
 {% include "partials/pagination" %}
