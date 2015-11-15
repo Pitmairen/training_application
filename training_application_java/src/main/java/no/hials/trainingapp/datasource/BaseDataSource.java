@@ -176,7 +176,7 @@ public abstract class BaseDataSource implements DataSource {
                 + "INNER JOIN workout ON set_workout_id=workout_id "
                 + "INNER JOIN customer ON customer_program_id=workout_program_id "
                 + "WHERE set_exercise_id=? AND workout_done=? AND customer_id=? "
-                + "AND NOT (set_reps_done IS NULL || set_weight_done IS NULL) "
+                + "AND NOT ((set_reps_done IS NULL) || (set_weight_done IS NULL)) "
                 + "GROUP BY workout_id "
                 + "ORDER BY workout_id ",
                 exerciseId, true, customerId);
