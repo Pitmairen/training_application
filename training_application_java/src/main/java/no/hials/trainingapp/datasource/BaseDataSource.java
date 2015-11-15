@@ -313,22 +313,16 @@ public abstract class BaseDataSource implements DataSource {
         executeUpdate(query, newHeight, customerId);
     }
 
-    @Override
-    public void changeCustomerFirstName(int customerId, String newFirstname) throws SQLException {
-        String query = "UPDATE customer "
-                + "SET customer_first_name=?"
-                + "WHERE customer_id=?";
 
-        executeUpdate(query, newFirstname, customerId);
-    }
 
     @Override
-    public void changeCustomerLastName(int customerId, String newLastname) throws SQLException {
+    public void changeCustomerName(int customerId, String newFirstname, String newLastname) throws SQLException {
+         
         String query = "UPDATE customer "
-                + "SET customer_first_name=?"
+                + "SET customer_first_name=?, customer_last_name=?"
                 + "WHERE customer_id=?";
 
-        executeUpdate(query, newLastname, customerId);
+        executeUpdate(query, newFirstname, newLastname, customerId);
     }
 
     @Override

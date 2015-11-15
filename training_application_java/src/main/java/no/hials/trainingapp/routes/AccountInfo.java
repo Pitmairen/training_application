@@ -22,38 +22,34 @@ public class AccountInfo extends FormRoute {
 
     @Override
     public ModelAndView handle() throws Exception {
-        
+
         int currentUser = getCurrentUser().getId();
-        
+
         if (getRequest().requestMethod().equals("POST")) {
-            
 
-//            d.put("customer_first_name", r.queryParams("customerFirstName"));
-//            d.put("customer_last_name", r.queryParams("customerLastName"));
-
-//            d.put("customer_weight", r.queryParams("customerWeight"));
-//            d.put("customer_height", r.queryParams("customerHeight"));
-//
-//            d.put("customer_old_password", r.queryParams("customerOldPassword"));
-//            d.put("customer_new_password", r.queryParams("customerNewPassword"));
             getDataSource().runTransaction((Transaction tx, DataSource ds) -> {
 
-                //if (!d.getString("customer_first_name").equals("")) { 
-                
-                String cFN =  "customerFirstName";
-                ds.changeCustomerFirstName(currentUser, htmlValue(cFN)); 
-                
-                String cLN = "customerLastName";
-                ds.changeCustomerLastName(currentUser, htmlValue(cLN));
+                //New Weight
+                int cW = htmlIntValue("customerWeight"); 
+                ds.changeCustomerWeight(currentUser, cW);
 
-//
-//                if (!d.getString("customer_weight").equals("")) {
-//                    ds.changeCustomerWeight(currentUser, d.getInteger("customer_weight"));
-//                }
-//                if (!d.getString("customer_height").equals("")) {
-//                    ds.changeCustomerHeight(currentUser, d.getInteger("customer_height"));
-//                }
-//
+                //New Height
+                int cH = htmlIntValue("customerHeight");
+                ds.changeCustomerHeight(currentUser, cH);
+
+                //New Name
+                String cFN = htmlStringValue("customerFirstName");
+                String cLN = htmlStringValue("customerLastName");
+                ds.changeCustomerName(currentUser, cFN, cLN);
+
+                //New Sex
+                String cS = htmlStringValue("customerSex");
+                ds.changeCustomerSex(currentUser, cS);
+
+                //New Password
+                String cOP = htmlStringValue("customerOldPassword");
+                String cNP = htmlStringValue("customerNewPassword");
+
 //                if (!d.getString("customer_old_password").equals("") && !d.getString("customer_new_password").equals("")) {
 //                    d.put("customer_old_password", Security.hashPassword(r.queryParams("customerOldPassword")));
 //
@@ -69,8 +65,18 @@ public class AccountInfo extends FormRoute {
 
         return renderTemplate("/account-info");
     }
-    
-    private String htmlValue(String name){
-        return getRequest().params(name);
+
+    private String htmlStringValue(String name) {
+        String toReturn = getRequest().queryParams(name);
+        System.out.println(toReturn);
+
+        return toReturn;
+    }
+
+    private int htmlIntValue(String name) {
+        int toReturn = Integer.parseInt(getRequest().queryParams(name));
+        System.out.println(toReturn);
+
+        return toReturn;
     }
 }

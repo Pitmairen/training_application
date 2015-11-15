@@ -206,6 +206,7 @@ public interface DataSource {
      *
      * @param customerId The unique ID of a customer
      * @param newWeight the new weight the customer has entered
+     * @throws java.sql.SQLException
      */
     public void changeCustomerWeight(int customerId, int newWeight) throws SQLException;
 
@@ -214,30 +215,26 @@ public interface DataSource {
      *
      * @param customerId The unique ID of a customer
      * @param newWeight The new height the customer has entered
+     * @throws java.sql.SQLException
      */
     public void changeCustomerHeight(int customerId, int newWeight) throws SQLException;
 
     /**
-     * Updates the first name of a customer
+     * Updates the name of a customer
      *
      * @param customerId The unique ID of a customer
      * @param newFirstname The new first name the customer has entered
-     */
-    public void changeCustomerFirstName(int customerId, String newFirstname) throws SQLException;
-
-    /**
-     * Updates the first name of a customer
-     *
-     * @param customerId The unique ID of a customer
      * @param newLastname The new last name the customer has entered
+     * @throws java.sql.SQLException
      */
-    public void changeCustomerLastName(int customerId, String newLastname) throws SQLException;
+    public void changeCustomerName(int customerId, String newFirstname, String newLastname) throws SQLException;
 
     /**
      * Updates the sex of a customer
      *
      * @param customerId The unique ID of a customer
      * @param sex The new sex the customer has entered
+     * @throws java.sql.SQLException
      */
     public void changeCustomerSex(int customerId, String sex) throws SQLException;
 
@@ -246,6 +243,7 @@ public interface DataSource {
      *
      * @param customerId The unique ID of a customer
      * @param newPassword The new password the customer wants
+     * @throws java.sql.SQLException
      */
     public void changeCustomerPassword(int customerId, String newPassword) throws SQLException;
 
@@ -254,6 +252,7 @@ public interface DataSource {
      *
      * @param customerId The unique ID of a customer
      * @return password The users password in a encrypted format
+     * @throws java.sql.SQLException
      */
     public DataItem getCustomerPassword(int customerId) throws SQLException;
 }
