@@ -2,7 +2,6 @@ package no.hials.trainingapp.datasource;
 
 import java.sql.SQLException;
 import java.util.List;
-
 /**
  *
  * @author tor-martin
