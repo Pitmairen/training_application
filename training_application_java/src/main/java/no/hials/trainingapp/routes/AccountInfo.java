@@ -66,7 +66,7 @@ public class AccountInfo extends FormRoute {
 
         setData("customerData", currentUser);
 
-        return renderTemplate("/account-info");
+        return renderTemplate("account-info");
     }
 
     private FormInput setupFormValidation(DataItem customerData) {
