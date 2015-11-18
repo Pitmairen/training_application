@@ -18,7 +18,7 @@ CREATE TABLE program(
     program_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 
     program_name VARCHAR(100) NOT NULL,
-    program_desc TEXT NOT NULL
+    program_description TEXT NOT NULL
 );
 
 CREATE TABLE customer (
@@ -57,20 +57,16 @@ CREATE TABLE exercise (
 
 CREATE TABLE exercise_set (
     set_id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+
     set_workout_id INT FOREIGN KEY REFERENCES workout(workout_id),
     set_exercise_id INT FOREIGN KEY REFERENCES exercise(exercise_id),
 
-    set_nr INT NOT NULL,
-	UNIQUE(set_nr, set_workout_id, set_exercise_id),
-    
     set_reps_planned INT NOT NULL,
     set_reps_done INT NULL,
 
     set_weight_planned INT NOT NULL,
     set_weight_done INT NULL,
 
-    set_duration_planned INT NOT NULL,
-    set_duration_done INT NULL
 );
 
 USE master;
